@@ -1,6 +1,4 @@
-body{
-  color: #5d3b80;
-}
+
 
 .layout-wrapper {
     display: flex;
@@ -13,6 +11,7 @@ body{
     display: flex;
     flex-direction: column;
     transition: width 0.3s ease;
+    
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
   }
   
@@ -22,7 +21,7 @@ body{
     align-items: center;
     padding: 0 1rem;
     justify-content: flex-start;
-    background-color: #5d3b80 !important;
+    background-color: #00CC66;
     border-bottom: 1px solid #dee2e6;
     color: #ffffff;
   }
@@ -47,7 +46,7 @@ body{
   }
   
   .layout-menuitem-link:hover {
-    background-color: #e9ecef;
+    background-color: #ffffff;
   }
   
   .layout-menuitem-link i {
@@ -76,11 +75,11 @@ body{
   }
   
   .menu-label {
-   color: #5d3b80; 
+   color: #09bd63 ; 
   }
 
   .p-menubar{
-    background: #f8f9fa;
+    background: #ffffff ;
     border-radius: 0%;
 
   }
@@ -89,9 +88,10 @@ body{
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); 
   }
 
-  :host ::ng-deep .p-button.p-button-help {
-    background-color: #5d3b80; 
-    border-color: #5d3b80;     
-    color:white;
-  }
+  // :host ::ng-deep .p-button.p-button-help {
+  //   background-color: #9fd8bc ; 
+  //   border-color: rgb(84, 252, 61) ;    
+     
+  //   color:white;
+  // }
   

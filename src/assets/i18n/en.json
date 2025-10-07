@@ -1,6 +1,9 @@
 {
   "sidebar":{
-    "menu1":"dashboard"
+    "menu1":"sample",
+    "menu2":"budgets",
+    "main":"dashboard"
+
   },
   "dashboard":{
     "tab":{

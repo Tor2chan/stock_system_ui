@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { NgFor } from '@angular/common';
 import { TranslateModule, TranslateService} from '@ngx-translate/core'; 
 import { FooterComponent } from '../footer/footer.component';
-
+import { ImageModule } from 'primeng/image';
 @Component({
   selector: 'app-layout-main',
   templateUrl: './layout-main.component.html',
@@ -23,7 +23,8 @@ import { FooterComponent } from '../footer/footer.component';
     ButtonModule,
     NgFor,
     TranslateModule,
-    FooterComponent
+    FooterComponent,
+    ImageModule
   ]
 })
 export class LayoutMainComponent {
@@ -66,11 +67,43 @@ export class LayoutMainComponent {
   }
 
   sidebarItems = [
+     {
+      label: 'sidebar.main',
+      icon: PrimeIcons.CHART_BAR,
+      routerLink: '/main-dashboard'
+    },
+
     {
+      label: 'sidebar.transactions',
+      icon: PrimeIcons.LIST,
+      routerLink: '/transactions'
+    },
+   
+  
+    {
+      label: 'sidebar.budgets',
+      icon: PrimeIcons.WALLET,
+      routerLink: '/budgets'
+    },
+     {
+      label: 'sidebar.reports',
+      icon: PrimeIcons.FILE,
+      routerLink: '/reports'
+    },
+     {
+      label: 'sidebar.settings',
+      icon: PrimeIcons.COG,
+      routerLink: '/settings'
+    },
+      {
       label: 'sidebar.menu1',
       icon: PrimeIcons.CHART_BAR,
       routerLink: '/dashboard'
-    }
+    },
+    
   ];
   
 }
+
+
+

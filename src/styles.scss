@@ -12,8 +12,8 @@
 
   body{
     margin: 0;
-    background-color: #edeff1;
-    color: #5d3b80;
+    background-color: #DCDCDC;
+    color: #00CC66 !important;
   } 
 
   .p-tablist-tab-list{
@@ -23,16 +23,22 @@
   .p-tablist-active-bar{
     background: #ca95ff !important;
   }
+
   .p-tab{
     border-color: transparent !important;
-    color: #5d3b80 !important;
+   
+  body{
+    margin: 0;
+    background-color: #DCDCDC;
+    color: #00CC66!important;
+  } ;
   }
   .p-tab-active{
-    color: #5d3b80 !important; 
+    color: #00CC66  !important; 
     border-color: #ca95ff !important;
 
-  }
+  } 
   hr {
-    color: #5d3b80; 
+    color: #00CC66 ; 
     opacity: 0.2;
   }
