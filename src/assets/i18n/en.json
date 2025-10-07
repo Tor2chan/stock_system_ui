@@ -6,6 +6,21 @@
 
   },
   "dashboard":{
+
+"main":{
+      "currentBalance":"Current Balance",
+"totalIn":"Total Income",
+"totalEx":"Total Expenses",
+"expenseCat":"Expense Categries Breakdown"
+
+    },
+    "button":{
+      "add":"Add New Transaction"
+
+
+
+    },
+
     "tab":{
       "hardwaretab":"hardware/IT equipment",
       "softwaretab":"Software/Applications"
