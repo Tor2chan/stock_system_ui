@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -8,5 +9,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './main-dashboard.component.scss'
 })
 export class MainDashboardComponent {
+  constructor(private router: Router) { }
+  goToAddDashboard() {
+    this.router.navigate(['/add-dashboard']);
+  }
 
 }

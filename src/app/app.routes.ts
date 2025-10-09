@@ -6,6 +6,7 @@ import { MainDashboardComponent } from './components/main-dashboard/main-dashboa
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { AddDashboardComponent } from './components/main/add-dashboard/add-dashboard.component';
 
 export const routes: Routes = [
     { path: '', component: LayoutMainComponent,
@@ -16,6 +17,7 @@ export const routes: Routes = [
         { path: 'budgets', component: BudgetsComponent },
         {path: 'reports', component: ReportsComponent },
         {path: 'settings', component: SettingsComponent },
+        {path: 'add-dashboard', component: AddDashboardComponent },
 
         { path: 'dashboard', component: DashboardComponent },
         

@@ -1,35 +1,55 @@
-       
-       
-       <div class="flex justify-end p-4">
-       <h2 class ="text-2xl font-bold mb-4 mr-auto ">{{'sidebar.budgets' | translate}}</h2>
-          <button pButton class="p-button-help w-full xl:w-auto rounded-lg px-4 h-12 items-end " >
-            {{'dashboard.button.add' | translate}}
-          </button>
-        </div>
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow p-6 mt-10">
 
+  <!--
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold">{{ 'sidebar.budgets' | translate }}</h2>
+    <button pButton
+      class="p-button-help bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg px-5 h-11 transition"
+      (click)="goToAddBudget()">
+      {{ 'dashboard.button.add' | translate }}
+    </button>
+  </div> -->
 
-<!-- section1 -->
-<div class="flex flex-wrap my-10 mx-4 gap-4 min-h-[200px]">
-  <!-- left -->
-    <div
-        class="flex-1 min-w-[250px] p-4 shadow-lg rounded-lg bg-white border border-gray-200">
-            <div class="text-xl font-semibold mb-6 xl:ml-4">{{'dashboard.amount.title' | translate}}</div>
+  <!-- Section 1: Budget Overview -->
+  <div class="flex flex-wrap gap-4 mb-6">
+    <div class="flex-1 min-w-[250px] bg-gray-50 p-6 rounded-lg shadow border border-gray-200">
+      <div class="text-xl font-semibold mb-4 text-gray-800">
+        {{ 'budget.amount.title' | translate }}
+      </div>
+      <div class="text-3xl font-bold text-green-600 mb-6">
+        $ 500,000
+      </div>
     </div>
 
-  <!-- right -->
-    <div class="flex-1 min-w-[250px] p-4 shadow-lg rounded-lg bg-white border border-gray-200">
-            <div class="text-xl font-semibold mb-6 xl:ml-4">{{'dashboard.amount.title' | translate}}</div>
+    <div class="flex-1 min-w-[250px] bg-gray-50 p-6 rounded-lg shadow border border-gray-200">
+      <div class="text-xl font-semibold mb-4 text-gray-800">
+        {{ 'budget.amount.spent' | translate }}
+      </div>
+      <div class="text-3xl font-bold text-red-500 mb-6">
+        $ 200,000
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- section2 -->
-<div class="flex flex-wrap my-6 mx-4 gap-4 min-h-[200px]">
-  <!-- left -->
-    <div class="flex-1 min-w-[250px] p-4 shadow-lg rounded-lg bg-white border border-gray-200">
-        <div class="text-xl font-semibold mb-6 xl:ml-4">{{'dashboard.amount.title' | translate}}</div>
-</div>
-  <!-- right -->
-     <div class="flex-1 min-w-[250px] p-4 shadow-lg rounded-lg bg-white border border-gray-200">
-        <div class="text-xl font-semibold mb-6 xl:ml-4">{{'dashboard.amount.title' | translate}}</div>
-</div>
+  <!-- Section 2: Budget Categories -->
+  <div class="flex flex-wrap gap-4">
+    <div class="flex-1 min-w-[250px] bg-gray-50 p-6 rounded-lg shadow border border-gray-200">
+      <div class="text-lg font-semibold mb-4 text-gray-800">
+        {{ 'budget.categories.food' | translate }}
+      </div>
+      <div class="h-40 flex items-center justify-center text-gray-400">
+        [Chart or data coming soon]
+      </div>
+    </div>
+
+    <div class="flex-1 min-w-[250px] bg-gray-50 p-6 rounded-lg shadow border border-gray-200">
+      <div class="text-lg font-semibold mb-4 text-gray-800">
+        {{ 'budget.categories.transport' | translate }}
+      </div>
+      <div class="h-40 flex items-center justify-center text-gray-400">
+        [Chart or data coming soon]
+      </div>
+    </div>
+  </div>
+
 </div>

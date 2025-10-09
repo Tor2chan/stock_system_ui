@@ -9,5 +9,6 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './budgets.component.scss'
 })
 export class BudgetsComponent {
+  
 
 }
