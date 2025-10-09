@@ -1,12 +1,16 @@
+
 <!-- section1 -->
 <div class="flex flex-wrap my-10 mx-4 gap-4 min-h-[200px]">
   <!-- left -->
     <div
         class="flex-1 min-w-[250px] p-4 shadow-lg rounded-lg bg-white border border-gray-200">
-            <div class="text-xl font-semibold mb-6 xl:ml-4">{{'dashboard.main.currentBalance' | translate}}</div>
+            <div class="text-2xl font-semibold mb-6 xl:ml-4">{{'dashboard.main.currentBalance' | translate}}</div>
+            <div>
+            <div class="text-xl font-semibold mb-6 xl:ml-4 text-black">{{"$ 2,000,000"| translate}}</div>
+            </div>
      <div class="flex justify-end gap-4">
         <div>
-          <button pButton class="p-button-help w-full xl:w-auto rounded-lg" >
+          <button pButton class="p-button-help w-full xl:w-auto rounded-lg px-4 h-12  " >
             {{'dashboard.button.add' | translate}}
           </button>
         </div>
@@ -22,11 +26,18 @@
   <!-- left -->
      <div class="flex-1 min-w-[250px] p-4 shadow-lg rounded-lg bg-white border border-gray-200">
             <div class="text-xl font-semibold mb-6 xl:ml-4">{{'dashboard.main.totalIn' | translate}}</div>
+            <div>
+            <div class="text-xl font-semibold mb-6 xl:ml-4 ">{{"$ 2,000,000"| translate}}</div>
+            </div>
+
     </div>
 
   <!-- right -->
      <div class="flex-1 min-w-[250px] p-4 shadow-lg rounded-lg bg-white border border-gray-200">
         <div class="text-xl font-semibold mb-6 xl:ml-4">{{'dashboard.main.totalEx' | translate}}</div>
+        <div>
+            <div class="text-xl font-semibold mb-6 xl:ml-4 text-red-500">{{"$ 2,000,000"| translate}}</div>
+            </div>
 </div>
 </div>
 
@@ -35,10 +46,12 @@
   <!-- left -->
     <div class="flex-1 min-w-[250px] p-4 shadow-lg rounded-lg bg-white border border-gray-200">
         <div class="text-xl font-semibold mb-6 xl:ml-4">{{'dashboard.main.expenseCat' | translate}}</div>
+     
 </div>
   <!-- right -->
      <div class="flex-1 min-w-[250px] p-4 shadow-lg rounded-lg bg-white border border-gray-200">
         <div class="text-xl font-semibold mb-6 xl:ml-4">{{'dashboard.main.expenseCat' | translate}}</div>
+        
 </div> 
 
 </div>

@@ -1,8 +1,11 @@
 {
   "sidebar":{
-    "menu1":"sample",
-    "menu2":"budgets",
-    "main":"dashboard"
+    "menu1":"Sample",
+    "budgets":"Budgets",
+    "main":"Dashboard",
+    "transactions":"Transactions",
+    "reports":"Reports",  
+    "settings":"Settings"
 
   },
   "dashboard":{

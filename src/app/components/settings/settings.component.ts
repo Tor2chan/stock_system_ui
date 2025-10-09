@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; 
 
 @Component({
   selector: 'app-settings',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
