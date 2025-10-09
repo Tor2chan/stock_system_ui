@@ -26,50 +26,74 @@
       </select>
     </div>
 
-    <!-- Table -->
-    <div class="overflow-x-auto">
-      <table class="min-w-full border border-gray-300 rounded-lg">
-        <thead class="bg-gray-100 border-b border-gray-300">
-          <tr>
-            <th class="px-4 py-2 text-left">No</th>
-            <th class="px-4 py-2 text-left">Date</th>
-            <th class="px-4 py-2 text-left">Category</th>
-            <th class="px-4 py-2 text-left">Amount</th>
-            <th class="px-4 py-2 text-left">Type</th>
-            <th class="px-4 py-2 text-center">Manage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let t of paginatedTransactions; let i = index" class="border-b border-gray-200 hover:bg-gray-50">
-            <td class="px-4 py-2">{{ (page-1)*pageSize + i + 1 }}</td>
-            <td class="px-4 py-2">{{ t.date }}</td>
-            <td class="px-4 py-2">{{ t.category }}</td>
-            <td class="px-4 py-2">${{ t.amount | number:'1.2-2' }}</td>
-            <td class="px-4 py-2">{{ t.type }}</td>
-            <td class="px-4 py-2 text-center">
-              <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="editTransaction(t)">
-                <i class="pi pi-pencil"></i>
-              </button>
-              <button class="text-red-500 hover:text-red-700" (click)="deleteTransaction(t.id)">
-                <i class="pi pi-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <p-table
+    [value]="transactions"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:5%">No</th>
+        <th style="width:15%">Date</th>
+        <th style="width:30%">Category</th>
+        <th style="width:15%">Amount</th>
+        <th style="width:25%">Type</th>
+        <th style="width:10%">Manage</th>
+      </tr>
+    </ng-template>
 
-    <!-- Pagination -->
-    <div class="flex justify-end items-center mt-4">
-      <p class="mr-4">Page {{ page }} of {{ totalPages }}</p>
-      <button (click)="prevPage()" [disabled]="page===1"
-        class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold mr-2">
-        Prev
-      </button>
-      <button (click)="nextPage()" [disabled]="page===totalPages"
-        class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold">
-        Next
-      </button>
-    </div>
+    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ rowIndex + 1 }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.amount }}</td>
+        <td>{{ item.type }}</td>
+        <td class="px-4 py-2 text-center">
+          <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="onOpenEdit(item)">
+            <i class="pi pi-pencil"></i>
+          </button>
+          <button class="text-red-500 hover:text-red-700" (click)="deleteTransaction(item.id)">
+            <i class="pi pi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+<p-dialog
+    [(visible)]="visibleEdit"
+    [modal]="true"
+    [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
+    [contentStyle]="{ height: '100%', overflow: 'hidden' }"
+    [draggable]="false"
+    [resizable]="false"
+>
+
+  <div class="text-center">
+    <div class=""><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
+    <div class="mt-4">Edit</div>
   </div>
+    
+    <div class="text-center mt-4">
+        <p-button
+            [label]="'ยกเลิก'"
+            icon="pi pi-times"
+            styleClass="p-button-secondary p-button-sm"
+            size="small"
+            (onClick)="onCloseEdit()"
+        >
+        </p-button>
 
+        <p-button
+            [label]="'ยืนยัน'"
+            size="small"
+            (onClick)="onConfirmEdit()"
+        >
+        </p-button>
+    </div>
+</p-dialog>

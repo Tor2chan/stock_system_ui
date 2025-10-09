@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+
 
 interface Transaction {
   id: number;
@@ -13,7 +17,7 @@ interface Transaction {
 @Component({
   selector: 'app-transactions',
   standalone: true,      // ⚡ ทำให้เป็น standalone
-  imports: [CommonModule, FormsModule], // จำเป็นสำหรับ ngFor, ngClass, ngModel, pipe number
+  imports: [CommonModule, FormsModule, TableModule, Dialog, ButtonModule], // จำเป็นสำหรับ ngFor, ngClass, ngModel, pipe number
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss'],
   providers: [DecimalPipe]
@@ -26,6 +30,7 @@ export class TransactionsComponent {
   selectedFilter: 'all' | 'income' | 'expense' = 'all';
   filterCategory: string = '';
   
+  visibleEdit = false;
 
   page: number = 1;
   pageSize: number = 5;
@@ -93,5 +98,17 @@ export class TransactionsComponent {
       this.transactions = this.transactions.filter(t => t.id !== id);
       this.updatePagination();
     }
+  }
+
+  onOpenEdit(id: number){
+    this.visibleEdit = true;
+  }
+
+  onCloseEdit(){
+    this.visibleEdit = false;
+  }
+
+  onConfirmEdit(){
+
   }
 }
