@@ -6,7 +6,7 @@ import { PrimeIcons } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { NgFor } from '@angular/common';
-import { TranslateModule, TranslateService} from '@ngx-translate/core'; 
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FooterComponent } from '../footer/footer.component';
 import { ImageModule } from 'primeng/image';
 @Component({
@@ -16,10 +16,10 @@ import { ImageModule } from 'primeng/image';
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet, 
+    RouterOutlet,
     RouterLink,
-    MenubarModule, 
-    SidebarModule, 
+    MenubarModule,
+    SidebarModule,
     ButtonModule,
     NgFor,
     TranslateModule,
@@ -33,15 +33,15 @@ export class LayoutMainComponent {
     this.translateService.setDefaultLang(savedLang);
     this.translateService.use(savedLang);
   }
-  
+
   toggleLanguage() {
     const currentLang = this.translateService.currentLang;
     const newLang = currentLang === 'en' ? 'th' : 'en';
-  
+
     localStorage.setItem('language', newLang);
     window.location.reload();
   }
-  
+
 
   sidebarCollapsed = false;
 
@@ -67,42 +67,49 @@ export class LayoutMainComponent {
   }
 
   sidebarItems = [
-     {
-      label: 'sidebar.main',
-      icon: PrimeIcons.CHART_BAR,
-      routerLink: '/main-dashboard'
+    {
+      label: 'sidebar.stock',
+      icon: PrimeIcons.HOME,
+      routerLink: '/stock'
     },
+    //  {
+    //   label: 'sidebar.main',
+    //   icon: PrimeIcons.CHART_BAR,
+    //   routerLink: '/main-dashboard'
+    // },
+
+    // {
+    //   label: 'sidebar.transactions',
+    //   icon: PrimeIcons.LIST,
+    //   routerLink: '/transactions'
+    // },
+
+
+    // {
+    //   label: 'sidebar.budgets',
+    //   icon: PrimeIcons.WALLET,
+    //   routerLink: '/budgets'
+    // },
+
+    // {
+    //   label: 'sidebar.summary',
+    //   icon: PrimeIcons.FILE,
+    //   routerLink: '/summary'
+    // },
 
     {
-      label: 'sidebar.transactions',
-      icon: PrimeIcons.LIST,
-      routerLink: '/transactions'
-    },
-   
-  
-    {
-      label: 'sidebar.budgets',
-      icon: PrimeIcons.WALLET,
-      routerLink: '/budgets'
-    },
-     {
-      label: 'sidebar.reports',
-      icon: PrimeIcons.FILE,
-      routerLink: '/reports'
-    },
-     {
       label: 'sidebar.settings',
       icon: PrimeIcons.COG,
       routerLink: '/settings'
     },
-      {
+    {
       label: 'sidebar.menu1',
       icon: PrimeIcons.CHART_BAR,
       routerLink: '/dashboard'
     },
-    
+
   ];
-  
+
 }
 
 

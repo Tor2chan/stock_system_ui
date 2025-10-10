@@ -5,7 +5,8 @@
     "main":"Dashboard",
     "transactions":"Transactions",
     "reports":"Reports",  
-    "settings":"Settings"
+    "settings":"Settings",
+    "summary":"Summary"
 
   },
   "dashboard":{

@@ -7,22 +7,25 @@ import { TransactionsComponent } from './components/transactions/transactions.co
 import { ReportsComponent } from './components/reports/reports.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AddDashboardComponent } from './components/main/add-dashboard/add-dashboard.component';
+import { StockComponent } from './components/stock/stock.component';
 
 export const routes: Routes = [
-    { path: '', component: LayoutMainComponent,
-      children: [
-        { path: '', redirectTo: 'main-dashboard', pathMatch: 'full' },
-        {path: 'main-dashboard', component: MainDashboardComponent },  
-        {path: 'transactions', component: TransactionsComponent },   
-        { path: 'budgets', component: BudgetsComponent },
-        {path: 'reports', component: ReportsComponent },
-        {path: 'settings', component: SettingsComponent },
-        {path: 'add-dashboard', component: AddDashboardComponent },
+  {
+    path: '', component: LayoutMainComponent,
+    children: [
+      { path: '', redirectTo: 'stock', pathMatch: 'full' },
+      { path: 'main-dashboard', component: MainDashboardComponent },
+      { path: 'transactions', component: TransactionsComponent },
+      { path: 'budgets', component: BudgetsComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'stock', component: StockComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'add-dashboard', component: AddDashboardComponent },
 
-        { path: 'dashboard', component: DashboardComponent },
-        
-      ]
-    },
-    { path: '**', redirectTo: '' }
-  ];
-  
+      { path: 'dashboard', component: DashboardComponent },
+
+    ]
+  },
+  { path: '**', redirectTo: '' }
+];
+
