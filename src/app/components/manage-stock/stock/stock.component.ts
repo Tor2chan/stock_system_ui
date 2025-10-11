@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
-import { Dialog } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog'; // ✅ ใช้ DialogModule ไม่ใช่ Dialog
 import { ButtonModule } from 'primeng/button';
-
 
 interface Transaction {
   id: number;
@@ -12,7 +12,6 @@ interface Transaction {
   code: string;
   price: number | string;
   expire: string;
-
   date: string;
   category: string;
   amount: number;
@@ -22,11 +21,10 @@ interface Transaction {
 @Component({
   selector: 'app-stock',
   standalone: true,
-  imports: [CommonModule, FormsModule, TableModule, Dialog, ButtonModule],
+  imports: [CommonModule, FormsModule, TableModule, DialogModule, ButtonModule],
   templateUrl: './stock.component.html',
-  styleUrl: './stock.component.scss'
+  styleUrls: ['./stock.component.scss'] // ✅ ต้องเป็น styleUrls (มี s)
 })
-
 export class StockComponent {
   transactions: Transaction[] = [];
   paginatedTransactions: Transaction[] = [];
@@ -34,25 +32,27 @@ export class StockComponent {
 
   selectedFilter: 'all' | 'income' | 'expense' = 'all';
   filterCategory: string = '';
-
   visibleEdit = false;
 
   page: number = 1;
   pageSize: number = 5;
   totalPages: number = 1;
-  onSearch() { }
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
+    // ✅ กำหนดข้อมูลตัวอย่าง
     this.transactions = [
       { id: 1, name: 'Coke', code: '049-219-1', amount: 150, category: 'Food', price: '10000', date: '2025-10-08', expire: '2025-10-08', type: 'expense' },
       { id: 2, name: 'Pepsi', code: '049-219-2', amount: 3000, category: 'Salary', price: '20000', date: '2025-10-07', expire: '2025-10-07', type: 'income' },
       { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
-
     ];
 
     this.categories = Array.from(new Set(this.transactions.map(t => t.category)));
     this.updatePagination();
   }
+
+  onSearch() {}
 
   filterType(type: 'all' | 'income' | 'expense') {
     this.selectedFilter = type;
@@ -111,10 +111,10 @@ export class StockComponent {
   }
 
   onConfirmEdit() {
-
+    // TODO: Implement update logic
   }
+
   onAdd() {
-    alert('Add new stock item');
+    this.router.navigate(['/add-stock']); 
   }
 }
-

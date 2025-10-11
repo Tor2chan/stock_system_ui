@@ -7,7 +7,8 @@ import { TransactionsComponent } from './components/transactions/transactions.co
 import { ReportsComponent } from './components/reports/reports.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AddDashboardComponent } from './components/main/add-dashboard/add-dashboard.component';
-import { StockComponent } from './components/stock/stock.component';
+import { StockComponent } from './components/manage-stock/stock/stock.component';
+import { AddStockComponent } from './components/manage-stock/add-stock/add-stock.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,7 @@ export const routes: Routes = [
       { path: 'stock', component: StockComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'add-dashboard', component: AddDashboardComponent },
+      { path: 'add-stock', component: AddStockComponent },
 
       { path: 'dashboard', component: DashboardComponent },
 

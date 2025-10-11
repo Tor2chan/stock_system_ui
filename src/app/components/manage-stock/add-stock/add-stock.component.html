@@ -1,0 +1,67 @@
+<p-card header="Add New Stock" class="max-w-3xl mx-auto mt-10 shadow-lg">
+    <form (ngSubmit)="onSubmit()" #stockForm="ngForm" class="p-fluid">
+
+        <!-- Grid 2 columns: Name & Batch Code -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+                <label for="name" class="font-semibold mb-2">Name</label>
+                <input id="name" type="text" pInputText [(ngModel)]="stock.name" name="name" required
+                    placeholder="Enter product name" class="w-full" />
+            </div>
+
+            <div class="flex flex-col">
+                <label for="code" class="font-semibold mb-2">Batch Code</label>
+                <input id="code" type="text" pInputText [(ngModel)]="stock.code" name="code" required
+                    placeholder="Enter batch code" class="w-full" />
+            </div>
+        </div>
+
+        <!-- Grid 2 columns: Amount & Category -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+                <label for="amount" class="font-semibold mb-2">Amount</label>
+                <p-inputNumber [(ngModel)]="stock.amount" name="amount" inputId="amount" [min]="0" mode="decimal"
+                    required class="w-full"></p-inputNumber>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="category" class="font-semibold mb-2">Category</label>
+                <select id="category" [(ngModel)]="stock.category" name="category"
+                    class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                    <option value="">-- Select Category --</option>
+                    <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Grid 2 columns: Price & Date -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+                <label for="price" class="font-semibold mb-2">Price</label>
+                <p-inputNumber [(ngModel)]="stock.price" name="price" inputId="price" mode="currency" currency="THB"
+                    locale="th-TH" class="w-full"></p-inputNumber>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="date" class="font-semibold mb-2">Date</label>
+                <p-calendar [(ngModel)]="stock.date" name="date" dateFormat="yy-mm-dd" showIcon="true"
+                    placeholder="Select date" class="w-full"></p-calendar>
+            </div>
+        </div>
+
+        <!-- Expire -->
+        <div class="flex flex-col mb-4">
+            <label for="expire" class="font-semibold mb-2">Expire Date</label>
+            <p-calendar [(ngModel)]="stock.expire" name="expire" dateFormat="yy-mm-dd" showIcon="true"
+                placeholder="Select expire date" class="w-full"></p-calendar>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-end gap-3 mt-6">
+            <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
+                (onClick)="onCancel()"></p-button>
+            <p-button label="Save" icon="pi pi-check" styleClass="p-button-success" type="submit"></p-button>
+        </div>
+
+    </form>
+</p-card>
