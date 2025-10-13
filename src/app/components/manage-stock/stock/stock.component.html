@@ -2,27 +2,27 @@
     <h2 class="text-2xl font-bold mb-4">Stock</h2>
 
 
-    <div class="mr-2 font-semibold items-center justify-center flex mb-4">
-        <input type="text" pInputText placeholder="Search by name or code" (input)="onSearch()"
-            class="px-4 py-2 rounded-lg border w-64" />
-        <button (click)="onSearch()"
-            class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition gap-2 ml-2">
-            <i class="pi pi-search"></i>
-            Search
-        </button>
-    </div>
 
     <!-- Filters -->
     <div class="flex items-center gap-2 mb-4">
-        <button (click)="filterType('all')" [ngClass]="{'bg-blue-500 text-white': selectedFilter==='all'}"
+
+         <input type="text" pInputText placeholder="Search by name or code" (input)="onSearch()"
+            class="px-4 py-2 rounded-lg border w-64" />
+      
+        <!-- <button (click)="filterType('all')" [ngClass]="{'bg-blue-500 text-white': selectedFilter==='all'}"
             class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition">
             All
-        </button>
+        </button> -->
 
         <select [(ngModel)]="filterCategory" (change)="filterByCategory()" class="px-4 py-2 rounded-lg border">
             <option value="">Filter by Category</option>
             <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
         </select>
+          <button (click)="onSearch()"
+            class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition gap-2 ml-2">
+            <i class="pi pi-search"></i>
+            Search
+        </button>
 
         <!-- ใช้ flex-grow เพื่อดันปุ่ม Add ไปขวาสุด -->
         <div class="flex-grow"></div>
@@ -31,6 +31,7 @@
             <i class="pi pi-plus"></i>
             Add
         </button>
+        
     </div>
 
 

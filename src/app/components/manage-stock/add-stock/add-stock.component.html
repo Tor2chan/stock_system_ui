@@ -1,4 +1,4 @@
-<p-card header="Add New Stock" class="max-w-3xl mx-auto mt-10 shadow-lg">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow p-6 mt-10]">
     <form (ngSubmit)="onSubmit()" #stockForm="ngForm" class="p-fluid">
 
         <!-- Grid 2 columns: Name & Batch Code -->
@@ -35,7 +35,7 @@
         </div>
 
         <!-- Grid 2 columns: Price & Date -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div class="flex flex-col">
                 <label for="price" class="font-semibold mb-2">Price</label>
                 <p-inputNumber [(ngModel)]="stock.price" name="price" inputId="price" mode="currency" currency="THB"
@@ -43,18 +43,20 @@
             </div>
 
             <div class="flex flex-col">
+                 <!-- Date -->
                 <label for="date" class="font-semibold mb-2">Date</label>
                 <p-calendar [(ngModel)]="stock.date" name="date" dateFormat="yy-mm-dd" showIcon="true"
                     placeholder="Select date" class="w-full"></p-calendar>
             </div>
-        </div>
-
-        <!-- Expire -->
-        <div class="flex flex-col mb-4">
+              <!-- Expire -->
+        <div class="flex flex-col  ">
             <label for="expire" class="font-semibold mb-2">Expire Date</label>
             <p-calendar [(ngModel)]="stock.expire" name="expire" dateFormat="yy-mm-dd" showIcon="true"
                 placeholder="Select expire date" class="w-full"></p-calendar>
         </div>
+        </div>
+
+       
 
         <!-- Buttons -->
         <div class="flex justify-end gap-3 mt-6">
@@ -64,4 +66,4 @@
         </div>
 
     </form>
-</p-card>
+</div>
