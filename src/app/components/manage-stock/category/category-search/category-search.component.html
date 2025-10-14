@@ -1,0 +1,28 @@
+<div>
+    <button type="button" (click)="openPage('create')" class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">create</button>
+
+</div>
+<br>
+
+<div class="card">
+    <p-table [value]="items" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th>ลำดับ</th>
+                <th>code</th>
+                <th>Catetory</th>
+                <th>สถานะการใช้งาน</th>
+                <th>แก้ไข</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-item>
+            <tr>
+                <td>{{ item.rowNum }}</td>
+                <td>{{ item.code }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.active}}</td>
+                <td><i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer"></i></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

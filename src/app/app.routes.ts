@@ -9,7 +9,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { AddDashboardComponent } from './components/main/add-dashboard/add-dashboard.component';
 import { StockComponent } from './components/manage-stock/stock/stock.component';
 import { AddStockComponent } from './components/manage-stock/add-stock/add-stock.component';
-import { ManageCategoryComponent } from './components/manage-stock/manage-category/manage-category.component';
+import { CategorySearchComponent } from './components/manage-stock/category/category-search/category-search.component';
+import { CategoryManageComponent } from './components/manage-stock/category/category-manage/category-manage.component';
 
 export const routes: Routes = [
   {
@@ -24,8 +25,9 @@ export const routes: Routes = [
       { path: 'settings', component: SettingsComponent },
       { path: 'add-dashboard', component: AddDashboardComponent },
       { path: 'add-stock', component: AddStockComponent },
-      {path: 'manage-category', component: ManageCategoryComponent},
-
+      { path: 'category-search', component: CategorySearchComponent},
+      { path: 'category-create', component: CategoryManageComponent},
+      { path: 'category-edit/:id', component: CategoryManageComponent},
 
       { path: 'dashboard', component: DashboardComponent },
 

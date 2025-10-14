@@ -54,7 +54,7 @@ export class StockComponent {
 
   onSearch() {}
   onManageCategory() {
-    this.router.navigate(['/manage-category']); 
+    this.router.navigate(['/category-search']); 
   }
 
   filterType(type: 'all' | 'income' | 'expense') {
