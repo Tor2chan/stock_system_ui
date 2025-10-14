@@ -11,12 +11,22 @@ import { StockComponent } from './components/manage-stock/stock/stock.component'
 import { AddStockComponent } from './components/manage-stock/add-stock/add-stock.component';
 import { CategorySearchComponent } from './components/manage-stock/category/category-search/category-search.component';
 import { CategoryManageComponent } from './components/manage-stock/category/category-manage/category-manage.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
+   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'app-register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+
+
   {
     path: '', component: LayoutMainComponent,
     children: [
-      { path: '', redirectTo: 'stock', pathMatch: 'full' },
+     
+
       { path: 'main-dashboard', component: MainDashboardComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'budgets', component: BudgetsComponent },
@@ -25,9 +35,9 @@ export const routes: Routes = [
       { path: 'settings', component: SettingsComponent },
       { path: 'add-dashboard', component: AddDashboardComponent },
       { path: 'add-stock', component: AddStockComponent },
-      { path: 'category-search', component: CategorySearchComponent},
-      { path: 'category-create', component: CategoryManageComponent},
-      { path: 'category-edit/:id', component: CategoryManageComponent},
+      { path: 'category-search', component: CategorySearchComponent },
+      { path: 'category-create', component: CategoryManageComponent },
+      { path: 'category-edit/:id', component: CategoryManageComponent },
 
       { path: 'dashboard', component: DashboardComponent },
 
