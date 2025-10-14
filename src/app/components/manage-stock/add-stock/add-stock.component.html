@@ -20,11 +20,35 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div class="flex flex-col">
                 <label for="amount" class="font-semibold mb-2">Amount</label>
-                <p-inputNumber [(ngModel)]="stock.amount" name="amount" inputId="amount" [min]="0" mode="decimal"
+                <p-inputNumber  name="amount" inputId="amount" [min]="0" mode="decimal"
                     required class="w-full"></p-inputNumber>
             </div>
+<div class="flex flex-col">
+                <label for="price" class="font-semibold mb-2">Price</label>
+                <p-inputNumber  name="price" inputId="price" mode="currency" currency="THB"
+                    locale="th-TH" class="w-full"></p-inputNumber>
+            </div>
+        </div>
+
+        <!-- Grid 2 columns: Price & Date -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+         
 
             <div class="flex flex-col">
+                 <!-- Date -->
+                <label for="date" class="font-semibold mb-2">Rceived Date</label>
+                <p-calendar class="w-full"  [(ngModel)]="stock.date" name="date" dateFormat="yy-mm-dd" showIcon="true"
+                    placeholder ="Select date" [style]="{width:'100%'}"></p-calendar>
+            </div>
+              <!-- Expire -->
+        <div class="flex flex-col  ">
+            <label for="expire" class="font-semibold mb-2">Expire Date</label>
+            <p-calendar [(ngModel)]="stock.expire" name="expire" dateFormat="yy-mm-dd" showIcon="true"
+                placeholder="Select expire date" [style]="{width:'100%'}"></p-calendar>
+        </div>
+        </div>
+           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-col">
                 <label for="category" class="font-semibold mb-2">Category</label>
                 <select id="category" [(ngModel)]="stock.category" name="category"
                     class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
@@ -32,30 +56,7 @@
                     <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
                 </select>
             </div>
-        </div>
-
-        <!-- Grid 2 columns: Price & Date -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div class="flex flex-col">
-                <label for="price" class="font-semibold mb-2">Price</label>
-                <p-inputNumber [(ngModel)]="stock.price" name="price" inputId="price" mode="currency" currency="THB"
-                    locale="th-TH" class="w-full"></p-inputNumber>
-            </div>
-
-            <div class="flex flex-col">
-                 <!-- Date -->
-                <label for="date" class="font-semibold mb-2">Date</label>
-                <p-calendar [(ngModel)]="stock.date" name="date" dateFormat="yy-mm-dd" showIcon="true"
-                    placeholder="Select date" class="w-full"></p-calendar>
-            </div>
-              <!-- Expire -->
-        <div class="flex flex-col  ">
-            <label for="expire" class="font-semibold mb-2">Expire Date</label>
-            <p-calendar [(ngModel)]="stock.expire" name="expire" dateFormat="yy-mm-dd" showIcon="true"
-                placeholder="Select expire date" class="w-full"></p-calendar>
-        </div>
-        </div>
-
+           </div>
        
 
         <!-- Buttons -->

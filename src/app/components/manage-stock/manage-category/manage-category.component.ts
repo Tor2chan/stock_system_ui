@@ -6,6 +6,7 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog'; // ✅ ใช้ DialogModule ไม่ใช่ Dialog
 import { ButtonModule } from 'primeng/button';
 
+
 interface Transaction {
   id: number;
   name: string;
@@ -17,16 +18,16 @@ interface Transaction {
   amount: number;
   type: 'income' | 'expense';
 }
-@Component({
-  selector: 'app-stock',
-  standalone: true,
-  imports: [CommonModule, FormsModule, TableModule, DialogModule, ButtonModule],
-  templateUrl: './stock.component.html',
-  styleUrls: ['./stock.component.scss'] // ✅ ต้องเป็น styleUrls (มี s)
 
+@Component({
+  selector: 'app-manage-category',
+    standalone: true,
+  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule],
+  templateUrl: './manage-category.component.html',
+  styleUrl: './manage-category.component.scss'
 })
-export class StockComponent {
-  transactions: Transaction[] = [];
+export class ManageCategoryComponent {
+ transactions: Transaction[] = [];
   paginatedTransactions: Transaction[] = [];
   categories: string[] = [];
 
@@ -53,9 +54,6 @@ export class StockComponent {
   }
 
   onSearch() {}
-  onManageCategory() {
-    this.router.navigate(['/manage-category']); 
-  }
 
   filterType(type: 'all' | 'income' | 'expense') {
     this.selectedFilter = type;
