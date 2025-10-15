@@ -107,11 +107,7 @@ export class LayoutMainComponent {
       icon: PrimeIcons.CHART_BAR,
       routerLink: '/dashboard'
     },
-    {
-      label: 'sidebar.new_stock',
-      icon: PrimeIcons.LIST,
-      routerLink: '/new-stock'
-    },
+    
 
   ];
 

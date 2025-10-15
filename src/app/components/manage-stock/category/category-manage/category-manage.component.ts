@@ -44,4 +44,6 @@ export class CategoryManageComponent  implements OnInit{
     this.router.navigate(['/category-search']);
   }
 
+  onCancel() {
+}
 }
