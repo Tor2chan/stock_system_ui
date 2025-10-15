@@ -3,45 +3,25 @@
 <h2 class="text-2xl font-bold mb-4">
     {{ mode === 'create' ? 'Add' : 'Edit' }}Category
 </h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div class="flex flex-col">
-                <label for="name" class="font-semibold mb-2">Category</label>
-                <input id="name" type="text" pInputText [(ngModel)]="categoryItem.name" name="category" required
-                    placeholder="Enter product Category" class="px-4 py-2 rounded-lg border w-full" />
-            </div>
-             <div class="flex flex-col">
-                <label for="name" class="font-semibold mb-2">Code</label>
-                <input id="name" type="text" pInputText [(ngModel)]="categoryItem.code" name="code" required
-                    placeholder="Enter Category Code" class="px-4 py-2 rounded-lg border w-full" />
-            </div>
-             <div class="flex flex-col">
- 
-                    <label for="name" class="font-semibold mb-2">Status</label>
-       
-    <p-toggleswitch [(ngModel)]="checked" />
-             
 
-         
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
- <div class="flex flex-col">
- 
-                    <label for="name" class="font-semibold mb-2">Status</label>
-       
-    <p-toggleswitch [(ngModel)]="checked" />
-    
-   
+<div class="grid grid-cols-1 md:grid-cols-8 gap-4 mb-4">
+    <div class="flex flex-col col-start-1 col-end-4">
+        <label for="name" class="font-semibold mb-2">Category</label>
+        <input id="name" type="text" pInputText [(ngModel)]="categoryItem.name" name="category" required
+            placeholder="Enter product Category" class="px-4 py-2 rounded-lg border w-full" />
+    </div>
+    <div class="flex flex-col col-start-4 col-end-8">
+        <label for="name" class="font-semibold mb-2">Code</label>
+        <input id="name" type="text" pInputText [(ngModel)]="categoryItem.code" name="code" required
+            placeholder="Enter Category Code" class="px-4 py-2 rounded-lg border w-full" />
+    </div>
+    <div class="flex flex-col col-start-8 col-end-9 text-center">
+        <label for="name" class="font-semibold mb-2">Status</label>
+        <p-toggleswitch [(ngModel)]="checked" />
+    </div>
 </div>
 
-
-        </div>
-        
-  <div class="flex justify-end gap-3 mt-6">
-            <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
-                (onClick)="onCancel()"></p-button>
-            <p-button label="Save" icon="pi pi-check" styleClass="p-button-success" type="submit"></p-button>
-        </div>
-
-
-
+<div class="flex justify-end gap-3 mt-6">
+    <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" (onClick)="onCancel()"></p-button>
+    <p-button label="Save" icon="pi pi-check" styleClass="p-button-success" type="submit"></p-button>
 </div>
