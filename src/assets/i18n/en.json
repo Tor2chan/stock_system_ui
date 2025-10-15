@@ -1,12 +1,8 @@
 {
   "sidebar":{
-    "menu1":"Sample",
-    "budgets":"Budgets",
-    "main":"Dashboard",
-    "transactions":"Transactions",
-    "reports":"Reports",  
-    "settings":"Settings",
-    "summary":"Summary"
+    "stock":"Stock",
+    "settings":"Settings"
+    
 
   },
   "dashboard":{

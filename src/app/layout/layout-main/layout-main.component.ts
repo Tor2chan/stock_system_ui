@@ -46,7 +46,9 @@ export class LayoutMainComponent {
     localStorage.setItem('language', newLang);
     window.location.reload();
   }
-
+goOutUser() {
+    this.router.navigate(['/login']);
+  }
 
   goToUser() {
     this.router.navigate(['/user']);
@@ -76,44 +78,17 @@ export class LayoutMainComponent {
   sidebarItems = [
     {
       label: 'sidebar.stock',
-      icon: PrimeIcons.HOME,
+      icon: PrimeIcons.BOX,
       routerLink: '/stock-search'
     },
-    //  {
-    //   label: 'sidebar.main',
-    //   icon: PrimeIcons.CHART_BAR,
-    //   routerLink: '/main-dashboard'
-    // },
 
-    // {
-    //   label: 'sidebar.transactions',
-    //   icon: PrimeIcons.LIST,
-    //   routerLink: '/transactions'
-    // },
-
-
-    // {
-    //   label: 'sidebar.budgets',
-    //   icon: PrimeIcons.WALLET,
-    //   routerLink: '/budgets'
-    // },
-
-    // {
-    //   label: 'sidebar.summary',
-    //   icon: PrimeIcons.FILE,
-    //   routerLink: '/summary'
-    // },
 
     {
       label: 'sidebar.settings',
       icon: PrimeIcons.COG,
       routerLink: '/settings'
     },
-    {
-      label: 'sidebar.menu1',
-      icon: PrimeIcons.CHART_BAR,
-      routerLink: '/dashboard'
-    },
+ 
     
 
   ];

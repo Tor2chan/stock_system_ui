@@ -1,12 +1,13 @@
 
 <div class="layout-wrapper" [class.sidebar-collapsed]="sidebarCollapsed">
     <!-- Sidebar -->
-   <div class="layout-sidebar bg-white/80 backdrop-blur-md border-r border-gray-200 shadow-lg min-h-screen w-64 flex flex-col transition-all duration-300">
+     
+   <div class="layout-sidebar bg-gray-100 backdrop-blur-md border-r border-gray-200 shadow-lg min-h-screen w-64 flex flex-col transition-all duration-300">
   
   <!-- Logo Section -->
-<div class="sidebar-header flex items-center justify-center py-6 border-b border-gray-200">
-  <div class="flex items-center gap-3">
-    <p-image [src]="'assets/imag/fff.png'" alt="Logo" class="w-12 h-12 rounded-full shadow-md"></p-image>
+<div class="sidebar-header border-b border-gray-200">
+  <div class="flex items-center gap-2">
+    <p-image [src]="'assets/imag/fff.png'" alt="Logo" class="w-12 h-12   "></p-image>
 
     <!-- ชื่อ Brand จะซ่อนเมื่อ sidebar หุบ -->
   <span *ngIf="!sidebarCollapsed"
@@ -31,9 +32,10 @@
 
     <!-- Footer / Logout -->
     <div class="px-5 py-4 border-t border-gray-200">
-      <button class="w-full flex items-center gap-3 px-4 py-2 text-gray-700 rounded-lg hover:bg-red-50 hover:text-red-600 transition-all duration-200">
+      <button class="w-full flex items-center gap-3 px-4 py-2 text-gray-700 rounded-lg hover:bg-red-50 hover:text-red-600 transition-all duration-200" (click)="goOutUser()" >
         <i class="pi pi-sign-out text-lg"></i>
         <span *ngIf="!sidebarCollapsed">Logout</span>
+        
       </button>
     </div>
 
@@ -49,8 +51,8 @@
         <!-- Top Menu Buttons -->
         <div class="flex gap-2">
           <p-button icon="pi pi-language" (click)="toggleLanguage()" rounded styleClass="p-button-text text-gray-700 hover:text-indigo-600"></p-button>
-          <p-button icon="pi pi-bell" rounded styleClass="p-button-text text-gray-700 hover:text-indigo-600"></p-button>
           <p-button icon="pi pi-user" rounded (click)="goToUser()" styleClass="p-button-text text-gray-700 hover:text-indigo-600"></p-button>
+           <p-button icon="pi pi-sign-out" rounded (click)="goOutUser()" styleClass="p-button-text text-gray-700 hover:text-indigo-600"></p-button>
         </div>
       </div>
     </div>
