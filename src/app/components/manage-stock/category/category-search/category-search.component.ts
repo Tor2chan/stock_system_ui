@@ -26,7 +26,7 @@ export class CategorySearchComponent implements OnInit{
 
   
 
-  items = [{ id:1, rowNum: 1, name:'one',avtive:true, code: '001' }]
+  items = [{ id:1, rowNum: 1, name:'one',avtive:false, code: '001' }]
 
     constructor(
         private readonly router:Router
@@ -49,6 +49,9 @@ export class CategorySearchComponent implements OnInit{
         this.router.navigate([`/category-edit/${(data.id)}`]);
 
     }
+    }
+    onBack() {
+        this.router.navigate(['/stock']);
     }
 
 }

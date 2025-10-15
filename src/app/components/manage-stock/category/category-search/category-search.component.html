@@ -1,28 +1,62 @@
-<div>
-    <button type="button" (click)="openPage('create')" class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">create</button>
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow p-6 mt-0">
+  <h2 class="text-2xl font-bold mb-4">Category</h2>
 
-</div>
-<br>
+  <div class="flex justify-end gap-2 mb-4">
+    <button
+      type="button"
+      (click)="openPage('create')"
+      class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition"
+    >
+      create
+    </button>
+  </div>
 
-<div class="card">
-    <p-table [value]="items" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>ลำดับ</th>
-                <th>code</th>
-                <th>Catetory</th>
-                <th>สถานะการใช้งาน</th>
-                <th>แก้ไข</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-item>
-            <tr>
-                <td>{{ item.rowNum }}</td>
-                <td>{{ item.code }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.active}}</td>
-                <td><i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer"></i></td>
-            </tr>
-        </ng-template>
+  <div class="card">
+    <p-table
+      [value]="items"
+      showGridlines="true"
+      [tableStyle]="{ 'min width': '50rem' }"
+    > 
+      <ng-template #header>
+        <tr>
+          <th style="text-align: center ;width: 10%;">ลำดับ</th>
+          <th style="text-align: center ;width: 15%;">code</th>
+          <th style="text-align: center ;width: 40%;">Catetory</th>
+          <th style="text-align: center ;width:20%" >สถานะการใช้งาน</th>
+          <th style="text-align: center ;width: 15%;">แก้ไข</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-item>
+        <tr>
+          <td   style="text-align: center">{{ item.rowNum }}</td>
+          <td   style="text-align: center">{{ item.code }}</td>
+          <td>{{ item.name }}</td>
+          <td
+            class="justify-center text-center items-center"
+            style="text-align: center"
+          >
+            <span *ngIf="item.avtive">
+              <i class="pi pi-check text-green-500"></i>
+            </span>
+            <span *ngIf="!item.avtive">
+                <i class="pi pi-times text-red-500"></i>
+            </span>
+          </td>
+          <td   style="text-align: center">
+            <i
+              (click)="openPage('edit', item)"
+              class="pi pi-pencil cursor-pointer"
+            ></i>
+          </td>
+        </tr>
+      </ng-template>
     </p-table>
+    
+  </div>
+  <div class="flex justify-end mt-4">
+    <button (click)="onBack()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition">
+            <i class="pi pi-arrow-left"></i>
+            Back to Stock
+        </button>
+  </div>
 </div>
