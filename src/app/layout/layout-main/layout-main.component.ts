@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink } from '@angular/router';
+import { Router } from '@angular/router'; 
 import { MenubarModule } from 'primeng/menubar';
 import { PrimeIcons } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
@@ -28,7 +29,12 @@ import { ImageModule } from 'primeng/image';
   ]
 })
 export class LayoutMainComponent {
-  constructor(private translateService: TranslateService) {
+   sidebarCollapsed = false;
+
+  constructor(
+    private router: Router,
+    private translateService: TranslateService
+  ) {
     const savedLang = localStorage.getItem('language') || 'en';
     this.translateService.setDefaultLang(savedLang);
     this.translateService.use(savedLang);
@@ -37,13 +43,14 @@ export class LayoutMainComponent {
   toggleLanguage() {
     const currentLang = this.translateService.currentLang;
     const newLang = currentLang === 'en' ? 'th' : 'en';
-
     localStorage.setItem('language', newLang);
     window.location.reload();
   }
 
 
-  sidebarCollapsed = false;
+  goToUser() {
+    this.router.navigate(['/user']);
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {

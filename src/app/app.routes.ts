@@ -11,9 +11,10 @@ import { StockComponent } from './components/manage-stock/stock/stock.component'
 import { AddStockComponent } from './components/manage-stock/add-stock/add-stock.component';
 import { CategorySearchComponent } from './components/manage-stock/category/category-search/category-search.component';
 import { CategoryManageComponent } from './components/manage-stock/category/category-manage/category-manage.component';
-import { LoginComponent } from './components/user/login/login.component';
-import { RegisterComponent } from './components/user/register/register.component';
-import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
+import { LoginComponent } from './components/users/login/login.component';
+import { RegisterComponent } from './components/users/register/register.component';
+import { ForgotPasswordComponent } from './components/users/forgot-password/forgot-password.component';
+import { UserComponent } from './components/users/user/user.component';
 
 export const routes: Routes = [
    { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -38,6 +39,7 @@ export const routes: Routes = [
       { path: 'category-search', component: CategorySearchComponent },
       { path: 'category-create', component: CategoryManageComponent },
       { path: 'category-edit/:id', component: CategoryManageComponent },
+      { path: 'user', component: UserComponent },
 
       { path: 'dashboard', component: DashboardComponent },
 
