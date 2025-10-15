@@ -1,22 +1,47 @@
-<h3 class="text-primary font-blod">
-    {{ mode === 'create' ? 'เพิ่ม' : 'แก้ไข' }}Category
-</h3>
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow p-6 mt-10]">
 
-<div class="card">
-    <p-table [value]="item" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>ลำดับ</th>
-                <th>code</th>
-                <th>Catetory</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-item>
-            <tr>
-                <td>{{ item.rowNum }}</td>
-                <td>{{ item.code }}</td>
-                <td>{{ item.name }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
+<h2 class="text-2xl font-bold mb-4">
+    {{ mode === 'create' ? 'Add' : 'Edit' }}Category
+</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="flex flex-col">
+                <label for="name" class="font-semibold mb-2">Category</label>
+                <input id="name" type="text" pInputText [(ngModel)]="categoryItem.name" name="category" required
+                    placeholder="Enter product Category" class="px-4 py-2 rounded-lg border w-full" />
+            </div>
+             <div class="flex flex-col">
+                <label for="name" class="font-semibold mb-2">Code</label>
+                <input id="name" type="text" pInputText [(ngModel)]="categoryItem.code" name="code" required
+                    placeholder="Enter Category Code" class="px-4 py-2 rounded-lg border w-full" />
+            </div>
+             <div class="flex flex-col">
+ 
+                    <label for="name" class="font-semibold mb-2">Status</label>
+       
+    <p-toggleswitch [(ngModel)]="checked" />
+             
+
+         
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+ <div class="flex flex-col">
+ 
+                    <label for="name" class="font-semibold mb-2">Status</label>
+       
+    <p-toggleswitch [(ngModel)]="checked" />
+    
+   
+</div>
+
+
+        </div>
+        
+  <div class="flex justify-end gap-3 mt-6">
+            <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
+                (onClick)="onCancel()"></p-button>
+            <p-button label="Save" icon="pi pi-check" styleClass="p-button-success" type="submit"></p-button>
+        </div>
+
+
+
 </div>
