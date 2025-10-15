@@ -1,55 +1,61 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
-import { Dialog } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog'; // ✅ ใช้ DialogModule ไม่ใช่ Dialog
 import { ButtonModule } from 'primeng/button';
-
+import { MODE_PAGE } from '../../../../modules/common/common';
 
 interface Transaction {
   id: number;
+  name: string;
+  code: string;
+  price: number | string;
+  expire: string;
   date: string;
   category: string;
   amount: number;
   type: 'income' | 'expense';
 }
-
 @Component({
-  selector: 'app-transactions',
-  standalone: true,      // ⚡ ทำให้เป็น standalone
-  imports: [CommonModule, FormsModule, TableModule, Dialog, ButtonModule], // จำเป็นสำหรับ ngFor, ngClass, ngModel, pipe number
-  templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.scss'],
-  providers: [DecimalPipe]
+  selector: 'app-stock-search',
+  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule],
+  templateUrl: './stock-search.component.html',
+  styleUrl: './stock-search.component.scss'
 })
-export class TransactionsComponent {
+export class StockSearchComponent {
   transactions: Transaction[] = [];
   paginatedTransactions: Transaction[] = [];
   categories: string[] = [];
+  mode: MODE_PAGE= 'search';
 
   selectedFilter: 'all' | 'income' | 'expense' = 'all';
   filterCategory: string = '';
-  
   visibleEdit = false;
 
   page: number = 1;
   pageSize: number = 5;
   totalPages: number = 1;
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
+    // ✅ กำหนดข้อมูลตัวอย่าง
     this.transactions = [
-      { id: 1, date: '2025-10-08', category: 'Food', amount: 150, type: 'expense' },
-      { id: 2, date: '2025-10-07', category: 'Salary', amount: 3000, type: 'income' },
-      { id: 3, date: '2025-10-06', category: 'Transport', amount: 50, type: 'expense' },
-      { id: 4, date: '2025-10-05', category: 'Bonus', amount: 500, type: 'income' },
-      { id: 5, date: '2025-10-04', category: 'Shopping', amount: 200, type: 'expense' },
-      { id: 6, date: '2025-10-03', category: 'Food', amount: 100, type: 'expense' },
-      { id: 7, date: '2025-10-02', category: 'Salary', amount: 3000, type: 'income' },
-      { id: 8, date: '2025-10-01', category: 'Entertainment', amount: 120, type: 'expense' }
+      { id: 1, name: 'Coke', code: '049-219-1', amount: 150, category: 'Food', price: '10000', date: '2025-10-08', expire: '2025-10-08', type: 'expense' },
+      { id: 2, name: 'Pepsi', code: '049-219-2', amount: 3000, category: 'Salary', price: '20000', date: '2025-10-07', expire: '2025-10-07', type: 'income' },
+      { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
     ];
 
     this.categories = Array.from(new Set(this.transactions.map(t => t.category)));
     this.updatePagination();
+     this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';
+  }
+
+  onSearch() {}
+  onManageCategory() {
+    this.router.navigate(['/category-search']); 
   }
 
   filterType(type: 'all' | 'income' | 'expense') {
@@ -74,6 +80,22 @@ export class TransactionsComponent {
     const start = (this.page - 1) * this.pageSize;
     this.paginatedTransactions = filtered.slice(start, start + this.pageSize);
   }
+   ngOnInit() {
+  
+      }
+  
+    openPage(page: MODE_PAGE , data?: Transaction) {
+  
+      sessionStorage.setItem('mode', page);
+  
+      if (page === 'create') {
+          this.router.navigate(['/stock-manage-create']);
+      } else if (page === 'edit' && data?.id) {
+  
+          this.router.navigate([`/stock-manage-edit/${(data.id)}`]);
+  
+      }
+    }
 
   prevPage() {
     if (this.page > 1) {
@@ -100,15 +122,20 @@ export class TransactionsComponent {
     }
   }
 
-  onOpenEdit(id: number){
+  onOpenEdit(id: number) {
     this.visibleEdit = true;
   }
 
-  onCloseEdit(){
+  onCloseEdit() {
     this.visibleEdit = false;
   }
 
-  onConfirmEdit(){
+  onConfirmEdit() {
+    // TODO: Implement update logic
+  }
 
+  onAdd() {
+    this.router.navigate(['/add-stock-create']); 
   }
 }
+

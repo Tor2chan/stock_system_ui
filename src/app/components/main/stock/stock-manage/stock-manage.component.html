@@ -1,4 +1,7 @@
 <div class="max-w-6xl mx-auto bg-white rounded-lg shadow p-6 mt-10]">
+    <h2 class="text-2xl font-bold mb-4">
+    {{ mode === 'create' ? 'Add' : 'Edit' }}Stock
+</h2>
     <form (ngSubmit)="onSubmit()" #stockForm="ngForm" class="p-fluid">
 
         <!-- Grid 2 columns: Name & Batch Code -->

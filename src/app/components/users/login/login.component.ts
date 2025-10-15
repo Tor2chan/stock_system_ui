@@ -59,7 +59,7 @@ export class LoginComponent {
     await new Promise((res) => setTimeout(res, 800));
 
     if (this.username === 'admin' && this.password === 'admin123') {
-      this.router.navigate(['/stock']);
+      this.router.navigate(['/stock-search']);
     } else {
       this.errorMessage = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
     }

@@ -77,7 +77,7 @@ export class LayoutMainComponent {
     {
       label: 'sidebar.stock',
       icon: PrimeIcons.HOME,
-      routerLink: '/stock'
+      routerLink: '/stock-search'
     },
     //  {
     //   label: 'sidebar.main',

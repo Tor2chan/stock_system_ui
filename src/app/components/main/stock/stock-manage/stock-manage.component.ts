@@ -9,24 +9,16 @@ import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { MODE_PAGE } from '../../../../modules/common/common';
+
 @Component({
-  selector: 'app-add-stock',
-  templateUrl: './add-stock.component.html',
+  selector: 'app-stock-manage',
+  imports: [ FormsModule, CardModule, InputTextModule, DropdownModule, InputNumberModule, CalendarModule, ButtonModule, ToastModule],
   providers: [MessageService,],
-  imports: [
-    FormsModule,
-    CardModule,
-    InputTextModule,
-    DropdownModule,
-    InputNumberModule,
-    CalendarModule,
-    ButtonModule,
-    ToastModule
-  ],
-  styleUrls: ['./add-stock.component.scss'],
-  standalone: true,
+  templateUrl: './stock-manage.component.html',
+  styleUrl: './stock-manage.component.scss'
 })
-export class AddStockComponent {
+export class StockManageComponent {
   stock = {
     name: '',
     code: '',
@@ -34,16 +26,16 @@ export class AddStockComponent {
     category: '',
     price: 0,
     date: null,
-
+  
     expire: null
   };
-
+  mode: MODE_PAGE;
   categories = ['Food', 'Drink', 'Medicine', 'Cosmetic'];
 
   constructor(
     private router: Router,
     private messageService: MessageService
-  ) { }
+  ) {  this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';}
 
   onSubmit() {
     if (this.stock.name && this.stock.code && this.stock.category) {
@@ -56,7 +48,7 @@ export class AddStockComponent {
       });
 
       setTimeout(() => {
-        this.router.navigate(['/stock']);
+        this.router.navigate(['/stock-search']);
       }, 1500);
     } else {
       this.messageService.add({
@@ -66,8 +58,10 @@ export class AddStockComponent {
       });
     }
   }
-
+ngOnInit() {
+      console.log('mode:', this.mode)
+    }
   onCancel() {
-    this.router.navigate(['/stock']);
+    this.router.navigate(['/stock-search']);
   }
 }
