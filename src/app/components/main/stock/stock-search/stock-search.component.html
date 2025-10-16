@@ -15,7 +15,7 @@
             class="px-4 py-2 rounded-lg border w-64" />
       
         <!-- <button (click)="filterType('all')" [ngClass]="{'bg-blue-500 text-white': selectedFilter==='all'}"
-            class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition">
+            class="px-4 py-2 bg-gray-200 rounded-lg font-semibold transition">
             All
         </button> -->
 
@@ -23,28 +23,24 @@
             <option value="">Filter by Category</option>
             <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
         </select>
-          <button (click)="onSearch()"
-            class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition gap-2 ml-2">
+            <p-button (click)="onSearch()"
+            class="px-4 py-2 font-semibold transition gap-2 ml-2">
             <i class="pi pi-search"></i>
             Search
-        </button>
+            </p-button>
 
         <!-- ใช้ flex-grow เพื่อดันปุ่ม Add ไปขวาสุด -->
         <div class="flex-grow"></div>
 
-             <button (click)="onManageCategory()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition">
-            <i class="pi pi-plus"></i>
-            Category
-        </button>
-
-        <button (click)="openPage('create')" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition">
-            <i class="pi pi-plus"></i>
-            Stock
-        </button>
-        
+             <p-button (click)="onManageCategory()" class="px-4 py-2 font-semibold transition">
+                <i class="pi pi-plus"></i>
+                Category
+            </p-button>
+            <p-button (click)="openPage('create')" class="px-4 py-2 font-semibold transition">
+                <i class="pi pi-plus"></i>
+                Stock
+            </p-button>
     </div>
-
-
 
     <p-table 
     [value]="transactions" 

@@ -4,6 +4,7 @@ import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { MODE_PAGE } from '../../../../modules/common/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Button } from 'primeng/button';
 
 
 interface CategoryItem {
@@ -16,7 +17,7 @@ interface CategoryItem {
 
 @Component({
   selector: 'app-category-search',
-  imports: [TableModule, CommonModule],
+  imports: [TableModule, CommonModule, Button],
   templateUrl: './category-search.component.html',
   styleUrl: './category-search.component.scss'
 })
