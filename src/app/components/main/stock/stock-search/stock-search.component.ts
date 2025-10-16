@@ -51,7 +51,6 @@ export class StockSearchComponent {
       { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
       { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
       { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
-      { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
       
     ];
 

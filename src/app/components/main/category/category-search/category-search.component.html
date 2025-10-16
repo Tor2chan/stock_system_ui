@@ -1,7 +1,8 @@
-<div class="max-w-6xl mx-auto bg-white rounded-lg shadow p-6 mt-0">
-  <h2 class="text-2xl font-bold mb-4">Category</h2>
+<div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg  p-6 mt-10 relative z-10 ">
 
-  <div class="flex justify-end gap-2 mb-4">
+<h2 class="text-2xl font-bold mb-4">Category</h2>
+
+  <div class="flex justify-end gap-2 mb-4 ">
     <p-button
       type="button"
       (click)="openPage('create')"
@@ -54,9 +55,8 @@
     
   </div>
   <div class="flex justify-end mt-4">
-    <button (click)="onBack()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold transition">
-            <i class="pi pi-arrow-left"></i>
-            Back to Stock
-        </button>
+    <p-button label="Back to Stock" icon="pi pi-arrow-left" styleClass="p-button-secondary" (onClick)=" onBack()">
+          
+       </p-button>
   </div>
 </div>
