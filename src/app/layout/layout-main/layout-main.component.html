@@ -1,67 +1,56 @@
+<!-- Layout Container -->
+<div class="layout-main min-h-screen flex flex-col bg-gray-100">
 
-<div class="layout-wrapper" [class.sidebar-collapsed]="sidebarCollapsed">
-    <!-- Sidebar -->
-     
-   <div class="layout-sidebar bg-gray-100 backdrop-blur-md border-r border-gray-200 shadow-lg min-h-screen w-64 flex flex-col transition-all duration-300">
-  
-  <!-- Logo Section -->
-<div class="sidebar-header border-b border-gray-200">
+  <!-- 🔝 Top Menubar -->
+  <div class="menubar-header flex items-center justify-between bg-gray-300 shadow-md px-6 py-3">
+
+    <!-- โลโก้หรือชื่อระบบ -->
+<div class="flex items-center gap-3 px-4 py-3 cursor-pointer select-none" routerLink="/stock-search">
   <div class="flex items-center gap-2">
-    <p-image [src]="'assets/imag/fff.png'" alt="Logo" class="w-12 h-12   "></p-image>
+    <i class="pi pi-box text-2xl text-primary"></i>
+    <span class="text-2xl font-bold text-gray-700 tracking-wide">EZ<span class="text-primary">Stock</span></span>
+  </div>
+</div>
+  
 
-    <!-- ชื่อ Brand จะซ่อนเมื่อ sidebar หุบ -->
-  <span *ngIf="!sidebarCollapsed"
-              class="text-2xl font-extrabold text-gray-800 tracking-wide transition-all duration-300 overflow-hidden">
-          EasyStock
-        </span>
-      </div>
-    </div>
+    <!-- ปุ่มด้านขวา -->
+    <div class="flex items-center gap-3">
+      <p-button
+        icon="pi pi-language"
+        rounded
+        text
+        pTooltip="Change Language"
+        tooltipPosition="bottom"
+        (click)="toggleLanguage()">
+      </p-button>
 
-    <!-- Menu Items -->
-    <ul class="layout-menu flex-1 mt-6 px-2">
-      <li *ngFor="let item of sidebarItems" class="mb-2">
-        <a [routerLink]="item.routerLink" 
-           routerLinkActive="bg-indigo-100 text-indigo-700"
-           class="flex items-center gap-4 px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
-       <i [class]="item.icon + ' text-lg'"></i>
+      <p-button
+        icon="pi pi-user"
+        rounded
+        text
+        pTooltip="User Profile"
+        tooltipPosition="bottom"
+        (click)="goToUser()">
+      </p-button>
 
-          <span *ngIf="!sidebarCollapsed" class="menu-label">{{item.label | translate}}</span>
-        </a>
-      </li>
-    </ul>
-
-    <!-- Footer / Logout -->
-    <div class="px-5 py-4 border-t border-gray-200">
-      <button class="w-full flex items-center gap-3 px-4 py-2 text-gray-700 rounded-lg hover:bg-red-50 hover:text-red-600 transition-all duration-200" (click)="goOutUser()" >
-        <i class="pi pi-sign-out text-lg"></i>
-        <span *ngIf="!sidebarCollapsed">Logout</span>
+      <p-button
+        icon="pi pi-sign-out"
         
-      </button>
-    </div>
-
-  </div>
-
-  <!-- Top Menubar -->
-  <div class="layout-main bg-gray-50 min-h-screen flex flex-col">
-    <div class="menubar-header p-menubar py-4 px-5 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200">
-      <div class="p-menubar p-component flex justify-between items-center w-full">
-        <!-- Toggle Sidebar -->
-        <p-button icon="pi pi-bars" (click)="toggleSidebar()" rounded styleClass="p-button-text text-gray-700 hover:text-indigo-600"></p-button>
-
-        <!-- Top Menu Buttons -->
-        <div class="flex gap-2">
-          <p-button icon="pi pi-language" (click)="toggleLanguage()" rounded styleClass="p-button-text text-gray-700 hover:text-indigo-600"></p-button>
-          <p-button icon="pi pi-user" rounded (click)="goToUser()" styleClass="p-button-text text-gray-700 hover:text-indigo-600"></p-button>
-           <p-button icon="pi pi-sign-out" rounded (click)="goOutUser()" styleClass="p-button-text text-gray-700 hover:text-indigo-600"></p-button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Outlet -->
-    <div class="flex-1 mt-3 px-5">
-      <router-outlet></router-outlet>
-      <app-footer></app-footer>
+        rounded
+        text
+        pTooltip="Logout"
+        tooltipPosition="bottom"
+        (click)="goOutUser()">
+      </p-button>
     </div>
   </div>
+
+  <!-- 📦 Main Content -->
+  <div class="flex-1 mt-2">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- ⚓ Footer -->
+  <app-footer></app-footer>
 
 </div>

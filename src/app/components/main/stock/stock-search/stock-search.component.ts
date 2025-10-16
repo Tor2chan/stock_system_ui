@@ -46,6 +46,13 @@ export class StockSearchComponent {
       { id: 1, name: 'Coke', code: '049-219-1', amount: 150, category: 'Food', price: '10000', date: '2025-10-08', expire: '2025-10-08', type: 'expense' },
       { id: 2, name: 'Pepsi', code: '049-219-2', amount: 3000, category: 'Salary', price: '20000', date: '2025-10-07', expire: '2025-10-07', type: 'income' },
       { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
+      { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
+      { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
+      { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
+      { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
+      { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
+      { id: 3, name: 'Fanta', code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
+      
     ];
 
     this.categories = Array.from(new Set(this.transactions.map(t => t.category)));

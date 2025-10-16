@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { Router } from '@angular/router'; 
 import { MenubarModule } from 'primeng/menubar';
-import { PrimeIcons } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
-import { NgFor } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FooterComponent } from '../footer/footer.component';
 import { ImageModule } from 'primeng/image';
@@ -22,7 +20,7 @@ import { ImageModule } from 'primeng/image';
     MenubarModule,
     SidebarModule,
     ButtonModule,
-    NgFor,
+  
     TranslateModule,
     FooterComponent,
     ImageModule
@@ -75,23 +73,11 @@ goOutUser() {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
 
-  sidebarItems = [
-    {
-      label: 'sidebar.stock',
-      icon: PrimeIcons.BOX,
-      routerLink: '/stock-search'
-    },
 
-
-    {
-      label: 'sidebar.settings',
-      icon: PrimeIcons.COG,
-      routerLink: '/settings'
-    },
  
     
 
-  ];
+
 
 }
 
