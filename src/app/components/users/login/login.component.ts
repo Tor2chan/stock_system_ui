@@ -8,7 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core'; 
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ImageModule } from 'primeng/image';
 
 @Component({
   selector: 'app-login',
@@ -22,13 +23,15 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     ButtonModule,
     InputGroupModule,
     InputGroupAddonModule,
-    TranslateModule 
+    TranslateModule,
+    ImageModule
+
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'] 
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  
+
   username = '';
   password = '';
   errorMessage = '';
@@ -37,11 +40,12 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private translateService: TranslateService
-    
+
   ) {
     const savedLang = localStorage.getItem('language') || 'en';
     this.translateService.setDefaultLang(savedLang);
-    this.translateService.use(savedLang);}
+    this.translateService.use(savedLang);
+  }
 
   async onSubmit() {
     this.errorMessage = '';
@@ -71,7 +75,7 @@ export class LoginComponent {
     this.router.navigate(['/app-register']);
   }
 
-   toggleLanguage() {
+  toggleLanguage() {
     const currentLang = this.translateService.currentLang;
     const newLang = currentLang === 'en' ? 'th' : 'en';
 
@@ -79,5 +83,5 @@ export class LoginComponent {
     window.location.reload();
   }
 
- 
+
 }

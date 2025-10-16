@@ -8,7 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MessageModule } from 'primeng/message';
 import { RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core'; 
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ImageModule } from 'primeng/image';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     ButtonModule,
     CardModule,
     MessageModule,
-    TranslateModule
+    TranslateModule,
+    ImageModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
@@ -36,11 +38,12 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private translateService: TranslateService
-        
-      ) {
-        const savedLang = localStorage.getItem('language') || 'en';
-        this.translateService.setDefaultLang(savedLang);
-        this.translateService.use(savedLang);}
+
+  ) {
+    const savedLang = localStorage.getItem('language') || 'en';
+    this.translateService.setDefaultLang(savedLang);
+    this.translateService.use(savedLang);
+  }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -68,7 +71,7 @@ export class RegisterComponent implements OnInit {
       console.log('Form Submitted!', this.registerForm.value);
       // **ส่วนนี้คือ Logic การส่งข้อมูลไปยัง API**
       // เช่น: this.authService.register(this.registerForm.value).subscribe(...)
-      
+
       this.successMessage = 'การลงทะเบียนเสร็จสมบูรณ์! กรุณาเข้าสู่ระบบ';
       // ตัวอย่างการนำทาง:
       // setTimeout(() => this.router.navigate(['/login']), 2000);
@@ -76,7 +79,7 @@ export class RegisterComponent implements OnInit {
     } else {
       this.errorMessage = 'กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง';
       // เพื่อให้แสดง error message ในฟอร์ม
-      this.registerForm.markAllAsTouched(); 
+      this.registerForm.markAllAsTouched();
     }
   }
 
