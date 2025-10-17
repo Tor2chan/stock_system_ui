@@ -42,7 +42,7 @@ export class LayoutMainComponent {
     const currentLang = this.translateService.currentLang;
     const newLang = currentLang === 'en' ? 'th' : 'en';
     localStorage.setItem('language', newLang);
-    window.location.reload();
+   
   }
 goOutUser() {
     this.router.navigate(['/login']);
