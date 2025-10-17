@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog'; // ✅ ใช้ DialogModule ไม่ใช่ Dialog
 import { ButtonModule } from 'primeng/button';
-import { MODE_PAGE } from '../../../../modules/common/common';
+import { MODE_PAGE } from '../../../../../modules/common/common';
 
 interface Transaction {
   id: number;
@@ -19,12 +19,13 @@ interface Transaction {
   type: 'income' | 'expense';
 }
 @Component({
-  selector: 'app-stock-search',
+  selector: 'app-stock-main-search',
   imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule],
-  templateUrl: './stock-search.component.html',
-  styleUrl: './stock-search.component.scss'
+standalone: true,
+  templateUrl: './stock-main-search.component.html',
+  styleUrl: './stock-main-search.component.scss'
 })
-export class StockSearchComponent {
+export class StockMainSearchComponent {
   transactions: Transaction[] = [];
   paginatedTransactions: Transaction[] = [];
   categories: string[] = [];
@@ -95,10 +96,11 @@ export class StockSearchComponent {
       sessionStorage.setItem('mode', page);
   
       if (page === 'create') {
-          this.router.navigate(['/stock-manage-create']);
+        console.log ("oooo")
+          this.router.navigate(['/stock-main-manage-create']);
       } else if (page === 'edit' && data?.id) {
   
-          this.router.navigate([`/stock-manage-edit/${(data.id)}`]);
+          this.router.navigate([`/stock-main-manage-edit/${(data.id)}`]);
   
       }
     }
@@ -141,7 +143,7 @@ export class StockSearchComponent {
   }
 
   onAdd() {
-    this.router.navigate(['/add-stock-create']); 
+    this.router.navigate(['/stock-main-manage']); 
   }
 }
 

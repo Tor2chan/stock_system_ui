@@ -9,16 +9,17 @@ import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { MODE_PAGE } from '../../../../modules/common/common';
+import { MODE_PAGE } from '../../../../../modules/common/common';
 
 @Component({
-  selector: 'app-stock-manage',
+  selector: 'app-stock-main-manage',
   imports: [ FormsModule, CardModule, InputTextModule, DropdownModule, InputNumberModule, CalendarModule, ButtonModule, ToastModule],
-  providers: [MessageService,],
-  templateUrl: './stock-manage.component.html',
-  styleUrl: './stock-manage.component.scss'
+standalone: true,
+
+  templateUrl: './stock-main-manage.component.html',
+  styleUrl: './stock-main-manage.component.scss'
 })
-export class StockManageComponent {
+export class StockMainManageComponent {
   stock = {
     name: '',
     code: '',
