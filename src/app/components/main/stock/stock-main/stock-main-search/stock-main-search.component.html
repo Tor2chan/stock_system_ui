@@ -48,14 +48,14 @@
      
         <ng-template pTemplate="header">
             <tr>
-                <th>No </th>
-                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-                <th pSortableColumn="code"> BatchCode <p-sortIcon field="code" /></th>
-                <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
-                <th>Category <!-- <i class="pi pi-pencil cursor-pointer text-green-500 ml-2 "  (click)="onManageCategory()"></i>--> </th>
-                <th pSortableColumn="price" >Price<p-sortIcon field="price" /></th>
-                <th>Rceived Date</th>
-                <th  style="text-align: center ">Expire</th>
+                <th style="text-align: center ">No </th>
+                <th pSortableColumn="name" style="text-align: center ">Name <p-sortIcon field="name" /></th>
+                <th style="text-align: center ">SKU</th>
+
+                <th pSortableColumn="code" style="text-align: center "> BatchCode <p-sortIcon field="code" /></th>
+                <th pSortableColumn="amount" style="text-align: center ">Amount <p-sortIcon field="amount" /></th>
+
+                <th style="text-align: center ">Category</th>
                 <th style="text-align: center ">Manage</th>
             </tr>
         </ng-template>
@@ -64,12 +64,11 @@
             <tr>
                 <td>{{ rowIndex + 1 }}</td>
                 <td>{{ item.name }}</td>
+                  <td>{{ item.sku }}</td>
                 <td>{{ item.code }}</td>
                 <td>{{ item.amount }}</td>
                 <td>{{ item.category }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.date }}</td>
-                <td>{{ item.expire }}</td>
+              
 
                 <td class="px-4 py-2 justify-center flex">
                     <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="openPage('edit', item)">

@@ -53,7 +53,7 @@ export class CategorySearchComponent implements OnInit{
     }
     
     onBack() {
-        this.router.navigate(['/stock-search']);
+        this.router.navigate(['/stock-main-search']);
     }
 
 }

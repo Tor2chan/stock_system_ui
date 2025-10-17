@@ -49,7 +49,7 @@ export class StockMainManageComponent {
       });
 
       setTimeout(() => {
-        this.router.navigate(['/stock-search']);
+        this.router.navigate(['/stock-main-search']);
       }, 1500);
     } else {
       this.messageService.add({
@@ -63,6 +63,6 @@ ngOnInit() {
       console.log('mode:', this.mode)
     }
   onCancel() {
-    this.router.navigate(['/stock-search']);
+    this.router.navigate(['/stock-main-search']);
   }
 }
