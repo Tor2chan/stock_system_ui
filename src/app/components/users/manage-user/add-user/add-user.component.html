@@ -1,0 +1,94 @@
+<div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
+ 
+
+ 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="flex flex-col">
+        <label for="name" class="font-semibold mb-2">{{ 'stockmainmanage.name' | translate }}</label>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          [(ngModel)]="stock.name"
+          name="name"
+          required
+          [placeholder]="'stockmainmanage.namePlaceholder' | translate"
+          class="w-full"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="code" class="font-semibold mb-2">{{ 'stockmainmanage.batchCode' | translate }}</label>
+        <input
+          id="code"
+          type="text"
+          pInputText
+          [(ngModel)]="stock.code"
+          name="code"
+          required
+          [placeholder]="'stockmainmanage.batchCodePlaceholder' | translate"
+          class="w-full"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="flex flex-col">
+        <label for="amount" class="font-semibold mb-2">{{ 'stockmainmanage.amount' | translate }}</label>
+        <p-inputNumber name="amount" inputId="amount" [min]="0" mode="decimal" required class="w-full"></p-inputNumber>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="price" class="font-semibold mb-2">{{ 'stockmainmanage.price' | translate }}</label>
+        <p-inputNumber name="price" inputId="price" mode="currency" currency="THB" locale="th-TH" class="w-full"></p-inputNumber>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="flex flex-col">
+        <label for="date" class="font-semibold mb-2">{{ 'stockmainmanage.receivedDate' | translate }}</label>
+        <p-datepicker
+          class="w-full"
+          [(ngModel)]="stock.date"
+          name="date"
+          dateFormat="yy-mm-dd"
+          showIcon="true"
+          [placeholder]="'stockmainmanage.selectDate' | translate"
+          [style]="{ width: '100%' }"
+        ></p-datepicker>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="expire" class="font-semibold mb-2">{{ 'stockmainmanage.expireDate' | translate }}</label>
+        <p-datepicker
+          [(ngModel)]="stock.expire"
+          name="expire"
+          dateFormat="yy-mm-dd"
+          showIcon="true"
+          [placeholder]="'stockmainmanage.selectExpireDate' | translate"
+          [style]="{ width: '100%' }"
+        ></p-datepicker>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="flex flex-col">
+        <label for="category" class="font-semibold mb-2">{{ 'stockmainmanage.category' | translate }}</label>
+        <select
+          id="category"
+          [(ngModel)]="stock.category"
+          name="category"
+          class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+        >
+          <option value="">{{ 'stockmainmanage.selectCategory' | translate }}</option>
+          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3 mt-6">
+      <p-button label="{{ 'common.cancel' | translate }}" icon="pi pi-times" styleClass="p-button-secondary" (onClick)="onCancel()"></p-button>
+      <p-button label="{{ 'common.save' | translate }}" icon="pi pi-check" type="submit"></p-button>
+    </div>
+  
+</div>
