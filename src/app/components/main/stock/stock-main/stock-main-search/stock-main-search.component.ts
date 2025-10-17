@@ -96,7 +96,6 @@ export class StockMainSearchComponent {
       sessionStorage.setItem('mode', page);
   
       if (page === 'create') {
-        console.log ("oooo")
           this.router.navigate(['/stock-main-manage-create']);
       } else if (page === 'edit' && data?.id) {
   

@@ -5,17 +5,18 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MODE_PAGE } from '../../../../../modules/common/common';
+import { CommonModule } from '@angular/common';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-stock-main-manage',
-  imports: [ FormsModule, CardModule, InputTextModule, DropdownModule, InputNumberModule, CalendarModule, ButtonModule, ToastModule],
-standalone: true,
-
+  imports: [ FormsModule, CardModule,CommonModule, InputTextModule, DropdownModule, InputNumberModule, DatePicker, ButtonModule, ToastModule],
+  providers: [MessageService],
+  standalone: true,
   templateUrl: './stock-main-manage.component.html',
   styleUrl: './stock-main-manage.component.scss'
 })
@@ -40,7 +41,6 @@ export class StockMainManageComponent {
 
   onSubmit() {
     if (this.stock.name && this.stock.code && this.stock.category) {
-      console.log('✅ Stock added:', this.stock);
 
       this.messageService.add({
         severity: 'success',
