@@ -7,7 +7,6 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ImageModule } from 'primeng/image';
 
@@ -19,7 +18,6 @@ import { ImageModule } from 'primeng/image';
     FormsModule,
     InputTextModule,
     PasswordModule,
-    RouterLink,
     ButtonModule,
     InputGroupModule,
     InputGroupAddonModule,
