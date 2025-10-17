@@ -7,15 +7,10 @@ import { StockMainSearchComponent } from './components/main/stock/stock-main/sto
 import { CategoryManageComponent } from './components/main/category/category-manage/category-manage.component';
 import { CategorySearchComponent } from './components/main/category/category-search/category-search.component';
 import { LoginComponent } from './components/users/login/login.component';
-import { RegisterComponent } from './components/users/register/register.component';
-import { ForgotPasswordComponent } from './components/users/forgot-password/forgot-password.component';
-import { UserComponent } from './components/users/user/user.component';
-
+import { AddUserComponent } from './components/users/manage-user/add-user/add-user.component';
+import { EditUserComponent } from './components/users/manage-user/edit-user/edit-user.component';
 export const routes: Routes = [
-   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'app-register', component: RegisterComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
 
 
   {
@@ -28,7 +23,6 @@ export const routes: Routes = [
       { path: 'category-search', component: CategorySearchComponent },
       { path: 'category-create', component: CategoryManageComponent },
       { path: 'category-edit/:id', component: CategoryManageComponent },
-      { path: 'user', component: UserComponent },
       { path: 'stock-main-search',component:StockMainSearchComponent},
       { path: 'stock-main-manage-create',component:StockMainManageComponent},
       { path: 'stock-main-manage-edit/:id',component:StockMainManageComponent},
@@ -36,6 +30,8 @@ export const routes: Routes = [
       { path: 'stock-detail-search',component:StockDetailSearchComponent},
      { path: 'stock-detail-manage-create',component:StockMainManageComponent},
       { path: 'stock-detail-manage-edit/:id',component:StockMainManageComponent},
+      {path: 'add-user',component:AddUserComponent},
+      {path: 'edit-user',component:EditUserComponent}
 
 
 
@@ -43,6 +39,6 @@ export const routes: Routes = [
 
     ]
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'login' }
 ];
 

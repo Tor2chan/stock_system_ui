@@ -73,27 +73,17 @@
       <!-- Buttons -->
       <div class="flex flex-col items-center gap-3 w-full max-w-xs">
         <!-- ปุ่ม Login -->
-          <p-button (click)="onSubmit()"
-            class="px-4 py-2 font-semibold transition gap-2 ml-2">
-            <i class="pi pi-search"></i>
-            Login
+           <p-button (click)="onSubmit() "[disabled]="isLoading"
+            class="px-4 py-2 font-semibold transition gap-2 ml-2 ">
+             {{ isLoading ? ('login.loggingIn' | translate) : ('login.login' | translate) }}
             </p-button>
-        <!-- ปุ่ม Sign Up -->
-         <p-button (click) =" goToRegister()"
-            class="px-4 py-2 font-semibold transition gap-2 ml-2">
-            <i class="pi pi-search"></i>
-            Sing Up
-            </p-button>
+             
+
       </div>
 
 
       <!-- Forgot Password -->
-      <div class="mt-4 text-center">
-        <a routerLink="/forgot-password"
-          class="text-gray-600 text-sm hover:underline hover:text-gray-700 transition-all duration-300 font-light">
-          {{ 'login.forgot' | translate }}
-        </a>
-      </div>
+    
     </form>
   </div>
 </div>

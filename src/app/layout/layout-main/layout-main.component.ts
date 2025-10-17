@@ -43,14 +43,13 @@ export class LayoutMainComponent {
     const newLang = currentLang === 'en' ? 'th' : 'en';
     localStorage.setItem('language', newLang);
     window.location.reload();
-   
   }
 goOutUser() {
     this.router.navigate(['/login']);
   }
 
-  goToUser() {
-    this.router.navigate(['/user']);
+  goToManageUser() {
+    this.router.navigate(['/edit-user']);
   }
 
   @HostListener('window:resize', ['$event'])

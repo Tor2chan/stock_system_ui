@@ -71,9 +71,7 @@ export class LoginComponent {
     this.isLoading = false;
   }
 
-  goToRegister() {
-    this.router.navigate(['/app-register']);
-  }
+ 
 
   toggleLanguage() {
     const currentLang = this.translateService.currentLang;
