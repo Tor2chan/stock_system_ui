@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MODE_PAGE } from '../../../../modules/common/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Button } from 'primeng/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 interface CategoryItem {
@@ -17,7 +18,7 @@ interface CategoryItem {
 
 @Component({
   selector: 'app-category-search',
-  imports: [TableModule, CommonModule, Button],
+  imports: [TableModule, CommonModule, Button, TranslateModule],
   templateUrl: './category-search.component.html',
   styleUrl: './category-search.component.scss'
 })

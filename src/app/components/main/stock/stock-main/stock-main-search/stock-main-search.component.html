@@ -1,112 +1,131 @@
-  <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
-    <h2 class="text-2xl font-bold mb-4">Stock</h2>
+<div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
+  <h2 class="text-2xl font-bold mb-4">{{ 'stockmainsearch.title' | translate }}</h2>
 
-    <!-- Filters -->
-    <div class="flex items-center gap-2 mb-4">
+  <!-- Filters -->
+  <div class="flex items-center gap-2 mb-4">
+    <input
+      type="text"
+      pInputText
+      placeholder="{{ 'stockmainsearch.searchPlaceholder' | translate }}"
+      (input)="onSearch()"
+      class="px-4 py-2 rounded-lg border w-64"
+    />
 
-         <input type="text" pInputText placeholder="Search by name or code" (input)="onSearch()"
-            class="px-4 py-2 rounded-lg border w-64" />
-      
-        <!-- <button (click)="filterType('all')" [ngClass]="{'bg-blue-500 text-white': selectedFilter==='all'}"
-            class="px-4 py-2 bg-gray-200 rounded-lg font-semibold transition">
-            All
-        </button> -->
+    <select [(ngModel)]="filterCategory" (change)="filterByCategory()" class="px-4 py-2 rounded-lg border">
+      <option value="">{{ 'stockmainsearch.filterByCategory' | translate }}</option>
+      <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+    </select>
 
-        <select [(ngModel)]="filterCategory" (change)="filterByCategory()" class="px-4 py-2 rounded-lg border">
-            <option value="">Filter by Category</option>
-            <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
-        </select>
-            <p-button (click)="onSearch()"
-            class="px-4 py-2 font-semibold transition gap-2 ml-2">
-            <i class="pi pi-search"></i>
-            Search
-            </p-button>
+    <p-button (click)="onSearch()" class="px-4 py-2 font-semibold transition gap-2 ml-2">
+      <i class="pi pi-search"></i>
+      {{ 'stockmainsearch.search' | translate }}
+    </p-button>
 
-        <!-- ใช้ flex-grow เพื่อดันปุ่ม Add ไปขวาสุด -->
-        <div class="flex-grow"></div>
+    <!-- ใช้ flex-grow เพื่อดันปุ่ม Add ไปขวาสุด -->
+    <div class="flex-grow"></div>
 
-             <p-button (click)="onManageCategory()" class="px-4 py-2 font-semibold transition">
-                <i class="pi pi-plus"></i>
-                Category
-            </p-button>
-            <p-button (click)="openPage('create')" class="px-4 py-2 font-semibold transition">
-                <i class="pi pi-plus"></i>
-                Stock
-            </p-button>
-    </div>
+    <p-button (click)="onManageCategory()" class="px-4 py-2 font-semibold transition">
+      <i class="pi pi-plus"></i>
+      {{ 'stockmainsearch.category' | translate }}
+    </p-button>
 
-    <p-table 
-    [value]="transactions" 
-    showGridlines="true" 
-    [paginator]="true" 
-     [globalFilterFields]="['name', 'code', 'amount','price']" 
-       
+    <p-button (click)="openPage('create')" class="px-4 py-2 font-semibold transition">
+      <i class="pi pi-plus"></i>
+      {{ 'stockmainsearch.addStock' | translate }}
+    </p-button>
+  </div>
+
+  <!-- Table -->
+  <p-table
+    [value]="transactions"
+    showGridlines="true"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'code', 'amount','price']"
     [rows]="5"
-        [tableStyle]="{ 'min-width': '50rem' }" 
-        [rowsPerPageOptions]="[5, 10, 20]">
-     
-     
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="text-align: center ">No </th>
-                <th pSortableColumn="name" style="text-align: center ">Name <p-sortIcon field="name" /></th>
-                <th style="text-align: center ">SKU</th>
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="text-align: center">No</th>
+        <th pSortableColumn="name" style="text-align: center">
+          {{ 'stockmainsearch.name' | translate }}
+          <p-sortIcon field="name" />
+        </th>
+        <th style="text-align: center">{{ 'stockmainsearch.sku' | translate }}</th>
+        <th pSortableColumn="code" style="text-align: center">
+          {{ 'stockmainsearch.batchCode' | translate }}
+          <p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="amount" style="text-align: center">
+          {{ 'stockmainsearch.amount' | translate }}
+          <p-sortIcon field="amount" />
+        </th>
+        <th style="text-align: center">{{ 'stockmainsearch.category' | translate }}</th>
+        <th style="text-align: center">{{ 'stockmainsearch.manage' | translate }}</th>
+      </tr>
+    </ng-template>
 
-                <th pSortableColumn="code" style="text-align: center "> BatchCode <p-sortIcon field="code" /></th>
-                <th pSortableColumn="amount" style="text-align: center ">Amount <p-sortIcon field="amount" /></th>
-
-                <th style="text-align: center ">Category</th>
-                <th style="text-align: center ">Manage</th>
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
-            <tr>
-                <td>{{ rowIndex + 1 }}</td>
-                <td>{{ item.name }}</td>
-                  <td>{{ item.sku }}</td>
-                <td>{{ item.code }}</td>
-                <td>{{ item.amount }}</td>
-                <td>{{ item.category }}</td>
-              
-
-                <td class="px-4 py-2 justify-center flex">
-                    <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="openPage('edit', item)">
-                        <i class="pi pi-pencil"></i>
-                    </button>
-                    <button class="text-red-500 hover:text-red-700 mr-2" (click)="deleteTransaction(item.id)">
-                        <i class="pi pi-trash"></i>
-                    </button>
-                       <button class="text-yellow-400 hover:text-yellow-700" (click)="onOpenEdit(item)">
-                        <i class="pi pi-shopping-cart"></i>
-                    </button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
+    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ rowIndex + 1 }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.sku }}</td>
+        <td>{{ item.code }}</td>
+        <td>{{ item.amount }}</td>
+        <td>{{ item.category }}</td>
+        <td class="px-4 py-2 justify-center flex">
+          <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="openPage('edit', item)">
+            <i class="pi pi-pencil"></i>
+          </button>
+          <button class="text-red-500 hover:text-red-700 mr-2" (click)="deleteTransaction(item.id)">
+            <i class="pi pi-trash"></i>
+          </button>
+          <button class="text-yellow-400 hover:text-yellow-700" (click)="onOpenEdit(item)">
+            <i class="pi pi-shopping-cart"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
 
-<p-dialog [(visible)]="visibleEdit" [modal]="true"
-    [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
-    [contentStyle]="{ height: '100%', overflow: 'hidden' }" [draggable]="false" [resizable]="false">
+<!-- Dialog -->
+<p-dialog
+  [(visible)]="visibleEdit"
+  [modal]="true"
+  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
+  [contentStyle]="{ height: '100%', overflow: 'hidden' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="text-center">
+    <div><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
+    <div class="mt-4">{{ 'stockmainsearch.addToCart' | translate }}</div>
+  </div>
 
-    <div class="text-center">
-        <div class=""><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
-        <div class="mt-4">Add to Cart</div>
-    </div>
-    <div>
+  <div>
+    <input
+      type="text"
+      pInputText
+      placeholder="{{ 'stockmainsearch.amount' | translate }}"
+      class="px-4 py-2 rounded-lg border w-full"
+    />
+  </div>
 
-          <input type="text" pInputText placeholder="Amount" (input)="onSearch()"
-            class="px-4 py-2 rounded-lg border w-full" />
-    </div>
+  <div class="text-center mt-4">
+    <p-button
+      [label]="'stockmainsearch.cancel' | translate"
+      icon="pi pi-times"
+      styleClass="p-button-secondary p-button-sm"
+      size="small"
+      (onClick)="onCloseEdit()"
+    ></p-button>
 
-    <div class="text-center mt-4">
-        <p-button [label]="'ยกเลิก'" icon="pi pi-times" styleClass="p-button-secondary p-button-sm " size="small"
-            (onClick)="onCloseEdit()">
-        </p-button>
-
-        <p-button [label]="'ยืนยัน'" size="small" (onClick)="onConfirmEdit()">
-        </p-button>
-    </div>
+    <p-button
+      [label]="'stockmainsearch.confirm' | translate"
+      size="small"
+      (onClick)="onConfirmEdit()"
+    ></p-button>
+  </div>
 </p-dialog>

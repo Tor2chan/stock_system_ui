@@ -11,10 +11,12 @@ import { MessageService } from 'primeng/api';
 import { MODE_PAGE } from '../../../../../modules/common/common';
 import { CommonModule } from '@angular/common';
 import { DatePicker } from 'primeng/datepicker';
+import { TranslateModule} from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-stock-main-manage',
-  imports: [ FormsModule, CardModule,CommonModule, InputTextModule, DropdownModule, InputNumberModule, DatePicker, ButtonModule, ToastModule],
+  imports: [ FormsModule, CardModule,CommonModule, InputTextModule, DropdownModule, InputNumberModule, DatePicker, ButtonModule, ToastModule,TranslateModule],
   providers: [MessageService],
   standalone: true,
   templateUrl: './stock-main-manage.component.html',

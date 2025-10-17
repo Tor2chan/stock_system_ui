@@ -1,62 +1,63 @@
-<div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg  p-6 mt-10 relative z-10 ">
+<div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
 
-<h2 class="text-2xl font-bold mb-4">Category</h2>
+  <h2 class="text-2xl font-bold mb-4">{{ 'categorysearch.title' | translate }}</h2>
 
-  <div class="flex justify-end gap-2 mb-4 ">
+  <div class="flex justify-end gap-2 mb-4">
     <p-button
       type="button"
       (click)="openPage('create')"
       class="px-4 py-2 font-semibold transition"
-    >
-      create
-    </p-button> 
+      [label]="'categorysearch.create' | translate"
+    ></p-button>
   </div>
 
   <div class="card">
     <p-table
       [value]="items"
       showGridlines="true"
-      [tableStyle]="{ 'min width': '50rem' }"
-    > 
-      <ng-template #header>
+      [tableStyle]="{ 'min-width': '50rem' }"
+    >
+      <ng-template pTemplate="header">
         <tr>
-          <th style="text-align: center ;width: 10%;">ลำดับ</th>
-          <th style="text-align: center ;width: 15%;">code</th>
-          <th style="text-align: center ;width: 40%;">Catetory</th>
-          <th style="text-align: center ;width:20%" >สถานะการใช้งาน</th>
-          <th style="text-align: center ;width: 15%;">แก้ไข</th>
+          <th style="text-align: center; width: 10%;">{{ 'categorysearch.no' | translate }}</th>
+          <th style="text-align: center; width: 15%;">{{ 'categorysearch.code' | translate }}</th>
+          <th style="text-align: center; width: 40%;">{{ 'categorysearch.name' | translate }}</th>
+          <th style="text-align: center; width: 20%;">{{ 'categorysearch.status' | translate }}</th>
+          <th style="text-align: center; width: 15%;">{{ 'categorysearch.edit' | translate }}</th>
         </tr>
       </ng-template>
-      <ng-template #body let-item>
+
+      <ng-template pTemplate="body" let-item>
         <tr>
-          <td   style="text-align: center">{{ item.rowNum }}</td>
-          <td   style="text-align: center">{{ item.code }}</td>
+          <td style="text-align: center">{{ item.rowNum }}</td>
+          <td style="text-align: center">{{ item.code }}</td>
           <td>{{ item.name }}</td>
-          <td
-            class="justify-center text-center items-center"
-            style="text-align: center"
-          >
-            <span *ngIf="item.avtive">
+          <td class="justify-center text-center items-center" style="text-align: center">
+            <span *ngIf="item.active">
               <i class="pi pi-check text-green-500"></i>
             </span>
-            <span *ngIf="!item.avtive">
-                <i class="pi pi-times text-red-500"></i>
+            <span *ngIf="!item.active">
+              <i class="pi pi-times text-red-500"></i>
             </span>
           </td>
-          <td   style="text-align: center">
+          <td style="text-align: center">
             <i
               (click)="openPage('edit', item)"
               class="pi pi-pencil cursor-pointer"
+              [title]="'categorysearch.edit' | translate"
             ></i>
           </td>
         </tr>
       </ng-template>
     </p-table>
-    
   </div>
+
   <div class="flex justify-end mt-4">
-    <p-button label="Back to Stock" icon="pi pi-arrow-left" styleClass="p-button-secondary" (onClick)=" onBack()">
-          
-       </p-button>
+    <p-button
+      [label]="'categorysearch.backToStock' | translate"
+      icon="pi pi-arrow-left"
+      styleClass="p-button-secondary"
+      (onClick)="onBack()"
+    ></p-button>
   </div>
 </div>
