@@ -88,4 +88,7 @@ export class EditUserComponent {
       return 0;
     });
   }
+  goback() {
+    this.router.navigate(['/stock-main-search']); 
+  }
 }

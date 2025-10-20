@@ -6,6 +6,8 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog'; // ✅ ใช้ DialogModule ไม่ใช่ Dialog
 import { ButtonModule } from 'primeng/button';
 import { MODE_PAGE } from '../../../../../modules/common/common';
+import { TranslateModule} from '@ngx-translate/core';
+
 interface Transaction {
   id: number;
   name: string;
@@ -20,7 +22,7 @@ interface Transaction {
 
 @Component({
   selector: 'app-stock-detail-search',
-  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule],
+  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule],
   templateUrl: './stock-detail-search.component.html',
   styleUrl: './stock-detail-search.component.scss'
 })

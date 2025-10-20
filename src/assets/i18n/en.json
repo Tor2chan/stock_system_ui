@@ -1,5 +1,4 @@
 {
-  
   "login": {
     "welcome": "Welcome",
     "slogan": "Complete stock\ncomplete every business",
@@ -10,9 +9,6 @@
     "signUp": "Sign Up",
     "forgot": "Forgot your password?"
   },
-
-  
-  
   "stockmainsearch": {
     "title": "Stock",
     "searchPlaceholder": "Search by name or code",
@@ -34,7 +30,6 @@
     "add": "Add Product",
     "edit": "Edit Product",
     "name": "Name",
-   
     "sku": "SKU",
     "skuPlaceholder": "Enter SKU",
     "namePlaceholder": "Enter product name",
@@ -49,7 +44,6 @@
     "selectDate": "Select date",
     "selectExpireDate": "Select expire date"
   },
-  
   "categorysearch": {
     "title": "Category",
     "create": "Create",
@@ -57,8 +51,7 @@
     "code": "Code",
     "name": "Category Name",
     "status": "Active Status",
-    "edit": "Edit",
-    "backToStock": "Back to Stock"
+    "edit": "Edit"
   },
   "categorymanage": {
     "add": "Add Category",
@@ -70,14 +63,10 @@
       "category": "Enter product category",
       "code": "Enter category code"
     }
-},
+  },
   "common": {
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "backToStock": "Back to Stock"
   }
-
-
-
-
-
 }
