@@ -45,7 +45,7 @@
         </label>
         <div
           class="relative w-full border border-gray-300 rounded-xl overflow-hidden hover:border-indigo-400 transition duration-300">
-          <input pInputText [(ngModel)]="username" name="username" placeholder="{{ 'login.username' | translate }}"
+          <input pInputText [(ngModel)]="username" name="username" placeholder="{{ 'login.username' | translate }}" (keyup.enter)="onSubmit()"
             class="w-full bg-white text-gray-900 placeholder-gray-500 border-none outline-none px-4 py-3"
             style="color-scheme: light;" />
         </div>
@@ -58,7 +58,7 @@
         </label>
         <div
           class="relative w-full border border-gray-300 rounded-xl overflow-hidden hover:border-indigo-400 transition duration-300">
-          <p-password [(ngModel)]="password" name="password" [feedback]="false" [toggleMask]="true"
+          <p-password [(ngModel)]="password" name="password" [feedback]="false" [toggleMask]="true" (keyup.enter)="onSubmit()"
             placeholder="{{ 'login.password' | translate }}"
             inputStyleClass="w-full bg-white text-gray-900 placeholder-gray-500 border-none outline-none px-4 py-3"
             styleClass="w-full border-none"></p-password>

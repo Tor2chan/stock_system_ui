@@ -10,15 +10,16 @@ import { LoginComponent } from './components/users/login/login.component';
 import { AddUserComponent } from './components/users/manage-user/add-user/add-user.component';
 import { EditUserComponent } from './components/users/manage-user/edit-user/edit-user.component';
 export const routes: Routes = [
+ 
   { path: 'login', component: LoginComponent },
-
+{path: '', redirectTo: 'login', pathMatch: 'full' }, 
 
   {
     path: '', component: LayoutMainComponent,
     children: [
      
 
-    
+   
     
       { path: 'category-search', component: CategorySearchComponent },
       { path: 'category-create', component: CategoryManageComponent },
