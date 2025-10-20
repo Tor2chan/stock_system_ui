@@ -8,50 +8,50 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { MODE_PAGE } from '../../../../modules/common/common';
 import { CommonModule } from '@angular/common';
-import { DatePicker } from 'primeng/datepicker';
-import { TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { MODE_PAGE } from '../../../../modules/common/common';
 
 
 @Component({
   selector: 'app-add-user',
-    imports: [ FormsModule, CardModule,CommonModule, InputTextModule, DropdownModule, InputNumberModule, DatePicker, ButtonModule, ToastModule,TranslateModule],
+  imports: [FormsModule, CardModule, CommonModule, InputTextModule, DropdownModule, InputNumberModule, ButtonModule, ToastModule, TranslateModule, InputSwitchModule],
   providers: [MessageService],
   standalone: true,
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'
 })
-export class AddUserComponent  {
+export class AddUserComponent {
   stock = {
     name: '',
-    code: '',
-    amount: 0,
-    category: '',
-    price: 0,
-    date: null,
-  
-    expire: null
+    username: '',
+    password: '',
+    role: '',
+    status: true // ใช้ boolean สำหรับ p-inputSwitch
   };
+
   mode: MODE_PAGE;
-  categories = ['Food', 'Drink', 'Medicine', 'Cosmetic'];
 
   constructor(
     private router: Router,
     private messageService: MessageService
-  ) {  this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';}
+  ) {
+    this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'create';
+  }
+
+
+
 
   onSubmit() {
-    if (this.stock.name && this.stock.code && this.stock.category) {
-
+    if (this.stock.name && this.stock.username && this.stock.password && this.stock.role) {
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
-        detail: 'Stock added successfully'
+        detail: 'User added successfully'
       });
-
       setTimeout(() => {
-        this.router.navigate(['/stock-main-search']);
+        this.router.navigate(['/edit-user']);
       }, 1500);
     } else {
       this.messageService.add({
@@ -61,9 +61,7 @@ export class AddUserComponent  {
       });
     }
   }
-ngOnInit() {
-      console.log('mode:', this.mode)
-    }
+
   onCancel() {
     this.router.navigate(['/edit-user']);
   }
