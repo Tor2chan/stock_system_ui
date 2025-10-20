@@ -135,16 +135,21 @@ export class StockMainSearchComponent {
     this.visibleEdit = true;
   }
 
-  onCloseEdit() {
+  onCloseDelete() {
     this.visibleEdit = false;
   }
 
-  onConfirmEdit() {
-    // TODO: Implement update logic
-  }
 
-  onAdd() {
-    this.router.navigate(['/stock-main-manage']); 
+
+ 
+  ondetail() {
+    this.router.navigate(['/stock-detail-search']); 
   }
+ onDelete(id: number) {
+    this.visibleEdit = true;
+  }
+ onDeleteConfirm() {
+   
+ }
 }
 

@@ -31,7 +31,7 @@
 
     <p-button (click)="openPage('create')" class="px-4 py-2 font-semibold transition">
       <i class="pi pi-plus"></i>
-      {{ 'stockmainsearch.addStock' | translate }}
+      {{ 'stockmainsearch.product' | translate }}
     </p-button>
   </div>
 
@@ -53,10 +53,7 @@
           <p-sortIcon field="name" />
         </th>
         <th style="text-align: center">{{ 'stockmainsearch.sku' | translate }}</th>
-        <th pSortableColumn="code" style="text-align: center">
-          {{ 'stockmainsearch.batchCode' | translate }}
-          <p-sortIcon field="code" />
-        </th>
+        
         <th pSortableColumn="amount" style="text-align: center">
           {{ 'stockmainsearch.amount' | translate }}
           <p-sortIcon field="amount" />
@@ -71,61 +68,45 @@
         <td>{{ rowIndex + 1 }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.sku }}</td>
-        <td>{{ item.code }}</td>
-        <td>{{ item.amount }}</td>
+   
+        <td>{{ item.amount  }}</td>
         <td>{{ item.category }}</td>
         <td class="px-4 py-2 justify-center flex">
-          <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="openPage('edit', item)">
-            <i class="pi pi-pencil"></i>
-          </button>
-          <button class="text-red-500 hover:text-red-700 mr-2" (click)="deleteTransaction(item.id)">
-            <i class="pi pi-trash"></i>
-          </button>
-          <button class="text-yellow-400 hover:text-yellow-700" (click)="onOpenEdit(item)">
-            <i class="pi pi-shopping-cart"></i>
+              <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="openPage('edit', item)">
+                        <i class="pi pi-pencil"></i>
+                    </button>
+                    <button class="text-red-500 hover:text-red-700 mr-2" (click)="onDelete(item)">
+                        <i class="pi pi-trash"></i>
+                    </button>
+          
+     
+          <button class="text-yellow-400 hover:text-yellow-700" (click)="ondetail()">
+            <i class="pi pi-info-circle"></i>
           </button>
         </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
+<p-dialog [(visible)]="visibleEdit" [modal]="true"
+    [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
+    [contentStyle]="{ height: '100%', overflow: 'hidden' }" [draggable]="false" [resizable]="false">
 
-<!-- Dialog -->
-<p-dialog
-  [(visible)]="visibleEdit"
-  [modal]="true"
-  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
-  [contentStyle]="{ height: '100%', overflow: 'hidden' }"
-  [draggable]="false"
-  [resizable]="false"
->
-  <div class="text-center">
-    <div><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
-    <div class="mt-4">{{ 'stockmainsearch.addToCart' | translate }}</div>
-  </div>
+    <div class="text-center">
+        <div class=""><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
+        <div class="mt-4">ลบข้อมูล</div>
+    </div>
+  
 
-  <div>
-    <input
-      type="text"
-      pInputText
-      placeholder="{{ 'stockmainsearch.amount' | translate }}"
-      class="px-4 py-2 rounded-lg border w-full"
-    />
-  </div>
+    <div class="text-center mt-4 space-x-4">
+        <p-button [label]="'ยกเลิก'" icon="pi pi-times" styleClass="p-button-secondary p-button-sm " size="small" 
+            (onClick)="onCloseDelete()">
+        </p-button>
 
-  <div class="text-center mt-4">
-    <p-button
-      [label]="'stockmainsearch.cancel' | translate"
-      icon="pi pi-times"
-      styleClass="p-button-secondary p-button-sm"
-      size="small"
-      (onClick)="onCloseEdit()"
-    ></p-button>
-
-    <p-button
-      [label]="'stockmainsearch.confirm' | translate"
-      size="small"
-      (onClick)="onConfirmEdit()"
-    ></p-button>
-  </div>
+        <p-button [label]="'ยืนยัน'" size="small" (onClick)="onDeleteConfirm()">
+         
+        </p-button>
+    </div>
 </p-dialog>
+
+

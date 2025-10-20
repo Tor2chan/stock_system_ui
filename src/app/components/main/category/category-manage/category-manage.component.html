@@ -10,14 +10,13 @@
       </label>
       <input
         id="category-name"
-        type="text"
+     
         pInputText
         [(ngModel)]="categoryItem.name"
         name="category"
         required
         [placeholder]="'categorymanage.placeholder.category' | translate"
-        class="px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out w-full shadow-sm"
-      />
+     >
     </div>
 
     <div class="flex flex-col col-span-4">
@@ -26,13 +25,12 @@
       </label>
       <input
         id="category-code"
-        type="text"
+      
         pInputText
         [(ngModel)]="categoryItem.code"
         name="code"
         required
         [placeholder]="'categorymanage.placeholder.code' | translate"
-        class="px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out w-full shadow-sm"
       />
     </div>
 

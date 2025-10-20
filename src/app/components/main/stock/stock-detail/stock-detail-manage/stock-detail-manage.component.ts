@@ -61,7 +61,7 @@ ngOnInit() {
       console.log('mode:', this.mode)
     }
   onCancel() {
-    this.router.navigate(['/stock-main-search']);
+    this.router.navigate(['/stock-detail-search']);
   }
 }
 

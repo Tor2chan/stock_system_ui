@@ -143,6 +143,9 @@ export class StockDetailSearchComponent {
   onAdd() {
     this.router.navigate(['/stock-detail-manage']); 
   }
+  goback() {
+    this.router.navigate(['/stock-main-search']); 
+  }
 }
 
 

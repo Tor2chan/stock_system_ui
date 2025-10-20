@@ -10,13 +10,13 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MODE_PAGE } from '../../../../../modules/common/common';
 import { CommonModule } from '@angular/common';
-import { DatePicker } from 'primeng/datepicker';
+
 import { TranslateModule} from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-stock-main-manage',
-  imports: [ FormsModule, CardModule,CommonModule, InputTextModule, DropdownModule, InputNumberModule, DatePicker, ButtonModule, ToastModule,TranslateModule],
+  imports: [ FormsModule, CardModule,CommonModule, InputTextModule, DropdownModule, InputNumberModule,  ButtonModule, ToastModule,TranslateModule],
   providers: [MessageService],
   standalone: true,
   templateUrl: './stock-main-manage.component.html',
@@ -25,13 +25,9 @@ import { TranslateModule} from '@ngx-translate/core';
 export class StockMainManageComponent {
   stock = {
     name: '',
-    code: '',
-    amount: 0,
-    category: '',
-    price: 0,
-    date: null,
+    sku: '',
+    category: ''
   
-    expire: null
   };
   mode: MODE_PAGE;
   categories = ['Food', 'Drink', 'Medicine', 'Cosmetic'];
@@ -42,7 +38,7 @@ export class StockMainManageComponent {
   ) {  this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';}
 
   onSubmit() {
-    if (this.stock.name && this.stock.code && this.stock.category) {
+    if (this.stock.name && this.stock.sku && this.stock.category) {
 
       this.messageService.add({
         severity: 'success',

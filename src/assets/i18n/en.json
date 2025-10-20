@@ -11,50 +11,7 @@
     "forgot": "Forgot your password?"
   },
 
-  "forgotPassword": {
-    "title": "Forgot Password?",
-    "description": "Please enter your email address to receive a password reset link.",
-    "emailLabel": "Email",
-    "emailPlaceholder": "email@example.com",
-    "emailRequired": "Please enter your email",
-    "emailInvalid": "Invalid email format",
-    "sendButton": "Send Reset Link →",
-    "backToLogin": "← Back to Login"
-  },
-  "forgot": {
-    "title": "Forgot Password?",
-    "description": "Please enter your email address to receive a password reset link.",
-    "emailLabel": "Email",
-    "emailPlaceholder": "email@example.com",
-    "errorRequired": "Please enter your email",
-    "errorInvalidEmail": "Invalid email format",
-    "sendLink": "Send Reset Link →",
-    "backToLogin": "Back to Login"
-  },
-   "register": {
-    "title": "Register",
-    "description": "Create a new account to start your experience",
-    "usernameLabel": "Username",
-    "usernamePlaceholder": "Enter username (min 4 chars)",
-    "usernameRequired": "Username is required",
-    "usernameMin": "Username must be at least 4 characters",
-    "emailLabel": "Email",
-    "emailPlaceholder": "email@example.com",
-    "emailRequired": "Email is required",
-    "emailInvalid": "Invalid email format",
-    "passwordLabel": "Password",
-    "passwordPlaceholder": "Enter password (min 6 chars)",
-    "passwordRequired": "Password is required",
-    "passwordMin": "Password must be at least 6 characters",
-    "confirmPasswordLabel": "Confirm Password",
-    "confirmPasswordPlaceholder": "Confirm your password",
-    "confirmPasswordRequired": "Please confirm your password",
-    "passwordMismatch": "Passwords do not match",
-    "submitButton": "Register",
-    "alreadyMember": "Already a member?",
-    "login": "Login",
-    "forgotPassword": "Forgot Password?"
-  },
+  
   
   "stockmainsearch": {
     "title": "Stock",
@@ -63,6 +20,7 @@
     "search": "Search",
     "category": "Category",
     "addStock": "Add Stock",
+    "product": "Product",
     "name": "Name",
     "sku": "SKU",
     "batchCode": "Batch Code",
@@ -73,9 +31,12 @@
     "confirm": "Confirm"
   },
   "stockmainmanage": {
-    "add": "Add Stock",
-    "edit": "Edit Stock",
+    "add": "Add Product",
+    "edit": "Edit Product",
     "name": "Name",
+   
+    "sku": "SKU",
+    "skuPlaceholder": "Enter SKU",
     "namePlaceholder": "Enter product name",
     "batchCode": "Batch Code",
     "batchCodePlaceholder": "Enter batch code",

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ToggleSwitch } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { InputTextModule } from 'primeng/inputtext';
 
 interface CategoryItem {
   id: number;
@@ -18,7 +19,7 @@ interface CategoryItem {
 
 @Component({
   selector: 'app-category-manage',  
-  imports: [TableModule, CommonModule, ButtonModule , ToggleSwitch, FormsModule, TranslateModule],
+  imports: [TableModule, CommonModule, ButtonModule , ToggleSwitch, FormsModule, TranslateModule, InputTextModule],
   templateUrl: './category-manage.component.html',
   styleUrl: './category-manage.component.scss'
 })

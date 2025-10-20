@@ -25,10 +25,6 @@
         <!-- ใช้ flex-grow เพื่อดันปุ่ม Add ไปขวาสุด -->
         <div class="flex-grow"></div>
 
-             <p-button (click)="onManageCategory()" class="px-4 py-2 font-semibold transition">
-                <i class="pi pi-plus"></i>
-                Category
-            </p-button>
             <p-button (click)="openPage('create')" class="px-4 py-2 font-semibold transition">
                 <i class="pi pi-plus"></i>
                 Stock
@@ -75,7 +71,7 @@
                     <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="openPage('edit', item)">
                         <i class="pi pi-pencil"></i>
                     </button>
-                    <button class="text-red-500 hover:text-red-700 mr-2" (click)="deleteTransaction(item.id)">
+                    <button class="text-red-500 hover:text-red-700 mr-2" (click)="onOpenEdit(item)">
                         <i class="pi pi-trash"></i>
                     </button>
                        <button class="text-yellow-400 hover:text-yellow-700" (click)="onOpenEdit(item)">
@@ -86,7 +82,16 @@
         </ng-template>
     </p-table>
 
-</div>
+    <div class=" text-end mt-4">
+        
+
+            <p-button (click)="goback()" class="px-4 py-2 font-semibold transition">
+                <i class="pi pi-angle-left"></i>
+                Back
+            </p-button>
+    </div>
+  </div>
+
 
 <p-dialog [(visible)]="visibleEdit" [modal]="true"
     [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
@@ -94,15 +99,11 @@
 
     <div class="text-center">
         <div class=""><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
-        <div class="mt-4">Add to Cart</div>
+        <div class="mt-4">ลบข้อมูล</div>
     </div>
-    <div>
+  
 
-          <input type="text" pInputText placeholder="Amount" (input)="onSearch()"
-            class="px-4 py-2 rounded-lg border w-full" />
-    </div>
-
-    <div class="text-center mt-4">
+    <div class="text-center mt-4 space-x-4">
         <p-button [label]="'ยกเลิก'" icon="pi pi-times" styleClass="p-button-secondary p-button-sm " size="small"
             (onClick)="onCloseEdit()">
         </p-button>
