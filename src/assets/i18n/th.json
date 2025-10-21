@@ -1,73 +1,146 @@
 {
-  "login": {
-    "welcome": "ยินดีต้อนรับ",
-    "slogan": "สต็อกครบ จบทุกธุรกิจ",
-    "username": "ชื่อผู้ใช้",
-    "password": "รหัสผ่าน",
-    "login": "เข้าสู่ระบบ",
-    "signUp": "สมัครสมาชิก",
-    "forgot": "ลืมรหัสผ่าน?",
-    "enterUsername": "กรุณากรอกชื่อผู้ใช้",
-    "loggingIn": "กำลังเข้าสู่ระบบ..."
+  "main": {
+    "category": {
+      "categorysearch": {
+        "title": "หมวดหมู่สินค้า",
+        "create": "สร้างหมวดหมู่",
+        "code": "รหัสหมวดหมู่",
+        "name": "ชื่อหมวดหมู่",
+        "status": "สถานะการใช้งาน"
+      },
+      "categorymanage": {
+        "add": "เพิ่มหมวดหมู่",
+        "edit": "แก้ไขหมวดหมู่",
+        "category": "ชื่อหมวดหมู่",
+        "code": "รหัสหมวดหมู่",
+        "status": "สถานะ",
+        "placeholder": {
+          "category": "กรอกชื่อหมวดหมู่สินค้า",
+          "code": "กรอกรหัสหมวดหมู่สินค้า"
+        }
+      }
+    },
+    "stock": {
+      "stockmain": {
+        "stockmainsearch": {
+          "title": "คลังสินค้า",
+          "searchPlaceholder": "ค้นหาตามชื่อหรือรหัสสินค้า",
+          "filterByCategory": "กรองตามหมวดหมู่",
+          "search": "ค้นหา",
+          "categorys": "หมวดหมู่",
+          "addStock": "เพิ่มสินค้าเข้าคลัง",
+          "product": "สินค้า",
+          "name": "ชื่อสินค้า",
+          "sku": "รหัสสินค้า (SKU)",
+          "batchCode": "รหัสล็อตสินค้า",
+          "amount": "จำนวน",
+          "addToCart": "เพิ่มเข้าตะกร้า"
+        },
+        "stockmainmanage": {
+          "add": "เพิ่มสินค้าใหม่",
+          "edit": "แก้ไขสินค้า",
+          "name": "ชื่อสินค้า",
+          "sku": "รหัสสินค้า (SKU)",
+          "skuPlaceholder": "กรอกรหัสสินค้า (SKU)",
+          "namePlaceholder": "กรอกชื่อสินค้า",
+          "batchCode": "รหัสล็อตสินค้า",
+          "batchCodePlaceholder": "กรอกรหัสล็อตสินค้า",
+          "amount": "จำนวนสินค้า",
+          "price": "ราคา",
+          "receivedDate": "วันที่รับเข้า",
+          "expireDate": "วันหมดอายุ",
+          "category": "หมวดหมู่สินค้า",
+          "selectCategory": "-- เลือกหมวดหมู่สินค้า --",
+          "selectDate": "เลือกวันที่รับเข้า",
+          "selectExpireDate": "เลือกวันหมดอายุ"
+        }
+      },
+      "stockdetail": {
+        "stockdetailmanage": {
+          "addTitle": "เพิ่มรายการสินค้า",
+          "editTitle": "แก้ไขรายการสินค้า",
+          "nameLabel": "ชื่อสินค้า",
+          "namePlaceholder": "กรอกชื่อสินค้า",
+          "batchCodeLabel": "รหัสล็อตสินค้า",
+          "batchCodePlaceholder": "กรอกรหัสล็อตสินค้า",
+          "amountLabel": "จำนวนสินค้า",
+          "amountPlaceholder": "กรอกจำนวนสินค้า",
+          "priceLabel": "ราคา",
+          "pricePlaceholder": "กรอกราคา",
+          "receivedDateLabel": "วันที่รับเข้า",
+          "receivedDatePlaceholder": "เลือกวันที่รับเข้า",
+          "expireDateLabel": "วันหมดอายุ",
+          "expireDatePlaceholder": "เลือกวันหมดอายุ",
+          "categoryLabel": "หมวดหมู่สินค้า",
+          "categoryPlaceholder": "-- เลือกหมวดหมู่สินค้า --"
+        },
+        "stockdetailsearch": {
+          "stockMainTitle": "การจัดการคลังสินค้า",
+          "stockmainmanage": {
+            "searchPlaceholder": "ค้นหาตามชื่อหรือรหัสสินค้า",
+            "categoryFilter": "กรองตามหมวดหมู่",
+            "searchBtn": "ค้นหา",
+            "addStockBtn": "เพิ่มสินค้า",
+            "nameCol": "ชื่อสินค้า",
+            "batchCodeCol": "รหัสล็อตสินค้า",
+            "amountCol": "จำนวนสินค้า",
+            "categoryCol": "หมวดหมู่",
+            "priceCol": "ราคา",
+            "receivedDateCol": "วันที่รับเข้า",
+            "expireCol": "วันหมดอายุ"
+          }
+        }
+      }
+    }
   },
-  "stockmainsearch": {
-    "title": "คลังสินค้า",
-    "searchPlaceholder": "ค้นหาด้วยชื่อหรือรหัส",
-    "filterByCategory": "กรองตามหมวดหมู่",
-    "search": "ค้นหา",
-    "category": "หมวดหมู่",
-    "product": "สินค้า",
-    "addStock": "เพิ่มสินค้า",
-    "name": "ชื่อสินค้า",
-    "sku": "รหัสสินค้า",
-    "batchCode": "รหัสล็อต",
-    "amount": "จำนวน",
-    "manage": "จัดการ",
-    "addToCart": "เพิ่มลงตะกร้า",
-    "cancel": "ยกเลิก",
-    "confirm": "ยืนยัน"
-  },
-  "stockmainmanage": {
-    "add": "เพิ่มสินค้า",
-    "edit": "แก้ไขสินค้า",
-    "name": "ชื่อสินค้า",
-    "sku": "รหัสสินค้า",
-    "skuPlaceholder": "กรอกรหัสสินค้า",
-    "namePlaceholder": "กรอกชื่อสินค้า",
-    "batchCode": "รหัสล็อต",
-    "batchCodePlaceholder": "กรอกรหัสล็อต",
-    "amount": "จำนวน",
-    "price": "ราคา",
-    "receivedDate": "วันที่รับเข้า",
-    "expireDate": "วันหมดอายุ",
-    "category": "หมวดหมู่",
-    "selectCategory": "-- เลือกหมวดหมู่ --",
-    "selectDate": "เลือกวันที่",
-    "selectExpireDate": "เลือกวันหมดอายุ"
-  },
-  "categorysearch": {
-    "title": "หมวดหมู่สินค้า",
-    "create": "เพิ่มหมวดหมู่",
-    "no": "ลำดับ",
-    "code": "รหัส",
-    "name": "ชื่อหมวดหมู่",
-    "status": "สถานะการใช้งาน",
-    "edit": "แก้ไข"
-  },
-  "categorymanage": {
-    "add": "เพิ่มหมวดหมู่",
-    "edit": "แก้ไขหมวดหมู่",
-    "category": "ชื่อหมวดหมู่",
-    "code": "รหัสหมวดหมู่",
-    "status": "สถานะการใช้งาน",
-    "placeholder": {
-      "category": "กรอกชื่อหมวดหมู่สินค้า",
-      "code": "กรอกรหัสหมวดหมู่สินค้า"
+  "users": {
+    "login": {
+      "welcome": "ยินดีต้อนรับ",
+      "slogan": "สต็อกครบ จบทุกธุรกิจ",
+      "username": "ชื่อผู้ใช้",
+      "password": "รหัสผ่าน",
+      "login": "เข้าสู่ระบบ",
+      "loggingIn": "กำลังเข้าสู่ระบบ...",
+      "signUp": "สมัครสมาชิก",
+      "forgot": "ลืมรหัสผ่าน?"
+    },
+    "manageuser": {
+      "adduser": {
+        "addTitle": "เพิ่มผู้ใช้งาน",
+        "editTitle": "แก้ไขผู้ใช้งาน",
+        "name": "ชื่อจริง",
+        "namePlaceholder": "กรอกชื่อจริง",
+        "username": "ชื่อผู้ใช้",
+        "usernamePlaceholder": "กรอกชื่อผู้ใช้",
+        "password": "รหัสผ่าน",
+        "passwordPlaceholder": "กรอกรหัสผ่าน",
+        "role": "สิทธิ์การใช้งาน",
+        "roleAdmin": "ผู้ดูแลระบบ",
+        "roleUser": "ผู้ใช้งานทั่วไป",
+        "status": "สถานะ",
+        "active": "ใช้งานอยู่",
+        "inactive": "ไม่ใช้งาน"
+      },
+      "edituser": {
+        "title": "จัดการผู้ใช้งาน",
+        "searchPlaceholder": "ค้นหาผู้ใช้...",
+        "search": "ค้นหา",
+        "addUser": "เพิ่มผู้ใช้",
+        "username": "ชื่อผู้ใช้",
+        "name": "ชื่อจริง",
+        "role": "สิทธิ์การใช้งาน",
+        "status": "สถานะ"
+      }
     }
   },
   "common": {
     "cancel": "ยกเลิก",
     "save": "บันทึก",
-    "backToStock": "กลับไปยังหน้าสต็อก"
+    "back": "กลับไปหน้าคลังสินค้า",
+    "confirm": "ยืนยัน",
+    "manage": "จัดการ",
+    "no": "ลำดับ",
+    "deletedata": "ลบข้อมูล",
+    "edit": "แก้ไข"
   }
 }

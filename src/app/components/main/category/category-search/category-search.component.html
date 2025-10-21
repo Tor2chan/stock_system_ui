@@ -1,21 +1,21 @@
 <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
 
-  <h2 class="text-2xl font-bold mb-4">{{ 'categorysearch.title' | translate }}</h2>
+  <h2 class="text-2xl font-bold mb-4">{{ 'main.category.categorysearch.title' | translate }}</h2>
 
   <div class="flex justify-end gap-2 mb-4">
     <p-button type="button" (click)="openPage('create')" class="px-4 py-2 font-semibold transition"
-      [label]="'categorysearch.create' | translate"></p-button>
+      [label]="'main.category.categorysearch.create' | translate"></p-button>
   </div>
 
   <div class="card">
     <p-table [value]="items" showGridlines="true" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
-          <th style="text-align: center; width: 10%;">{{ 'categorysearch.no' | translate }}</th>
-          <th style="text-align: center; width: 15%;">{{ 'categorysearch.code' | translate }}</th>
-          <th style="text-align: center; width: 40%;">{{ 'categorysearch.name' | translate }}</th>
-          <th style="text-align: center; width: 20%;">{{ 'categorysearch.status' | translate }}</th>
-          <th style="text-align: center; width: 15%;">{{ 'categorysearch.edit' | translate }}</th>
+          <th style="text-align: center; width: 10%;">{{ 'common.no' | translate }}</th>
+          <th style="text-align: center; width: 15%;">{{ 'main.category.categorysearch.code' | translate }}</th>
+          <th style="text-align: center; width: 40%;">{{ 'main.category.categorysearch.name' | translate }}</th>
+          <th style="text-align: center; width: 20%;">{{ 'main.category.categorysearch.status' | translate }}</th>
+          <th style="text-align: center; width: 15%;">{{ 'common.manage' | translate }}</th>
         </tr>
       </ng-template>
 
@@ -34,7 +34,7 @@
           </td>
           <td style="text-align: center">
             <i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer"
-              [title]="'categorysearch.edit' | translate"></i>
+              [title]="'common.edit' | translate"></i>
           </td>
         </tr>
       </ng-template>
@@ -42,7 +42,7 @@
   </div>
 
   <div class="flex justify-end mt-4">
-    <p-button [label]="'common.backToStock' | translate" icon="pi pi-arrow-left" styleClass="p-button-secondary"
+    <p-button [label]="'common.back' | translate" icon="pi pi-arrow-left" styleClass="p-button-secondary"
       (onClick)="onBack()"></p-button>
   </div>
 </div>

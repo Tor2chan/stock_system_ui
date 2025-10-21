@@ -1,24 +1,24 @@
 <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
-  <h2 class="text-2xl font-bold mb-4">{{ 'stockmainsearch.title' | translate }}</h2>
+  <h2 class="text-2xl font-bold mb-4">{{ 'main.stock.stockmain.stockmainsearch.title' | translate }}</h2>
 
   <!-- Filters -->
   <div class="flex items-center gap-2 mb-4">
     <input
       type="text"
       pInputText
-      placeholder="{{ 'stockmainsearch.searchPlaceholder' | translate }}"
+      placeholder="{{ 'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate }}"
       (input)="onSearch()"
       class="px-4 py-2 rounded-lg border w-64"
     />
 
     <select [(ngModel)]="filterCategory" (change)="filterByCategory()" class="px-4 py-2 rounded-lg border">
-      <option value="">{{ 'stockmainsearch.filterByCategory' | translate }}</option>
+      <option value="">{{ 'main.stock.stockmain.stockmainsearch.filterByCategory' | translate }}</option>
       <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
     </select>
 
     <p-button (click)="onSearch()" class="px-4 py-2 font-semibold transition gap-2 ml-2">
       <i class="pi pi-search"></i>
-      {{ 'stockmainsearch.search' | translate }}
+      {{ 'main.stock.stockmain.stockmainsearch.search' | translate }}
     </p-button>
 
     <!-- ใช้ flex-grow เพื่อดันปุ่ม Add ไปขวาสุด -->
@@ -26,12 +26,12 @@
 
     <p-button (click)="onManageCategory()" class="px-4 py-2 font-semibold transition">
       <i class="pi pi-plus"></i>
-      {{ 'stockmainsearch.category' | translate }}
+      {{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}
     </p-button>
 
     <p-button (click)="openPage('create')" class="px-4 py-2 font-semibold transition">
       <i class="pi pi-plus"></i>
-      {{ 'stockmainsearch.product' | translate }}
+      {{ 'main.stock.stockmain.stockmainsearch.product' | translate }}
     </p-button>
   </div>
 
@@ -47,19 +47,19 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center">No</th>
+        <th style="text-align: center">{{ 'common.no' | translate }}</th>
         <th pSortableColumn="name" style="text-align: center">
-          {{ 'stockmainsearch.name' | translate }}
+          {{ 'main.stock.stockmain.stockmainsearch.name' | translate }}
           <p-sortIcon field="name" />
         </th>
-        <th style="text-align: center">{{ 'stockmainsearch.sku' | translate }}</th>
+        <th style="text-align: center">{{ 'main.stock.stockmain.stockmainsearch.sku' | translate }}</th>
         
         <th pSortableColumn="amount" style="text-align: center">
-          {{ 'stockmainsearch.amount' | translate }}
+          {{ 'main.stock.stockmain.stockmainsearch.amount' | translate }}
           <p-sortIcon field="amount" />
         </th>
-        <th style="text-align: center">{{ 'stockmainsearch.category' | translate }}</th>
-        <th style="text-align: center">{{ 'stockmainsearch.manage' | translate }}</th>
+        <th style="text-align: center">{{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}</th>
+        <th style="text-align: center">{{ 'common.manage' | translate }}</th>
       </tr>
     </ng-template>
 
@@ -94,17 +94,17 @@
 
     <div class="text-center">
         <div class=""><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
-        <div class="mt-4">ลบข้อมูล</div>
+        <div class="mt-4">{{ 'common.deletedata' | translate }}</div>
     </div>
   
 
     <div class="text-center mt-4 space-x-4">
-        <p-button [label]="'ยกเลิก'" icon="pi pi-times" styleClass="p-button-secondary p-button-sm " size="small" 
+        <p-button [label]="'common.cancel' | translate " icon="pi pi-times" styleClass="p-button-secondary p-button-sm " size="small" 
             (onClick)="onCloseDelete()">
         </p-button>
 
-        <p-button [label]="'ยืนยัน'" size="small" (onClick)="onDeleteConfirm()">
-         
+        <p-button [label]="'common.confirm'| translate" size="small" (onClick)="onDeleteConfirm()">
+        
         </p-button>
     </div>
 </p-dialog>

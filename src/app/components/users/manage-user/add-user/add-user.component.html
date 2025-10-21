@@ -1,52 +1,107 @@
 <div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
   <h2 class="text-2xl font-bold mb-4">
-    {{ mode === 'create' ? 'เพิ่มยูสเซอร์' : 'แก้ไขยูสเซอร์' }}
+    {{ mode === 'create' ? ('users.manageuser.adduser.addTitle' | translate) : ('users.manageuser.adduser.editTitle' | translate) }}
   </h2>
+
   <div class="flex flex-col gap-6 mb-6 items-center">
+    <!-- Name -->
     <div class="flex flex-col w-full max-w-md">
-      <label for="name" class="font-semibold mb-2">Name</label>
-      <input id="name" type="text" pInputText [(ngModel)]="stock.name" name="name" required placeholder="Enter name"
-        class="w-full" />
+      <label for="name" class="font-semibold mb-2">
+        {{ 'users.manageuser.adduser.name' | translate }}
+      </label>
+      <input
+        id="name"
+        type="text"
+        pInputText
+        [(ngModel)]="stock.name"
+        name="name"
+        required
+        [placeholder]="'users.manageuser.adduser.namePlaceholder' | translate"
+        class="w-full"
+      />
     </div>
+
+    <!-- Username -->
     <div class="flex flex-col w-full max-w-md">
-      <label for="username" class="font-semibold mb-2">Username</label>
-      <input id="username" type="text" pInputText [(ngModel)]="stock.username" name="username" required
-        placeholder="Enter username" class="w-full" />
+      <label for="username" class="font-semibold mb-2">
+        {{ 'users.manageuser.adduser.username' | translate }}
+      </label>
+      <input
+        id="username"
+        type="text"
+        pInputText
+        [(ngModel)]="stock.username"
+        name="username"
+        required
+        [placeholder]="'users.manageuser.adduser.usernamePlaceholder' | translate"
+        class="w-full"
+      />
     </div>
+
+    <!-- Password -->
     <div class="flex flex-col w-full max-w-md">
-      <label for="password" class="font-semibold mb-2">Password</label>
-      <input id="password" type="text" pInputText [(ngModel)]="stock.password" name="password" required
-        placeholder="Enter password" class="w-full" />
+      <label for="password" class="font-semibold mb-2">
+        {{ 'users.manageuser.adduser.password' | translate }}
+      </label>
+      <input
+        id="password"
+        type="password"
+        pInputText
+        [(ngModel)]="stock.password"
+        name="password"
+        required
+        [placeholder]="'users.manageuser.adduser.passwordPlaceholder' | translate"
+        class="w-full"
+      />
     </div>
+
+    <!-- Role / Status -->
     <div class="flex flex-col md:flex-row gap-6 w-full max-w-md mb-6">
       <!-- Role -->
       <div class="flex flex-col flex-1 items-center">
-        <label class="font-semibold mb-2 text-center w-full">Role</label>
+        <label class="font-semibold mb-2 text-center w-full">
+          {{ 'users.manageuser.adduser.role' | translate }}
+        </label>
         <div class="flex justify-center gap-4 w-full">
           <label class="flex items-center cursor-pointer">
             <input type="radio" name="role" [(ngModel)]="stock.role" value="Admin" class="mr-2" />
-            Admin
+            {{ 'users.manageuser.adduser.roleAdmin' | translate }}
           </label>
           <label class="flex items-center cursor-pointer">
             <input type="radio" name="role" [(ngModel)]="stock.role" value="User" class="mr-2" />
-            User
+            {{ 'users.manageuser.adduser.roleUser' | translate }}
           </label>
         </div>
       </div>
 
       <!-- Status -->
       <div class="flex flex-col flex-1 items-center">
-        <label for="status" class="font-semibold mb-2 text-center w-full">Status</label>
+        <label for="status" class="font-semibold mb-2 text-center w-full">
+          {{ 'users.manageuser.adduser.status' | translate }}
+        </label>
         <div class="flex justify-center items-center gap-3 w-full">
           <p-inputSwitch [(ngModel)]="stock.status" inputId="status" />
-          <span>{{ stock.status ? 'Active' : 'Inactive' }}</span>
+          <span>
+            {{ stock.status ? ('users.manageuser.adduser.active' | translate) : ('users.manageuser.adduser.inactive' | translate) }}
+          </span>
         </div>
       </div>
     </div>
 
+    <!-- Buttons -->
     <div class="flex justify-end gap-3 mt-6">
-      <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" (onClick)="onCancel()"></p-button>
-      <p-button label="Save" icon="pi pi-check" type="submit"></p-button>
+      <p-button
+        [label]="'common.cancel' | translate"
+        icon="pi pi-times"
+        styleClass="p-button-secondary"
+        (onClick)="onCancel()"
+      ></p-button>
+
+      <p-button
+        [label]="'common.save' | translate"
+        icon="pi pi-check"
+        type="submit"
+      ></p-button>
     </div>
   </div>
 </div>

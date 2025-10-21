@@ -1,72 +1,146 @@
 {
-  "login": {
-    "welcome": "Welcome",
-    "slogan": "Complete stock\ncomplete every business",
-    "username": "Username",
-    "password": "Password",
-    "login": "Login",
-    "loggingIn": "Logging in...",
-    "signUp": "Sign Up",
-    "forgot": "Forgot your password?"
+  "main": {
+    "category": {
+      "categorysearch": {
+        "title": "Category",
+        "create": "Create",
+        "code": "Code",
+        "name": "Category Name",
+        "status": "Active Status"
+      },
+      "categorymanage": {
+        "add": "Add Category",
+        "edit": "Edit Category",
+        "category": "Category Name",
+        "code": "Category Code",
+        "status": "Status",
+        "placeholder": {
+          "category": "Enter product category",
+          "code": "Enter category code"
+        }
+      }
+    },
+    "stock": {
+      "stockmain": {
+        "stockmainsearch": {
+          "title": "Stock",
+          "searchPlaceholder": "Search by name or code",
+          "filterByCategory": "Filter by Category",
+          "search": "Search",
+          "categorys": "Category",
+          "addStock": "Add Stock",
+          "product": "Product",
+          "name": "Name",
+          "sku": "SKU",
+          "batchCode": "Batch Code",
+          "amount": "Amount",
+          "addToCart": "Add to Cart"
+        },
+        "stockmainmanage": {
+          "add": "Add Product",
+          "edit": "Edit Product",
+          "name": "Name",
+          "sku": "SKU",
+          "skuPlaceholder": "Enter SKU",
+          "namePlaceholder": "Enter product name",
+          "batchCode": "Batch Code",
+          "batchCodePlaceholder": "Enter batch code",
+          "amount": "Amount",
+          "price": "Price",
+          "receivedDate": "Received Date",
+          "expireDate": "Expire Date",
+          "category": "Category",
+          "selectCategory": "-- Select Category --",
+          "selectDate": "Select date",
+          "selectExpireDate": "Select expire date"
+        }
+      },
+      "stockdetail": {
+        "stockdetailmanage": {
+          "addTitle": "Add Stock",
+          "editTitle": "Edit Stock",
+          "nameLabel": "Name",
+          "namePlaceholder": "Enter product name",
+          "batchCodeLabel": "Batch Code",
+          "batchCodePlaceholder": "Enter batch code",
+          "amountLabel": "Amount",
+          "amountPlaceholder": "Enter amount",
+          "priceLabel": "Price",
+          "pricePlaceholder": "Enter price",
+          "receivedDateLabel": "Received Date",
+          "receivedDatePlaceholder": "Select received date",
+          "expireDateLabel": "Expire Date",
+          "expireDatePlaceholder": "Select expire date",
+          "categoryLabel": "Category",
+          "categoryPlaceholder": "-- Select Category --"
+        },
+        "stockdetailsearch": {
+          "stockMainTitle": "Stock Management",
+          "stockmainmanage": {
+            "searchPlaceholder": "Search by name or code",
+            "categoryFilter": "Filter by Category",
+            "searchBtn": "Search",
+            "addStockBtn": "Add Stock",
+            "nameCol": "Name",
+            "batchCodeCol": "Batch Code",
+            "amountCol": "Amount",
+            "categoryCol": "Category",
+            "priceCol": "Price",
+            "receivedDateCol": "Received Date",
+            "expireCol": "Expire Date"
+          }
+        }
+      }
+    }
   },
-  "stockmainsearch": {
-    "title": "Stock",
-    "searchPlaceholder": "Search by name or code",
-    "filterByCategory": "Filter by Category",
-    "search": "Search",
-    "category": "Category",
-    "addStock": "Add Stock",
-    "product": "Product",
-    "name": "Name",
-    "sku": "SKU",
-    "batchCode": "Batch Code",
-    "amount": "Amount",
-    "manage": "Manage",
-    "addToCart": "Add to Cart",
-    "cancel": "Cancel",
-    "confirm": "Confirm"
-  },
-  "stockmainmanage": {
-    "add": "Add Product",
-    "edit": "Edit Product",
-    "name": "Name",
-    "sku": "SKU",
-    "skuPlaceholder": "Enter SKU",
-    "namePlaceholder": "Enter product name",
-    "batchCode": "Batch Code",
-    "batchCodePlaceholder": "Enter batch code",
-    "amount": "Amount",
-    "price": "Price",
-    "receivedDate": "Received Date",
-    "expireDate": "Expire Date",
-    "category": "Category",
-    "selectCategory": "-- Select Category --",
-    "selectDate": "Select date",
-    "selectExpireDate": "Select expire date"
-  },
-  "categorysearch": {
-    "title": "Category",
-    "create": "Create",
-    "no": "No.",
-    "code": "Code",
-    "name": "Category Name",
-    "status": "Active Status",
-    "edit": "Edit"
-  },
-  "categorymanage": {
-    "add": "Add Category",
-    "edit": "Edit Category",
-    "category": "Category Name",
-    "code": "Category Code",
-    "status": "Status",
-    "placeholder": {
-      "category": "Enter product category",
-      "code": "Enter category code"
+  "users": {
+    "login": {
+      "welcome": "Welcome",
+      "slogan": "Complete stock\ncomplete every business",
+      "username": "Username",
+      "password": "Password",
+      "login": "Login",
+      "loggingIn": "Logging in...",
+      "signUp": "Sign Up",
+      "forgot": "Forgot your password?"
+    },
+    "manageuser": {
+      "adduser": {
+        "addTitle": "Add User",
+        "editTitle": "Edit User",
+        "name": "Name",
+        "namePlaceholder": "Enter name",
+        "username": "Username",
+        "usernamePlaceholder": "Enter username",
+        "password": "Password",
+        "passwordPlaceholder": "Enter password",
+        "role": "Role",
+        "roleAdmin": "Admin",
+        "roleUser": "User",
+        "status": "Status",
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "edituser": {
+        "title": "User Management",
+        "searchPlaceholder": "Search user...",
+        "search": "Search",
+        "addUser": "Add User",
+        "username": "Username",
+        "name": "Name",
+        "role": "Role",
+        "status": "Status"
+      }
     }
   },
   "common": {
     "cancel": "Cancel",
     "save": "Save",
-    "backToStock": "Back to Stock"
+    "back": "Back to Stock",
+    "confirm": "Confirm",
+    "manage": "Manage",
+    "no": "No",
+    "deletedata": "Deletedata",
+    "edit": "edit"
   }
 }
