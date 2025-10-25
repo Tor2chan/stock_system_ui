@@ -8,11 +8,16 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { mytheme } from './mytheme';
 import { translationProviders } from './translation.config';
+import { provideHttpClient } from '@angular/common/http';
+
 
 Chart.register(ChartDataLabels);
 
 const baseConfig: ApplicationConfig = {
-providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
+providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),provideHttpClient()
+
+]
+
 };
 
 export const appConfig = mergeApplicationConfig(baseConfig, mytheme);

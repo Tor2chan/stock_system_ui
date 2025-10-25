@@ -41,7 +41,10 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div class="flex flex-col">
-        <label for="category" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.category' | translate }}</label>
+        <label for="category" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.category' | translate }} 
+    
+</label>
+        
         <select
           id="category"
           [(ngModel)]="stock.category"
@@ -51,7 +54,13 @@
           <option value="">{{ 'main.stock.stockmain.stockmainmanage.selectCategory' | translate }}</option>
           <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
         </select>
+        <p-button (click)="onManageCategory()" class="px-4 py-2 font-semibold transition">
+      <i class="pi pi-plus"></i>
+      {{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}
+    </p-button>
+
       </div>
+ 
     </div>
 
     <div class="flex justify-end gap-3 mt-6">

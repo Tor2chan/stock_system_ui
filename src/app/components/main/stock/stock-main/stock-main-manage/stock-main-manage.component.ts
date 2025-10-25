@@ -62,5 +62,9 @@ ngOnInit() {
     }
   onCancel() {
     this.router.navigate(['/stock-main-search']);
+    
+  }
+  onManageCategory() {
+    this.router.navigate(['/category-search']); 
   }
 }
