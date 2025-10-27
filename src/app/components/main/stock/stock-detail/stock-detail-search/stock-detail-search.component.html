@@ -45,7 +45,7 @@
 
   <!-- 📋 Table -->
   <p-table
-    [value]="transactions"
+    [value]="items"
     showGridlines="true"
     [paginator]="true"
     [globalFilterFields]="['name', 'code', 'amount', 'price']"
@@ -91,12 +91,12 @@
       <tr>
         <td>{{ rowIndex + 1 }}</td>
         <td>{{ item.name }}</td>
-        <td>{{ item.code }}</td>
+        <td>{{ item.sku }}</td>
         <td>{{ item.amount }}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.price }}</td>
-        <td>{{ item.date }}</td>
-        <td>{{ item.expire }}</td>
+        <td>{{ item.receivedDate }}</td>
+        <td>{{ item.expireDate }}</td>
 
         <td class="px-4 py-2 justify-center flex">
           <button
@@ -128,7 +128,7 @@
       [label]="'common.back' | translate"
       icon="pi pi-angle-left"
       styleClass="p-button-secondary"
-      (onClick)="goback()"
+      (onClick)="onback()"
     ></p-button>
   </div>
 </div>
