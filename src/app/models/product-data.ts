@@ -6,7 +6,7 @@ export interface ProductData {
   size?: number;
   mode?: string;
 
-  id: number;
+  id?: number;
   name?: string;
   sku?: string;
   batchCode?: string;

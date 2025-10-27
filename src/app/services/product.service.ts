@@ -15,12 +15,12 @@ export class ProductService  {
         private readonly globalService: GlobalService
     ) {}
 
- find(productData: number): Observable<ResponseListIf<ProductData>> {
-        return this.http.post<ResponseListIf<ProductData>>(
-            this.globalService.joinApi([this.baseService, 'find']),
-            productData
-        );
-    }
+    find(productData: ProductData): Observable<ResponseListIf<ProductData>> {
+            return this.http.post<ResponseListIf<ProductData>>(
+                this.globalService.joinApi([this.baseService, 'find']),
+                productData
+            );
+        }
 
  
 }

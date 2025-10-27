@@ -13,7 +13,8 @@ import { ProductData } from '../../../../../models/product-data';
 import { MessageService } from 'primeng/api';
 import { ProductService } from '../../../../../services/product.service';
 import { TranslateService } from '@ngx-translate/core';
-
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '../../../../../interceptors/jwt.interceptor';
 
 @Component({
   selector: 'app-stock-main-search',
@@ -21,12 +22,12 @@ import { TranslateService } from '@ngx-translate/core';
 standalone: true,
   templateUrl: './stock-main-search.component.html',
   styleUrl: './stock-main-search.component.scss',
-  providers:[MessageService]
+  providers: [MessageService]
+
 })
 export class StockMainSearchComponent implements OnInit{
 
  criteria:ProductData ={
-  id: 3
  };
 
  items: ProductData[] = [];
@@ -46,9 +47,9 @@ export class StockMainSearchComponent implements OnInit{
 
   constructor(
     public readonly globalService:GlobalService,
-private readonly messageService:MessageService,
-private readonly productService:ProductService,
-private readonly translate : TranslateService,
+    private readonly messageService:MessageService,
+    private readonly productService:ProductService,
+    private readonly translate : TranslateService,
 
     private router: Router
   ) {
@@ -78,7 +79,7 @@ private readonly translate : TranslateService,
 
         this.rows = this.criteria.size ?? 5;
 
-        this.productService.find(this.criteria.id).subscribe(({ status, message, entries, totalRecords }) => {
+        this.productService.find(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
           
             if (status === 200) {
 

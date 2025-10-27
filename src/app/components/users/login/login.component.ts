@@ -29,8 +29,7 @@ import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
 
@@ -57,10 +56,14 @@ export class LoginComponent {
     }).subscribe({
       next: res => {  
         this.authService.setToken(res.access_token);
-        this.router.navigate(['/stock-main-search'])
+        console.log('Token:', this.authService.getToken());
+        this.router.navigate(['/stock-main-search']);
         console.log('Login success, token saved!');
       },
-      error: err => console.error('Login failed', err)
+      error: err => {
+        console.error('Login failed', err);
+        this.router.navigate(['/login']); // redirect to login on error
+      }
     });
   }
 
