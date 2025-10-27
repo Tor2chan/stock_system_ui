@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,29 +7,32 @@ import { DialogModule } from 'primeng/dialog'; // ✅ ใช้ DialogModule ไ
 import { ButtonModule } from 'primeng/button';
 import { MODE_PAGE } from '../../../../../modules/common/common';
 import { TranslateModule} from '@ngx-translate/core';
+import { TablePageEvent } from 'primeng/table';
+import { GlobalService } from '../../../../../services/global.service';
+import { ProductData } from '../../../../../models/product-data';
+import { MessageService } from 'primeng/api';
+import { ProductService } from '../../../../../services/product.service';
+import { TranslateService } from '@ngx-translate/core';
 
-interface Transaction {
-  id: number;
-  name: string;
-  sku:string;
-  code: string;
-  price: number | string;
-  expire: string;
-  date: string;
-  category: string;
-  amount: number;
-  type: 'income' | 'expense';
-}
+
 @Component({
   selector: 'app-stock-main-search',
   imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule],
 standalone: true,
   templateUrl: './stock-main-search.component.html',
-  styleUrl: './stock-main-search.component.scss'
+  styleUrl: './stock-main-search.component.scss',
+  providers:[MessageService]
 })
-export class StockMainSearchComponent {
-  transactions: Transaction[] = [];
-  paginatedTransactions: Transaction[] = [];
+export class StockMainSearchComponent implements OnInit{
+
+ criteria:ProductData ={
+  id: 3
+ };
+
+ items: ProductData[] = [];
+ totalRecords:number = 0;
+ rows: number = 5;
+
   categories: string[] = [];
   mode: MODE_PAGE= 'search';
 
@@ -42,27 +45,56 @@ export class StockMainSearchComponent {
   totalPages: number = 1;
 
   constructor(
+    public readonly globalService:GlobalService,
+private readonly messageService:MessageService,
+private readonly productService:ProductService,
+private readonly translate : TranslateService,
+
     private router: Router
   ) {
     // ✅ กำหนดข้อมูลตัวอย่าง
-    this.transactions = [
-      { id: 1, name: 'Coke', sku : 'Coke250MLPET' ,code: '049-219-1', amount: 150, category: 'Food', price: '10000', date: '2025-10-08', expire: '2025-10-08', type: 'expense' },
-      { id: 2, name: 'Pepsi', sku : 'Pepsi250MLPET'  ,code: '049-219-2', amount: 3000, category: 'Salary', price: '20000', date: '2025-10-07', expire: '2025-10-07', type: 'income' },
-      { id: 3, name: 'Fanta',sku : 'Fanta250MLPET'   ,code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
-      { id: 3, name: 'Fanta', sku : 'Fanta250MLPET'  ,code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
-      { id: 3, name: 'Fanta', sku : 'Fanta250MLPET'  ,code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
-      { id: 3, name: 'Fanta',sku : 'Fanta250MLPET'   ,code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
-      { id: 3, name: 'Fanta',sku : 'Fanta250MLPET'   ,code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
-      { id: 3, name: 'Fanta', sku : 'Fanta250MLPET'  ,code: '049-219-3', amount: 50, category: 'Transport', price: '30000', date: '2025-10-06', expire: '2025-10-06', type: 'expense' },
-      
-    ];
+ 
 
-    this.categories = Array.from(new Set(this.transactions.map(t => t.category)));
+    // this.categories = Array.from(new Set(this.transactions.map(t => t.category)));
     this.updatePagination();
      this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';
   }
 
-  onSearch() {}
+  ngOnInit() {
+    this.onSearch();
+  }
+
+  onSearch(event?: TablePageEvent) {
+        
+        if (event) {
+            this.criteria.size = event.rows;
+            this.criteria.first = event.first;
+            if (event.rows != this.rows) {
+                this.globalService.backToFirstPage();
+            }
+        } else {
+            this.globalService.backToFirstPage();
+        }
+
+        this.rows = this.criteria.size ?? 5;
+
+        this.productService.find(this.criteria.id).subscribe(({ status, message, entries, totalRecords }) => {
+          
+            if (status === 200) {
+
+                this.items = entries as ProductData[];
+                this.totalRecords = totalRecords as number;
+               console.log('item',this.items);
+            } else {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: this.translate.instant('common.message.exception') || 'kkkk',
+                    detail: this.translate.instant(message as string) || message,
+                    life: 5000
+                });
+            }
+        });
+    }
   onManageCategory() {
     this.router.navigate(['/category-search']); 
   }
@@ -79,32 +111,22 @@ export class StockMainSearchComponent {
   }
 
   updatePagination() {
-    let filtered = this.transactions.filter(t => {
-      const typeMatch = this.selectedFilter === 'all' || t.type === this.selectedFilter;
-      const categoryMatch = !this.filterCategory || t.category === this.filterCategory;
-      return typeMatch && categoryMatch;
-    });
-
-    this.totalPages = Math.ceil(filtered.length / this.pageSize);
-    const start = (this.page - 1) * this.pageSize;
-    this.paginatedTransactions = filtered.slice(start, start + this.pageSize);
+   
   }
-   ngOnInit() {
+
   
-      }
+    // openPage(page: MODE_PAGE , data?: Transactio) {
   
-    openPage(page: MODE_PAGE , data?: Transaction) {
+    //   sessionStorage.setItem('mode', page);
   
-      sessionStorage.setItem('mode', page);
+    //   if (page === 'create') {
+    //       this.router.navigate(['/stock-main-manage-create']);
+    //   } else if (page === 'edit' && data?.id) {
   
-      if (page === 'create') {
-          this.router.navigate(['/stock-main-manage-create']);
-      } else if (page === 'edit' && data?.id) {
+    //       this.router.navigate([`/stock-main-manage-edit/${(data.id)}`]);
   
-          this.router.navigate([`/stock-main-manage-edit/${(data.id)}`]);
-  
-      }
-    }
+    //   }
+    // }
 
   prevPage() {
     if (this.page > 1) {
@@ -120,16 +142,16 @@ export class StockMainSearchComponent {
     }
   }
 
-  editTransaction(t: Transaction) {
-    alert(`Edit transaction: ${t.id}`);
-  }
+  // editTransaction(t: Transaction) {
+  //   alert(`Edit transaction: ${t.id}`);
+  // }
 
-  deleteTransaction(id: number) {
-    if (confirm('Are you sure to delete this transaction?')) {
-      this.transactions = this.transactions.filter(t => t.id !== id);
-      this.updatePagination();
-    }
-  }
+  // deleteTransaction(id: number) {
+  //   if (confirm('Are you sure to delete this transaction?')) {
+  //     this.transactions = this.transactions.filter(t => t.id !== id);
+  //     this.updatePagination();
+  //   }
+  // }
 
   onOpenEdit(id: number) {
     this.visibleEdit = true;
@@ -139,7 +161,9 @@ export class StockMainSearchComponent {
     this.visibleEdit = false;
   }
 
-
+onAdd(){
+   this.router.navigate(['/stock-main-manage']); 
+}
 
  
   ondetail() {
@@ -151,5 +175,17 @@ export class StockMainSearchComponent {
  onDeleteConfirm() {
    
  }
+    openPage(page: MODE_PAGE , data?: ProductData) {
+  
+      sessionStorage.setItem('mode', page);
+  
+      if (page === 'create') {
+          this.router.navigate(['/stock-main-manage-create']);
+      } else if (page === 'edit' && data?.id) {
+  
+          this.router.navigate([`/stock-main-manage-edit/${(data.id)}`]);
+  
+      }
+    }
 }
 

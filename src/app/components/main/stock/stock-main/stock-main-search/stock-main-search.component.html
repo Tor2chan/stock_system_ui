@@ -29,15 +29,15 @@
       {{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}
     </p-button> -->
 
-    <p-button (click)="openPage('create')" class="px-4 py-2 font-semibold transition">
+    <p-button (onClick)="openPage('create')" class="px-4 py-2 font-semibold transition">
       <i class="pi pi-plus"></i>
       {{ 'main.stock.stockmain.stockmainsearch.product' | translate }}
     </p-button>
   </div>
 
   <!-- Table -->
-  <p-table
-    [value]="transactions"
+  <p-table 
+    [value]="items"
     showGridlines="true"
     [paginator]="true"
     [globalFilterFields]="['name', 'code', 'amount','price']"
@@ -72,7 +72,7 @@
         <td>{{ item.amount  }}</td>
         <td>{{ item.category }}</td>
         <td class="px-4 py-2 justify-center flex">
-              <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="openPage('edit', item)">
+              <button (click)="openPage('edit', item )" class="text-blue-500 hover:text-blue-700 mr-2" >
                         <i class="pi pi-pencil"></i>
                     </button>
                     <button class="text-red-500 hover:text-red-700 mr-2" (click)="onDelete(item)">
