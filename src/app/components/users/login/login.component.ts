@@ -9,6 +9,9 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ImageModule } from 'primeng/image';
+import { AuthService } from '../../../services/auth.service';
+import { JwtInterceptor } from '../../../interceptors/jwt.interceptor';
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +29,8 @@ import { ImageModule } from 'primeng/image';
 
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }]
 })
 export class LoginComponent {
 
@@ -37,15 +41,30 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private translateService: TranslateService
-
+    private translateService: TranslateService,
+    private http: HttpClient,
+     private authService: AuthService
   ) {
     const savedLang = localStorage.getItem('language') || 'en';
     this.translateService.setDefaultLang(savedLang);
     this.translateService.use(savedLang);
   }
 
-  async onSubmit() {
+  login() {
+    this.http.post<any>('http://localhost:8080/stock-api/auth/login', {
+      username: this.username,
+      password: this.password
+    }).subscribe({
+      next: res => {  
+        this.authService.setToken(res.access_token);
+        this.router.navigate(['/stock-main-search'])
+        console.log('Login success, token saved!');
+      },
+      error: err => console.error('Login failed', err)
+    });
+  }
+
+  onCheck() {
     this.errorMessage = '';
 
     if (!this.username) {
@@ -56,17 +75,6 @@ export class LoginComponent {
       this.errorMessage = 'กรุณากรอกรหัสผ่าน';
       return;
     }
-
-    this.isLoading = true;
-    await new Promise((res) => setTimeout(res, 800));
-
-    if (this.username === 'admin' && this.password === 'admin123') {
-      this.router.navigate(['/stock-main-search']);
-    } else {
-      this.errorMessage = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
-    }
-
-    this.isLoading = false;
   }
 
  

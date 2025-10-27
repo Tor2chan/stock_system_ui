@@ -37,7 +37,7 @@
     </p>
 
     <!-- Login Form -->
-    <form (ngSubmit)="onSubmit()" #form="ngForm" class="space-y-6">
+    <form (ngSubmit)="onCheck()" #form="ngForm" class="space-y-6">
       <!-- Username -->
       <div class="text-left">
         <label class="block text-sm mb-1 text-gray-700 font-medium tracking-wider">
@@ -45,7 +45,7 @@
         </label>
         <div
           class="relative w-full border border-gray-300 rounded-xl overflow-hidden hover:border-indigo-400 transition duration-300">
-          <input pInputText [(ngModel)]="username" name="username" placeholder="{{ 'users.login.username' | translate }}" (keyup.enter)="onSubmit()"
+          <input pInputText [(ngModel)]="username" name="username" placeholder="{{ 'users.login.username' | translate }}" (keyup.enter)="login()"
             class="w-full bg-white text-gray-900 placeholder-gray-500 border-none outline-none px-4 py-3"
             style="color-scheme: light;" />
         </div>
@@ -58,7 +58,7 @@
         </label>
         <div
           class="relative w-full border border-gray-300 rounded-xl overflow-hidden hover:border-indigo-400 transition duration-300">
-          <p-password [(ngModel)]="password" name="password" [feedback]="false" [toggleMask]="true" (keyup.enter)="onSubmit()"
+          <p-password [(ngModel)]="password" name="password" [feedback]="false" [toggleMask]="true" (keyup.enter)="login()"
             placeholder="{{ 'users.login.password' | translate }}"
             inputStyleClass="w-full bg-white text-gray-900 placeholder-gray-500 border-none outline-none px-4 py-3"
             styleClass="w-full border-none"></p-password>
@@ -73,7 +73,7 @@
       <!-- Buttons -->
       <div class="flex flex-col items-center gap-3 w-full max-w-xs">
         <!-- ปุ่ม Login -->
-           <p-button (click)="onSubmit() "[disabled]="isLoading"
+           <p-button (click)="login() "[disabled]="isLoading"
             class="px-4 py-2 font-semibold transition gap-2 ml-2 ">
              {{ isLoading ? ('users.login.loggingIn' | translate) : ('users.login.login' | translate) }}
             </p-button>
