@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FooterComponent } from '../footer/footer.component';
 import { ImageModule } from 'primeng/image';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-layout-main',
   templateUrl: './layout-main.component.html',
@@ -31,7 +32,8 @@ export class LayoutMainComponent {
 
   constructor(
     private router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private authService:AuthService
   ) {
     const savedLang = localStorage.getItem('language') || 'en';
     this.translateService.setDefaultLang(savedLang);
@@ -44,7 +46,8 @@ export class LayoutMainComponent {
     localStorage.setItem('language', newLang);
     window.location.reload();
   }
-goOutUser() {
+  goOutUser() {
+    this.authService.removeToken(); 
     this.router.navigate(['/login']);
   }
 

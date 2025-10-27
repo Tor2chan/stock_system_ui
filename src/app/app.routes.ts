@@ -9,18 +9,15 @@ import { CategorySearchComponent } from './components/main/category/category-sea
 import { LoginComponent } from './components/users/login/login.component';
 import { AddUserComponent } from './components/users/manage-user/add-user/add-user.component';
 import { EditUserComponent } from './components/users/manage-user/edit-user/edit-user.component';
-export const routes: Routes = [
+import { AuthGuard } from './guards/auth.guard';
 
+export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   {
-    path: '', component: LayoutMainComponent,
+    path: '', component: LayoutMainComponent, canActivate: [AuthGuard],  
     children: [
-
-
-
-
       { path: 'category-search', component: CategorySearchComponent },
       { path: 'category-create', component: CategoryManageComponent },
       { path: 'category-edit/:id', component: CategoryManageComponent },
@@ -29,20 +26,13 @@ export const routes: Routes = [
       { path: 'stock-main-manage-edit/:id', component: StockMainManageComponent },
       { path: 'add-user-create', component: AddUserComponent },
       { path: 'add-user-edit/:id', component: AddUserComponent },
-
-
       { path: 'stock-detail-search', component: StockDetailSearchComponent },
       { path: 'stock-detail-manage-create', component: StockDetailManageComponent },
       { path: 'stock-detail-manage-edit/:id', component: StockDetailManageComponent },
       { path: 'add-user', component: AddUserComponent },
       { path: 'edit-user', component: EditUserComponent }
-
-
-
-
-
     ]
   },
+
   { path: '**', redirectTo: 'login' }
 ];
-
