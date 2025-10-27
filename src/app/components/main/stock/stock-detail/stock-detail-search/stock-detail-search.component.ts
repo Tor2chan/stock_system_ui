@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class StockDetailSearchComponent implements OnInit{
  criteria:ProductData ={
-
+  
  };
 
  items: ProductData[] = [];
@@ -44,26 +44,25 @@ export class StockDetailSearchComponent implements OnInit{
   pageSize: number = 5;
   totalPages: number = 1;
 
+  params: string | null = null; 
+
   constructor(
     public readonly globalService:GlobalService,
-private readonly messageService:MessageService,
-private readonly productService:ProductService,
-private readonly translate : TranslateService,
-    private router: Router
+    private readonly messageService:MessageService,
+    private readonly productService:ProductService,
+    private readonly translate : TranslateService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    // ✅ กำหนดข้อมูลตัวอย่าง
-  
-
-    // this.categories = Array.from(new Set(this.transactions.map(t => t.category)));
-    this.updatePagination();
-     this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';
+      this.updatePagination();
+      this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';
   }
     ngOnInit() {
-    this.onSearch();
+      this. params = this.route.snapshot.paramMap.get('id');
+      this.onSearch();
   }
 
   onSearch(event?: TablePageEvent) {
-        
         if (event) {
             this.criteria.size = event.rows;
             this.criteria.first = event.first;
@@ -75,8 +74,9 @@ private readonly translate : TranslateService,
         }
 
         this.rows = this.criteria.size ?? 5;
+        this.criteria.sku = this.params ?? undefined;
 
-        this.productService.find(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
+        this.productService.findProductDetail(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
           
             if (status === 200) {
 

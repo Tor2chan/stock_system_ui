@@ -10,7 +10,7 @@ export interface ProductData {
   name?: string;
   sku?: string;
   batchCode?: string;
-  amount?: string;
+  amount?: number;
   category?: string;
   price?: number;
   receivedDate?: string;

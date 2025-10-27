@@ -26,7 +26,7 @@ export const routes: Routes = [
       { path: 'stock-main-manage-edit/:id', component: StockMainManageComponent },
       { path: 'add-user-create', component: AddUserComponent },
       { path: 'add-user-edit/:id', component: AddUserComponent },
-      { path: 'stock-detail-search', component: StockDetailSearchComponent },
+      { path: 'stock-detail-search/:id', component: StockDetailSearchComponent },
       { path: 'stock-detail-manage-create', component: StockDetailManageComponent },
       { path: 'stock-detail-manage-edit/:id', component: StockDetailManageComponent },
       { path: 'add-user', component: AddUserComponent },

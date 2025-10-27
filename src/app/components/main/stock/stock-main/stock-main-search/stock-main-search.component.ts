@@ -79,7 +79,7 @@ export class StockMainSearchComponent implements OnInit{
 
         this.rows = this.criteria.size ?? 5;
 
-        this.productService.find(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
+        this.productService.findProduct(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
           
             if (status === 200) {
 
@@ -162,14 +162,15 @@ export class StockMainSearchComponent implements OnInit{
     this.visibleEdit = false;
   }
 
-onAdd(){
-   this.router.navigate(['/stock-main-manage']); 
-}
-
- 
-  ondetail() {
-    this.router.navigate(['/stock-detail-search']); 
+  onAdd(){
+    this.router.navigate(['/stock-main-manage']); 
   }
+ 
+  ondetail(sku: ProductData) {
+    console.log(sku)
+    this.router.navigate([`/stock-detail-search/${(sku)}`]);
+  }
+
  onDelete(id: number) {
     this.visibleEdit = true;
   }
