@@ -23,7 +23,7 @@ export class CategoryService  {
     }
 
 
-    createCategory(categoryData: CategoryData): Observable<ResponseListIf<CategoryData>> {
+    saveCategory(categoryData: CategoryData): Observable<ResponseListIf<CategoryData>> {
         return this.http.post<ResponseListIf<CategoryData>>(
             this.globalService.joinApi([this.baseService, 'create-category']),
            categoryData

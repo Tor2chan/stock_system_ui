@@ -82,7 +82,7 @@ export class CategoryManageComponent  implements OnInit{
           }
 
           setTimeout(() => {
-            this.categoryService.createCategory(this.criteria).subscribe(({ status, message }) => {
+            this.categoryService.saveCategory(this.criteria).subscribe(({ status, message }) => {
             if (status === 200) {
                   this.messageService.add({
                     severity: 'success',
