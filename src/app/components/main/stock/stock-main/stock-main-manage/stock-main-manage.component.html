@@ -1,72 +1,52 @@
 <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
   <h2 class="text-2xl font-bold mb-4">
-    {{ mode === 'create' ? ('main.stock.stockmain.stockmainmanage.add' | translate) : ('main.stock.stockmain.stockmainmanage.edit' | translate) }}
+    {{ mode === 'create' ? ('main.stock.stockmain.stockmainmanage.add' | translate) :
+    ('main.stock.stockmain.stockmainmanage.edit' | translate) }}
   </h2>
 
   <form (ngSubmit)="onSubmit()" #stockForm="ngForm" class="p-fluid">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div class="flex flex-col">
-        <label for="name" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.name' | translate }}</label>
-        <input
-          id="name"
-          type="text"
-          pInputText
-          [(ngModel)]="stock.name"
-          name="name"
-          required
-          [placeholder]="'main.stock.stockmain.stockmainmanage.namePlaceholder' | translate"
-          class="w-full"
-        />
+        <label for="name" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.name' | translate
+          }}</label>
+        <input id="name" type="text" pInputText [(ngModel)]="stock.name" name="name" required
+          [placeholder]="'main.stock.stockmain.stockmainmanage.namePlaceholder' | translate" class="w-full" />
       </div>
 
       <div class="flex flex-col">
-        <label for="code" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.sku' | translate }}</label>
-        <input
-          id="code"
-          type="text"
-          pInputText
-          [(ngModel)]="stock.sku"
-          name="code"
-          required
-          [placeholder]="'main.stock.stockmain.stockmainmanage.skuPlaceholder' | translate"
-          class="w-full"
-        />
+        <label for="code" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.sku' | translate
+          }}</label>
+        <input id="code" type="text" pInputText [(ngModel)]="stock.sku" name="code" required
+          [placeholder]="'main.stock.stockmain.stockmainmanage.skuPlaceholder' | translate" class="w-full" />
       </div>
     </div>
-
-  
-
-  
-    
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div class="flex flex-col">
-        <label for="category" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.category' | translate }} 
-    
-</label>
-        
-        <select
-          id="category"
-          [(ngModel)]="stock.category"
-          name="category"
-          class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-        >
-          <option value="">{{ 'main.stock.stockmain.stockmainmanage.selectCategory' | translate }}</option>
-          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
-        </select>
+        <label for="category" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.category' | translate
+          }}
+
+        </label>
+
+        <p-select [options]="categories" [(ngModel)]="stock.category" [showClear]="true"
+          placeholder="{{ 'main.stock.stockmain.stockmainmanage.selectCategory' | translate }}"
+          class="w-full border rounded-lg h-[42px]"></p-select>
+
+
         <p-button (click)="onManageCategory()" class="px-4 py-2 font-semibold transition">
-      <i class="pi pi-plus"></i>
-      {{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}
-    </p-button>
+          <i class="pi pi-plus"></i>
+          {{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}
+        </p-button>
 
       </div>
- 
+
     </div>
 
     <div class="flex justify-end gap-3 mt-6">
-      <p-button label="{{ 'common.cancel' | translate }}" icon="pi pi-times" styleClass="p-button-secondary" (onClick)="onCancel()"></p-button>
+      <p-button label="{{ 'common.cancel' | translate }}" icon="pi pi-times" styleClass="p-button-secondary"
+        (onClick)="onCancel()"></p-button>
       <p-button label="{{ 'common.save' | translate }}" icon="pi pi-check" type="submit"></p-button>
     </div>
   </form>
-  
+
 </div>

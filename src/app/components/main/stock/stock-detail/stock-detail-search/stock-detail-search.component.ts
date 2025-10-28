@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog'; // ✅ ใช้ DialogModule ไม่ใช่ Dialog
 import { ButtonModule } from 'primeng/button';
+import { Select } from 'primeng/select';
 import { MODE_PAGE } from '../../../../../modules/common/common';
 import { TranslateModule} from '@ngx-translate/core';
 import { TablePageEvent } from 'primeng/table';
@@ -18,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-stock-detail-search',
-  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule],
+  imports: [ CommonModule, FormsModule, TableModule,Select, DialogModule, ButtonModule, TranslateModule],
   standalone: true,
   templateUrl: './stock-detail-search.component.html',
   styleUrl: './stock-detail-search.component.scss',

@@ -3,18 +3,16 @@
 
   <!-- Filters -->
   <div class="flex items-center gap-2 mb-4">
-    <input
-      type="text"
-      pInputText
-      placeholder="{{ 'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate }}"
-      (input)="onSearch()"
-      class="px-4 py-2 rounded-lg border w-64"
-    />
 
-    <select [(ngModel)]="filterCategory" (change)="filterByCategory()" class="px-4 py-2 rounded-lg border">
-      <option value="">{{ 'main.stock.stockmain.stockmainsearch.filterByCategory' | translate }}</option>
-      <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
-    </select>
+    <!-- ช่องค้นหา -->
+    <input type="text" pInputText
+      placeholder="{{ 'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate }}" (input)="onSearch()"
+      class="px-4 py-2 rounded-lg border w-64 h-[42px]" />
+
+    <p-select [options]="categories" [(ngModel)]="filterCategory" (onChange)="filterByCategory()" [showClear]="true"
+      placeholder="{{ 'main.stock.stockmain.stockmainsearch.filterByCategory' | translate }}"
+      class="w-64 h-[42px] rounded-lg border"></p-select>
+
 
     <p-button (click)="onSearch()" class="px-4 py-2 font-semibold transition gap-2 ml-2">
       <i class="pi pi-search"></i>
@@ -36,15 +34,9 @@
   </div>
 
   <!-- Table -->
-  <p-table 
-    [value]="items"
-    showGridlines="true"
-    [paginator]="true"
-    [globalFilterFields]="['name', 'code', 'amount','price']"
-    [rows]="5"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    [rowsPerPageOptions]="[5, 10, 20]"
-  >
+  <p-table [value]="items" showGridlines="true" [paginator]="true"
+    [globalFilterFields]="['name', 'code', 'amount','price']" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]">
     <ng-template pTemplate="header">
       <tr>
         <th style="text-align: center">{{ 'common.no' | translate }}</th>
@@ -53,7 +45,7 @@
           <p-sortIcon field="name" />
         </th>
         <th style="text-align: center">{{ 'main.stock.stockmain.stockmainsearch.sku' | translate }}</th>
-        
+
         <th pSortableColumn="amount" style="text-align: center">
           {{ 'main.stock.stockmain.stockmainsearch.amount' | translate }}
           <p-sortIcon field="amount" />
@@ -68,48 +60,46 @@
         <td>{{ rowIndex + 1 }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.sku }}</td>
-   
-        <td>{{ item.amount  }}</td>
+
+        <td>{{ item.amount }}</td>
         <td>{{ item.category }}</td>
         <td class="px-4 py-2 justify-center flex">
-              <!-- <button (click)="openPage('edit', item )" class="text-blue-500 hover:text-blue-700 mr-2" >
+          <!-- <button (click)="openPage('edit', item )" class="text-blue-500 hover:text-blue-700 mr-2" >
                         <i class="pi pi-pencil"></i>
                     </button> -->
-                   
-          
-     
+
+
+
           <button class="text-yellow-400 hover:text-yellow-700 mr-2" (click)="ondetail(item.sku)">
             <i class="pi pi-cart-plus"></i>
           </button>
 
-           <button class="text-red-500 hover:text-red-700 mr-2" (click)="onDelete(item)">
-                        <i class="pi pi-trash"></i>
-                    </button>
-          
+          <button class="text-red-500 hover:text-red-700 mr-2" (click)="onDelete(item)">
+            <i class="pi pi-trash"></i>
+          </button>
+
         </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
 <p-dialog [(visible)]="visibleEdit" [modal]="true"
-    [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
-    [contentStyle]="{ height: '100%', overflow: 'hidden' }" [draggable]="false" [resizable]="false">
+  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
+  [contentStyle]="{ height: '100%', overflow: 'hidden' }" [draggable]="false" [resizable]="false">
 
-    <div class="text-center">
-        <div class=""><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
-        <div class="mt-4">{{ 'common.deletedata' | translate }}</div>
-    </div>
-  
+  <div class="text-center">
+    <div class=""><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
+    <div class="mt-4">{{ 'common.deletedata' | translate }}</div>
+  </div>
 
-    <div class="text-center mt-4 space-x-4">
-        <p-button [label]="'common.cancel' | translate " icon="pi pi-times" styleClass="p-button-secondary p-button-sm " size="small" 
-            (onClick)="onCloseDelete()">
-        </p-button>
 
-        <p-button [label]="'common.confirm'| translate" size="small" (onClick)="onDeleteConfirm()">
-        
-        </p-button>
-    </div>
+  <div class="text-center mt-4 space-x-4">
+    <p-button [label]="'common.cancel' | translate " icon="pi pi-times" styleClass="p-button-secondary p-button-sm "
+      size="small" (onClick)="onCloseDelete()">
+    </p-button>
+
+    <p-button [label]="'common.confirm'| translate" size="small" (onClick)="onDeleteConfirm()">
+
+    </p-button>
+  </div>
 </p-dialog>
-
-

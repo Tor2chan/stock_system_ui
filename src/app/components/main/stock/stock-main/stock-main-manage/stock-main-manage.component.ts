@@ -3,20 +3,20 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { Select } from 'primeng/select';
 import { MessageService } from 'primeng/api';
 import { MODE_PAGE } from '../../../../../modules/common/common';
 import { CommonModule } from '@angular/common';
 
-import { TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-stock-main-manage',
-  imports: [ FormsModule, CardModule,CommonModule, InputTextModule, DropdownModule, InputNumberModule,  ButtonModule, ToastModule,TranslateModule],
+  imports: [FormsModule, CardModule, CommonModule, InputTextModule, Select, InputNumberModule, ButtonModule, ToastModule, TranslateModule],
   providers: [MessageService],
   standalone: true,
   templateUrl: './stock-main-manage.component.html',
@@ -27,7 +27,7 @@ export class StockMainManageComponent {
     name: '',
     sku: '',
     category: ''
-  
+
   };
   mode: MODE_PAGE;
   categories = ['Food', 'Drink', 'Medicine', 'Cosmetic'];
@@ -35,7 +35,7 @@ export class StockMainManageComponent {
   constructor(
     private router: Router,
     private messageService: MessageService
-  ) {  this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';}
+  ) { this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search'; }
 
   onSubmit() {
     if (this.stock.name && this.stock.sku && this.stock.category) {
@@ -57,14 +57,14 @@ export class StockMainManageComponent {
       });
     }
   }
-ngOnInit() {
-      console.log('mode:', this.mode)
-    }
+  ngOnInit() {
+    console.log('mode:', this.mode)
+  }
   onCancel() {
     this.router.navigate(['/stock-main-search']);
-    
+
   }
   onManageCategory() {
-    this.router.navigate(['/category-search']); 
+    this.router.navigate(['/category-search']);
   }
 }

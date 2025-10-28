@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { Select } from 'primeng/select';
 import { MessageService } from 'primeng/api';
 import { MODE_PAGE } from '../../../../../modules/common/common';
 import { CommonModule } from '@angular/common';
@@ -15,7 +15,7 @@ import { TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-stock-detail-manage',
-  imports: [ FormsModule, CardModule,CommonModule, InputTextModule, DropdownModule, InputNumberModule, DatePicker, ButtonModule, ToastModule,TranslateModule],
+  imports: [ FormsModule, CardModule,CommonModule, InputTextModule, Select, InputNumberModule, DatePicker, ButtonModule, ToastModule,TranslateModule],
   providers: [MessageService],
   templateUrl: './stock-detail-manage.component.html',
   styleUrl: './stock-detail-manage.component.scss'
