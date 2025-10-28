@@ -16,4 +16,7 @@ export interface ProductData {
   receivedDate?: string;
   expireDate?: string;
   createDate?: string;
+  
+  //code.category
+  code?:string;
 }

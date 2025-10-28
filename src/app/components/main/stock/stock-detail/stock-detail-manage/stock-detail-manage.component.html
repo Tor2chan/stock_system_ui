@@ -3,7 +3,7 @@
     {{ mode === 'create' ? ('main.stock.stockdetail.stockdetailmanage.addTitle' | translate) : ('main.stock.stockdetail.stockdetailmanage.editTitle' | translate) }}
   </h2>
 
-  <form (ngSubmit)="onSubmit()" #stockForm="ngForm" class="p-fluid">
+  <form (ngSubmit)="onSave()"#stockForm="ngForm" class="p-fluid">
     <!-- Name / Batch Code -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div class="flex flex-col">
@@ -14,7 +14,7 @@
           id="name"
           type="text"
           pInputText
-          [(ngModel)]="stock.name"
+          [(ngModel)]="criteria.name"
           name="name"
           required
           [placeholder]="'main.stock.stockdetail.stockdetailmanage.namePlaceholder' | translate"
@@ -30,7 +30,7 @@
           id="code"
           type="text"
           pInputText
-          [(ngModel)]="stock.code"
+          [(ngModel)]="criteria.code"
           name="code"
           required
           [placeholder]="'main.stock.stockdetail.stockdetailmanage.batchCodePlaceholder' | translate"
@@ -80,7 +80,7 @@
         </label>
         <p-datepicker
           class="w-full"
-          [(ngModel)]="stock.date"
+          [(ngModel)]="criteria.receivedDate"
           name="date"
           dateFormat="yy-mm-dd"
           showIcon="true"
@@ -94,7 +94,7 @@
           {{ 'main.stock.stockdetail.stockdetailmanage.expireDateLabel' | translate }}
         </label>
         <p-datepicker
-          [(ngModel)]="stock.expire"
+          [(ngModel)]="criteria.expireDate"
           name="expire"
           dateFormat="yy-mm-dd"
           showIcon="true"
@@ -110,10 +110,15 @@
         <label for="category" class="font-semibold mb-2">
           {{ 'main.stock.stockdetail.stockdetailmanage.categoryLabel' | translate }}
         </label>
-    <p-select [options]="categories" [(ngModel)]="stock.category" [showClear]="true"
-          placeholder="{{ 'main.stock.stockmain.stockmainmanage.selectCategory' | translate }}"
-          class="w-full border rounded-lg h-[42px]"></p-select>
-
+        <select
+          id="category"
+          [(ngModel)]="criteria.category"
+          name="category"
+          class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+        >
+          <option value="">{{ 'main.stock.stockdetail.stockdetailmanage.categoryPlaceholder' | translate }}</option>
+          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+        </select>
       </div>
     </div>
 

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog'; // ✅ ใช้ DialogModule ไม่ใช่ Dialog
+import { DialogModule } from 'primeng/dialog'; 
 import { ButtonModule } from 'primeng/button';
 import { Select } from 'primeng/select';
 import { MODE_PAGE } from '../../../../../modules/common/common';
@@ -130,10 +130,7 @@ export class StockDetailSearchComponent implements OnInit{
       if (page === 'create') {
           this.router.navigate(['/stock-detail-manage-create']);
       } else if (page === 'edit' && data?.id) {
-        
-          this.router.navigate([`/stock-detail-manage-edit/${(data.id)}`]);
-
-
+        this.router.navigate([`/stock-detail-manage-edit/${(data.id)}`]);
       }
     }
 

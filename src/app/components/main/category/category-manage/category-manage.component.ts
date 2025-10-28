@@ -89,7 +89,10 @@ export class CategoryManageComponent  implements OnInit{
                     summary: 'สำเร็จ',
                     detail: message,
                     life: 2000
+                    
                   });
+            this.router.navigate(['/category-search']);
+            this.loaderService.stop();
             } else {
                   this.messageService.add({
                     severity: 'error',
@@ -98,9 +101,9 @@ export class CategoryManageComponent  implements OnInit{
                     life: 2000
                   });
                   }
-              });
-            this.router.navigate(['/category-search']);
             this.loaderService.stop();
+              });
+        
           }, 1500);
       }
 

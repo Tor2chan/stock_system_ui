@@ -13,58 +13,89 @@ import { CommonModule } from '@angular/common';
 import { DatePicker } from 'primeng/datepicker';
 import { TranslateModule} from '@ngx-translate/core';
 
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog'; 
+import { TablePageEvent } from 'primeng/table';
+import { GlobalService } from '../../../../../services/global.service';
+import { ProductData } from '../../../../../models/product-data';
+import { ProductService } from '../../../../../services/product.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
+import { DropdownModule } from 'primeng/dropdown';
 @Component({
   selector: 'app-stock-detail-manage',
-  imports: [ FormsModule, CardModule,CommonModule, InputTextModule, Select, InputNumberModule, DatePicker, ButtonModule, ToastModule,TranslateModule],
+  imports: [ FormsModule, TableModule,CardModule,CommonModule, InputTextModule, DropdownModule, InputNumberModule, 
+            DatePicker, ButtonModule, ToastModule,TranslateModule, DialogModule],
   providers: [MessageService],
   templateUrl: './stock-detail-manage.component.html',
-  styleUrl: './stock-detail-manage.component.scss'
+  styleUrl: './stock-detail-manage.component.scss',
 })
 export class StockDetailManageComponent {
-  stock = {
-    name: '',
-    code: '',
-    amount: 0,
-    category: '',
-    price: 0,
-    date: null,
-  
-    expire: null
-  };
+
   mode: MODE_PAGE;
   categories = ['Food', 'Drink', 'Medicine', 'Cosmetic'];
 
+  criteria:ProductData ={};
+
+  items: ProductData[] = [];
+  totalRecords:number = 0;
+  rows: number = 5;
+  params: string | null = null; 
+
+
   constructor(
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public readonly globalService:GlobalService,
+    private readonly productService:ProductService,
+    private readonly translate : TranslateService,
+    private route: ActivatedRoute
   ) {  this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';}
 
-  onSubmit() {
-    if (this.stock.name && this.stock.code && this.stock.category) {
 
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Stock added successfully'
-      });
-
-      setTimeout(() => {
-        this.router.navigate(['/stock-main-search']);
-      }, 1500);
-    } else {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Warning',
-        detail: 'Please fill out all required fields'
-      });
-    }
-  }
-ngOnInit() {
+  ngOnInit() {
+      this. params = this.route.snapshot.paramMap.get('id');
       console.log('mode:', this.mode)
+      this.onSearch();
     }
-  onCancel() {
-    this.router.navigate(['/stock-detail-search/:id']);
-   
-  }
+
+    onCancel() {
+      const sku = this.items[0]?.sku;
+      this.router.navigate([`/stock-detail-search/${(sku)}`]);
+    }
+
+  onSearch(event?: TablePageEvent) {
+        if (event) {
+            this.criteria.size = event.rows;
+            this.criteria.first = event.first;
+            if (event.rows != this.rows) {
+                this.globalService.backToFirstPage();
+            }
+        } else {
+            this.globalService.backToFirstPage();
+        }
+
+        this.rows = this.criteria.size ?? 5;
+        this.criteria.id = this.params !== null ? Number(this.params) : undefined;
+        this.productService.findProductDetail(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
+          
+            if (status === 200) {
+
+                this.items = entries as ProductData[];
+                this.totalRecords = totalRecords as number;
+                console.log('item',this.items);
+            } else {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: this.translate.instant('common.message.exception') || 'kkkk',
+                    detail: this.translate.instant(message as string) || message,
+                    life: 5000
+                });
+            }
+        });
+      }
+    onSave(){
+
+    }
 }
 

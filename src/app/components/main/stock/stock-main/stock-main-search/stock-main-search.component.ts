@@ -16,8 +16,8 @@ import { ProductService } from '../../../../../services/product.service';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../../../../interceptors/jwt.interceptor';
-
-
+import { CategoryData } from '../../../../../models/catagory-data';
+import { DropdownService } from '../../../../../services/dropdown.service';
 @Component({
   selector: 'app-stock-main-search',
   imports: [ CommonModule, FormsModule, TableModule, DialogModule,Select, ButtonModule, TranslateModule],
@@ -30,7 +30,12 @@ standalone: true,
 export class StockMainSearchComponent implements OnInit{
 
  criteria:ProductData ={
+    code: ""
+
  };
+
+  itemCategory: ProductData[] = [];
+  selectedCategory: string | null = null;
 
 
  items: ProductData[] = [];
@@ -53,23 +58,20 @@ export class StockMainSearchComponent implements OnInit{
     private readonly messageService:MessageService,
     private readonly productService:ProductService,
     private readonly translate : TranslateService,
-
+    private readonly dropdownService: DropdownService,
     private router: Router
   ) {
-    // ✅ กำหนดข้อมูลตัวอย่าง
- 
-
-    // this.categories = Array.from(new Set(this.transactions.map(t => t.category)));
-    this.updatePagination();
+  
      this.mode = <MODE_PAGE>sessionStorage.getItem('mode') ?? 'search';
   }
 
   ngOnInit() {
+    this.getDropdownCategory();
     this.onSearch();
   }
 
   onSearch(event?: TablePageEvent) {
-        
+        console.log("code :" ,this.criteria.code)
         if (event) {
             this.criteria.size = event.rows;
             this.criteria.first = event.first;
@@ -92,7 +94,7 @@ export class StockMainSearchComponent implements OnInit{
             } else {
                 this.messageService.add({
                     severity: 'error',
-                    summary: this.translate.instant('common.message.exception') || 'kkkk',
+                    summary: this.translate.instant('common.message.exception'),
                     detail: this.translate.instant(message as string) || message,
                     life: 5000
                 });
@@ -103,59 +105,25 @@ export class StockMainSearchComponent implements OnInit{
     this.router.navigate(['/category-search']); 
   }
 
-  filterType(type: 'all' | 'income' | 'expense') {
-    this.selectedFilter = type;
-    this.page = 1;
-    this.updatePagination();
-  }
-
-  filterByCategory() {
-    this.page = 1;
-    this.updatePagination();
-  }
-
-  updatePagination() {
-   
+  getDropdownCategory(){
+    this.dropdownService.dropdownCategory(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
+        
+        if (status === 200) {
+            this.itemCategory = entries as ProductData[];
+            this.totalRecords = totalRecords as number;
+            console.log('item',this.itemCategory);
+        } else {
+            this.messageService.add({
+                severity: 'error',
+                summary: this.translate.instant('common.message.exception') || 'kkkk',
+                detail: this.translate.instant(message as string) || message,
+                life: 5000
+            });
+        }
+    });
   }
 
   
-    // openPage(page: MODE_PAGE , data?: Transactio) {
-  
-    //   sessionStorage.setItem('mode', page);
-  
-    //   if (page === 'create') {
-    //       this.router.navigate(['/stock-main-manage-create']);
-    //   } else if (page === 'edit' && data?.id) {
-  
-    //       this.router.navigate([`/stock-main-manage-edit/${(data.id)}`]);
-  
-    //   }
-    // }
-
-  prevPage() {
-    if (this.page > 1) {
-      this.page--;
-      this.updatePagination();
-    }
-  }
-
-  nextPage() {
-    if (this.page < this.totalPages) {
-      this.page++;
-      this.updatePagination();
-    }
-  }
-
-  // editTransaction(t: Transaction) {
-  //   alert(`Edit transaction: ${t.id}`);
-  // }
-
-  // deleteTransaction(id: number) {
-  //   if (confirm('Are you sure to delete this transaction?')) {
-  //     this.transactions = this.transactions.filter(t => t.id !== id);
-  //     this.updatePagination();
-  //   }
-  // }
 
   onOpenEdit(id: number) {
     this.visibleEdit = true;

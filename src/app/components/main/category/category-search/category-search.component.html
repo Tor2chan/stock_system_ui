@@ -37,7 +37,7 @@
               [title]="'common.edit' | translate"></i>
 
           
-                      <i (click)="openPage('edit', item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
+                      <i (click)="onOpenDelete(item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
               [title]="'common.delete' | translate"></i>
 
           
@@ -52,3 +52,37 @@
       (onClick)="onBack()"></p-button>
   </div>
 </div>
+
+<p-dialog
+  [(visible)]="visibleDelete"
+  [modal]="true"
+  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
+  [contentStyle]="{ height: '100%', overflow: 'hidden' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="text-center">
+    <div>
+      <i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5"></i>
+    </div>
+    <div class="mt-4">
+      {{ 'common.deletedata' | translate }}
+    </div>
+  </div>
+
+  <div class="text-center mt-4 space-x-4">
+    <p-button
+      [label]="'common.cancel' | translate"
+      icon="pi pi-times"
+      styleClass="p-button-secondary p-button-sm"
+      size="small"
+      (onClick)="onCloseDelete()"
+    ></p-button>
+
+    <p-button
+      [label]="'common.confirm' | translate"
+      size="small"
+      (onClick)="onConfirmDelete(itemDelete.id!)"
+    ></p-button>
+  </div>
+</p-dialog>

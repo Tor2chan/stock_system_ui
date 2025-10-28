@@ -25,10 +25,15 @@ export class CategoryService  {
 
     saveCategory(categoryData: CategoryData): Observable<ResponseListIf<CategoryData>> {
         return this.http.post<ResponseListIf<CategoryData>>(
-            this.globalService.joinApi([this.baseService, 'create-category']),
+            this.globalService.joinApi([this.baseService, 'save-category']),
            categoryData
         );
     }
 
- 
+     deleteCategory(id: number): Observable<ResponseOneIf<CategoryData>> {
+        this.globalService.validatePathTraversal(id);
+        return this.http.delete<ResponseOneIf<CategoryData>>(
+            this.globalService.joinApi([this.baseService, 'delete-category', id])
+        );
+    }
 }
