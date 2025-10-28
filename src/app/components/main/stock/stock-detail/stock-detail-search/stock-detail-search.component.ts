@@ -59,6 +59,7 @@ export class StockDetailSearchComponent implements OnInit{
   }
     ngOnInit() {
       this. params = this.route.snapshot.paramMap.get('id');
+      console.log("sku = ",this.params)
       this.onSearch();
   }
 
@@ -128,9 +129,10 @@ export class StockDetailSearchComponent implements OnInit{
       if (page === 'create') {
           this.router.navigate(['/stock-detail-manage-create']);
       } else if (page === 'edit' && data?.id) {
-  
+        
           this.router.navigate([`/stock-detail-manage-edit/${(data.id)}`]);
-  
+
+
       }
     }
 
