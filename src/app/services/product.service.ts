@@ -28,5 +28,19 @@ export class ProductService  {
                 productData
             );
         }
+
+    saveProduct(productData: ProductData): Observable<ResponseListIf<ProductData>> {
+                return this.http.post<ResponseListIf<ProductData>>(
+                    this.globalService.joinApi([this.baseService, 'save-product']),
+                   productData
+                );
+            }
+        
+    deleteProduct(id: number): Observable<ResponseOneIf<ProductData>> {
+                this.globalService.validatePathTraversal(id);
+                return this.http.delete<ResponseOneIf<ProductData>>(
+                    this.globalService.joinApi([this.baseService, 'delete-category', id])
+                );
+            }
  
 }

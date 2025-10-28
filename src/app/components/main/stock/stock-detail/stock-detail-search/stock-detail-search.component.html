@@ -100,13 +100,13 @@
           </button>
           <button
             class="text-red-500 hover:text-red-700 mr-2"
-            (click)="onOpenEdit(item)"
+            (click)="onOpenDelete(item)"
           >
             <i class="pi pi-trash"></i>
           </button>
           <button
             class="text-yellow-400 hover:text-yellow-700"
-            (click)="onOpenEdit(item)"
+            (click)="onOpenCart(item)"
           >
             <i class="pi pi-shopping-cart"></i>
           </button>
@@ -128,7 +128,7 @@
 
 <!-- 🗑️ Delete Dialog -->
 <p-dialog
-  [(visible)]="visibleEdit"
+  [(visible)]="visibleDelete"
   [modal]="true"
   [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
   [contentStyle]="{ height: '100%', overflow: 'hidden' }"
@@ -150,13 +150,70 @@
       icon="pi pi-times"
       styleClass="p-button-secondary p-button-sm"
       size="small"
-      (onClick)="onCloseEdit()"
+      (onClick)="onCloseDelete()"
     ></p-button>
 
     <p-button
       [label]="'common.confirm' | translate"
       size="small"
-      (onClick)="onConfirmEdit()"
+      (onClick)="onConfirmDelete()"
     ></p-button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="visibleCart" [modal]="true"
+  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
+  [contentStyle]="{ height: '100%', overflow: 'hidden' }" [draggable]="false" [resizable]="false">
+
+  <div class="text-center">
+    <div class=""><i class="pi pi-shopping-cart" style="font-size: 6rem; opacity: 0.5;"></i></div>
+    <div class="mt-4">{{ 'common.cart' | translate }}</div>
+  </div>
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="flex flex-col">
+        <label for="name" class="font-semibold mb-2">
+          {{ 'main.stock.stockdetail.stockdetailmanage.nameLabel' | translate }}
+        </label>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          [(ngModel)]="criteria.name"
+          name="name"
+          required
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.namePlaceholder' | translate"
+          class="w-full"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="code" class="font-semibold mb-2">
+          {{ 'main.stock.stockdetail.stockdetailmanage.batchCodeLabel' | translate }}
+        </label>
+        <input
+          id="code"
+          type="text"
+          pInputText
+          [(ngModel)]="criteria.code"
+          name="code"
+          required
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.batchCodePlaceholder' | translate"
+          class="w-full"
+        />
+      </div>
+    </div>
+    <div>
+      
+    </div>
+
+
+  <div class="text-center mt-4 space-x-4">
+    <p-button [label]="'common.cancel' | translate " icon="pi pi-times" styleClass="p-button-secondary p-button-sm "
+      size="small" (onClick)="onCloseCart()">
+    </p-button>
+
+    <p-button [label]="'common.confirm'| translate" size="small" (onClick)="onConfirmCart()">
+
+    </p-button>
   </div>
 </p-dialog>

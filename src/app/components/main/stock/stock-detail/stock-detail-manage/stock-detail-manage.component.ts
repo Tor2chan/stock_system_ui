@@ -57,6 +57,8 @@ export class StockDetailManageComponent {
       this. params = this.route.snapshot.paramMap.get('id');
       console.log('mode:', this.mode)
       this.onSearch();
+      console.log("sku =", this.items[0]?.sku)
+      
     }
 
     onCancel() {

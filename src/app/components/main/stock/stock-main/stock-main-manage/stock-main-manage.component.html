@@ -4,20 +4,58 @@
     ('main.stock.stockmain.stockmainmanage.edit' | translate) }}
   </h2>
 
-  <form (ngSubmit)="onSubmit()" #stockForm="ngForm" class="p-fluid">
+ 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div class="flex flex-col">
         <label for="name" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.name' | translate
           }}</label>
-        <input id="name" type="text" pInputText [(ngModel)]="stock.name" name="name" required
+        <input id="name" type="text" pInputText  [(ngModel)]="criteria.name" name="name" required
           [placeholder]="'main.stock.stockmain.stockmainmanage.namePlaceholder' | translate" class="w-full" />
       </div>
 
       <div class="flex flex-col">
         <label for="code" class="font-semibold mb-2">{{ 'main.stock.stockmain.stockmainmanage.sku' | translate
           }}</label>
-        <input id="code" type="text" pInputText [(ngModel)]="stock.sku" name="code" required
+        <input id="code" type="text" pInputText [(ngModel)]="criteria.sku" name="sku" required
           [placeholder]="'main.stock.stockmain.stockmainmanage.skuPlaceholder' | translate" class="w-full" />
+      </div>
+    </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="flex flex-col">
+        <label for="name" class="font-semibold mb-2">{{ 'main.stock.stockdetail.stockdetailmanage.batchCodeLabel' | translate
+          }}</label>
+        <input id="name" type="text" pInputText  [(ngModel)]="criteria.batchCode" name="batchCode" required
+          [placeholder]="'main.stock.stockmain.stockmainmanage.batchCodePlaceholder' | translate" class="w-full" />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="code" class="font-semibold mb-2">{{ 'main.stock.stockdetail.stockdetailmanage.amountLabel' | translate
+          }}</label>
+        <input id="code" type="text" pInputText [(ngModel)]="criteria.amount" name="amount" required
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.amountPlaceholder' | translate" class="w-full" />
+      </div>
+      
+    </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="flex flex-col">
+        <label for="name" class="font-semibold mb-2">{{ 'main.stock.stockdetail.stockdetailmanage.priceLabel' | translate
+          }}</label>
+        <input id="name" type="text" pInputText  [(ngModel)]="criteria.price" name="price" required
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.pricePlaceholder' | translate" class="w-full" />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="code" class="font-semibold mb-2">{{ 'main.stock.stockdetail.stockdetailmanage.receivedDateLabel' | translate
+          }}</label>
+         <p-datepicker
+          class="w-full"
+          [(ngModel)]="criteria.receivedDate"
+          name="receivedDate"
+          dateFormat="yy-mm-dd"
+          showIcon="true"
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.receivedDatePlaceholder' | translate"
+          [style]="{ width: '100%' }"
+        ></p-datepicker>
       </div>
     </div>
 
@@ -28,25 +66,47 @@
 
         </label>
 
-        <p-select [options]="categories" [(ngModel)]="stock.category" [showClear]="true"
-          placeholder="{{ 'main.stock.stockmain.stockmainmanage.selectCategory' | translate }}"
-          class="w-full border rounded-lg h-[42px]"></p-select>
+    <p-select
+  [showClear]="true"
+  [(ngModel)]="criteria.category"
+  [options]="itemCategory"
+  optionLabel="name"
+  optionValue="name"
+  class="w-full border rounded-lg h-[42px]"
+  placeholder="{{ 'main.stock.stockmain.stockmainmanage.selectCategory' | translate }}">
+</p-select>
 
 
-        <p-button (click)="onManageCategory()" class="px-4 py-2 font-semibold transition">
+        <p-button (onClick)="onManageCategory()" class="px-4 py-2 font-semibold transition">
           <i class="pi pi-plus"></i>
           {{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}
         </p-button>
 
       </div>
 
+       <div class="flex flex-col">
+        <label for="code" class="font-semibold mb-2">{{ 'main.stock.stockdetail.stockdetailmanage.expireDateLabel' | translate
+          }}</label>
+         <p-datepicker
+          class="w-full"
+          [(ngModel)]="criteria.expireDate"
+          name="expireDate"
+          dateFormat="yy-mm-dd"
+          showIcon="true"
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.receivedDatePlaceholder' | translate"
+          [style]="{ width: '100%' }"
+        ></p-datepicker>
+      </div>
     </div>
+    
 
     <div class="flex justify-end gap-3 mt-6">
       <p-button label="{{ 'common.cancel' | translate }}" icon="pi pi-times" styleClass="p-button-secondary"
         (onClick)="onCancel()"></p-button>
-      <p-button label="{{ 'common.save' | translate }}" icon="pi pi-check" type="submit"></p-button>
+      <p-button label="{{ 'common.save' | translate }}" icon="pi pi-check" type="submit"
+        (onClick)="onSave()">
+      </p-button>
     </div>
-  </form>
-
 </div>
+ 
+

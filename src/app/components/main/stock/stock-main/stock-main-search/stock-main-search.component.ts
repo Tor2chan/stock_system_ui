@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog'; // ✅ ใช้ DialogModule ไม่ใช่ Dialog
 import { ButtonModule } from 'primeng/button';
-import { Select } from 'primeng/select';
+import { SelectModule } from 'primeng/select';
 import { MODE_PAGE } from '../../../../../modules/common/common';
 import { TranslateModule} from '@ngx-translate/core';
 import { TablePageEvent } from 'primeng/table';
@@ -20,7 +20,7 @@ import { CategoryData } from '../../../../../models/catagory-data';
 import { DropdownService } from '../../../../../services/dropdown.service';
 @Component({
   selector: 'app-stock-main-search',
-  imports: [ CommonModule, FormsModule, TableModule, DialogModule,Select, ButtonModule, TranslateModule],
+  imports: [ CommonModule, FormsModule, TableModule, DialogModule,SelectModule, ButtonModule, TranslateModule],
 standalone: true,
   templateUrl: './stock-main-search.component.html',
   styleUrl: './stock-main-search.component.scss',
@@ -48,6 +48,7 @@ export class StockMainSearchComponent implements OnInit{
   selectedFilter: 'all' | 'income' | 'expense' = 'all';
   filterCategory: string = '';
   visibleEdit = false;
+  visibleDelete = false;
 
   page: number = 1;
   pageSize: number = 5;
@@ -129,8 +130,11 @@ export class StockMainSearchComponent implements OnInit{
     this.visibleEdit = true;
   }
 
+  onDelete(id: number) {
+    this.visibleDelete = true;
+  }
   onCloseDelete() {
-    this.visibleEdit = false;
+    this.visibleDelete = false;
   }
 
   onAdd(){
@@ -142,9 +146,7 @@ export class StockMainSearchComponent implements OnInit{
     this.router.navigate([`/stock-detail-search/${(sku)}`]);
   }
 
- onDelete(id: number) {
-    this.visibleEdit = true;
-  }
+ 
  onDeleteConfirm() {
    
  }

@@ -142,6 +142,7 @@
     "no": "No",
     "deletedata": "Delete",
     "edit": "edit",
-    "delete":"delete"
+    "delete":"delete",
+   "cart":"cart"
   }
 }

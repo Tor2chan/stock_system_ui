@@ -19,4 +19,5 @@ export interface ProductData {
   
   //code.category
   code?:string;
+  sumAmount?: number;
 }

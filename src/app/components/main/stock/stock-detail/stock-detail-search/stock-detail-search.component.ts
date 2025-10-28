@@ -39,7 +39,9 @@ export class StockDetailSearchComponent implements OnInit{
 
   selectedFilter: 'all' | 'income' | 'expense' = 'all';
   filterCategory: string = '';
-  visibleEdit = false;
+ 
+  visibleDelete = false;
+  visibleCart = false;
 
   page: number = 1;
   pageSize: number = 5;
@@ -159,17 +161,30 @@ export class StockDetailSearchComponent implements OnInit{
     // }
   }
 
-  onOpenEdit(id: number) {
-    this.visibleEdit = true;
+  onOpenDelete(id: number) {
+    this.visibleDelete = true;
   }
 
-  onCloseEdit() {
-    this.visibleEdit = false;
+  onCloseDelete() {
+    this.visibleDelete = false;
   }
 
-  onConfirmEdit() {
+  
+  onConfirmDelete() {
     // TODO: Implement update logic
   }
+
+  onOpenCart(id: number) {
+    this.visibleCart = true;
+  }
+    onCloseCart() {
+    this.visibleCart = false;
+  }
+    
+  onConfirmCart() {
+    // TODO: Implement update logic
+  }
+
 
   onAdd() {
     this.router.navigate(['/stock-detail-manage']); 
