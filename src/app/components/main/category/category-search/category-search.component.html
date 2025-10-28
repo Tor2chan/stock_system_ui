@@ -33,8 +33,14 @@
             </span>
           </td>
           <td style="text-align: center">
-            <i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer"
+            <i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer mr-2 text-blue-500 hover:text-blue-700"
               [title]="'common.edit' | translate"></i>
+
+          
+                      <i (click)="openPage('edit', item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
+              [title]="'common.delete' | translate"></i>
+
+          
           </td>
         </tr>
       </ng-template>

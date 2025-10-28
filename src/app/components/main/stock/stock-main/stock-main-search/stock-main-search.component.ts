@@ -16,9 +16,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../../../../interceptors/jwt.interceptor';
 
+
 @Component({
   selector: 'app-stock-main-search',
-  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule,],
+  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule],
 standalone: true,
   templateUrl: './stock-main-search.component.html',
   styleUrl: './stock-main-search.component.scss',
@@ -29,6 +30,7 @@ export class StockMainSearchComponent implements OnInit{
 
  criteria:ProductData ={
  };
+
 
  items: ProductData[] = [];
  totalRecords:number = 0;

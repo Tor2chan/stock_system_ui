@@ -141,6 +141,7 @@
     "manage": "Manage",
     "no": "No",
     "deletedata": "Deletedata",
-    "edit": "edit"
+    "edit": "edit",
+    "delete":"delete"
   }
 }
