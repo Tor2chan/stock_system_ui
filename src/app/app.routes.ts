@@ -30,7 +30,10 @@ export const routes: Routes = [
       { path: 'stock-detail-manage-create', component: StockDetailManageComponent },
       { path: 'stock-detail-manage-edit/:id', component: StockDetailManageComponent },
       { path: 'add-user', component: AddUserComponent },
-      { path: 'edit-user', component: EditUserComponent }
+      { path: 'edit-user', component: EditUserComponent },
+     
+
+
     ]
   },
 

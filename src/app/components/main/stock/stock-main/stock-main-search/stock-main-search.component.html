@@ -72,17 +72,20 @@
         <td>{{ item.amount  }}</td>
         <td>{{ item.category }}</td>
         <td class="px-4 py-2 justify-center flex">
-              <button (click)="openPage('edit', item )" class="text-blue-500 hover:text-blue-700 mr-2" >
+              <!-- <button (click)="openPage('edit', item )" class="text-blue-500 hover:text-blue-700 mr-2" >
                         <i class="pi pi-pencil"></i>
-                    </button>
-                    <button class="text-red-500 hover:text-red-700 mr-2" (click)="onDelete(item)">
+                    </button> -->
+                   
+          
+     
+          <button class="text-yellow-400 hover:text-yellow-700 mr-2" (click)="ondetail(item.sku)">
+            <i class="pi pi-cart-plus"></i>
+          </button>
+
+           <button class="text-red-500 hover:text-red-700 mr-2" (click)="onDelete(item)">
                         <i class="pi pi-trash"></i>
                     </button>
           
-     
-          <button class="text-yellow-400 hover:text-yellow-700" (click)="ondetail(item.sku)">
-            <i class="pi pi-cart-plus"></i>
-          </button>
         </td>
       </tr>
     </ng-template>

@@ -26,7 +26,7 @@
 
   <!-- Table -->
   <p-table
-    [value]="users"
+    [value]="items"
     showGridlines="true"
     [paginator]="true"
     [globalFilterFields]="['name', 'role', 'status']"
@@ -36,29 +36,11 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center">#</th>
-        <th
-          pSortableColumn="name"
-          style="text-align: center; position: relative; cursor:pointer;"
-          (click)="sortTable('name', sortOrder === 'asc' && sortField === 'name' ? 'desc' : 'asc')"
-        >
-          <span style="display: flex; align-items: center; width: 100%;">
-            <span style="flex:1; text-align: center;">{{ 'users.manageuser.edituser.username' | translate }}</span>
-            <span style="margin-left: auto; display: flex; flex-direction: column; align-items: flex-end;">
-              <i
-                class="pi pi-sort-up-fill"
-                [ngStyle]="{ color: sortField === 'name' && sortOrder === 'asc' ? '#1976d2' : '#bdbdbd' }"
-              ></i>
-              <i
-                class="pi pi-sort-down-fill"
-                [ngStyle]="{ color: sortField === 'name' && sortOrder === 'desc' ? '#1976d2' : '#bdbdbd' }"
-              ></i>
-            </span>
-          </span>
-        </th>
+        <th style="text-align: center">{{ 'common.no' | translate }}</th>
+
+        <th style="text-align: center">{{ 'users.manageuser.edituser.username' | translate }}</th>
         <th style="text-align: center">{{ 'users.manageuser.edituser.name' | translate }}</th>
         <th style="text-align: center">{{ 'users.manageuser.edituser.role' | translate }}</th>
-        <th style="text-align: center">{{ 'users.manageuser.edituser.status' | translate }}</th>
         <th style="text-align: center">{{ 'common.manage' | translate }}</th>
       </tr>
     </ng-template>
@@ -66,18 +48,15 @@
     <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
       <tr>
         <td style="text-align: center; vertical-align: middle;">{{ rowIndex + 1 }}</td>
-        <td style="text-align: center; vertical-align: middle;">{{ item.user }}</td>
+        <td style="text-align: center; vertical-align: middle;">{{ item.username }}</td>
         <td style="text-align: center; vertical-align: middle;">{{ item.name }}</td>
         <td style="text-align: center; vertical-align: middle;">{{ item.role }}</td>
-        <td style="text-align: center; vertical-align: middle;">
-          <i *ngIf="item.status === 'Active'" class="pi pi-check text-green-500 text-xl"></i>
-          <i *ngIf="item.status !== 'Active'" class="pi pi-times text-red-500 text-xl"></i>
-        </td>
+      
         <td style="text-align: center; vertical-align: middle;">
           <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="openPage('edit', item)">
             <i class="pi pi-pencil"></i>
           </button>
-          <button class="text-red-500 hover:text-red-700 mr-2" (click)="deleteTransaction(item.id)">
+          <button class="text-red-500 hover:text-red-700 mr-2">
             <i class="pi pi-trash"></i>
           </button>
         </td>
@@ -90,7 +69,7 @@
       [label]="'common.back' | translate"
       icon="pi pi-angle-left"
       styleClass="p-button-secondary"
-      (onClick)="goback()"
+      (onClick)="onBack()"
     ></p-button>
   </div>
 </div>

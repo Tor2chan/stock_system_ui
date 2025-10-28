@@ -18,7 +18,7 @@ import { JwtInterceptor } from '../../../../../interceptors/jwt.interceptor';
 
 @Component({
   selector: 'app-stock-main-search',
-  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule],
+  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule,],
 standalone: true,
   templateUrl: './stock-main-search.component.html',
   styleUrl: './stock-main-search.component.scss',
