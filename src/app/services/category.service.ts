@@ -15,9 +15,17 @@ export class CategoryService  {
         private readonly globalService: GlobalService
     ) {}
 
- find(categoryData: CategoryData): Observable<ResponseListIf<CategoryData>> {
+    findCategory(categoryData: CategoryData): Observable<ResponseListIf<CategoryData>> {
         return this.http.post<ResponseListIf<CategoryData>>(
-            this.globalService.joinApi([this.baseService, 'find']),
+            this.globalService.joinApi([this.baseService, 'find-category']),
+           categoryData
+        );
+    }
+
+
+    createCategory(categoryData: CategoryData): Observable<ResponseListIf<CategoryData>> {
+        return this.http.post<ResponseListIf<CategoryData>>(
+            this.globalService.joinApi([this.baseService, 'create-category']),
            categoryData
         );
     }

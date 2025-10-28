@@ -67,7 +67,7 @@ export class CategorySearchComponent implements OnInit{
     
             this.rows = this.criteria.size ?? 5;
     
-            this.categoryService.find(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
+            this.categoryService.findCategory(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
               
                 if (status === 200) {
     

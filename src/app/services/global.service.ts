@@ -12,10 +12,6 @@ export class GlobalService {
     }
     public rowsPerPageOptions = [5, 10, 20, 100];
 
-    deepClone(value: Object) {
-        return JSON.parse(JSON.stringify(value || {}));
-    }
-
     /** ถ้าไม่ผ่านจะ return true */
     validate(value: any): boolean {
         if (value === null || value == 'null' || value === undefined || value == 'undefined') {
@@ -83,11 +79,6 @@ export class GlobalService {
         window.scrollTo(0, 0);
     }
 
-    setMenuCode(menuCode: string): void {
-        if (this.validate(menuCode)) return;
-        sessionStorage.setItem('menuCode', menuCode);
-    }
-
     exportXlsx(data: any, filename: string) {
         const byteCharacters = atob('' + data); // Decode base64
         const byteNumbers = Array.from(byteCharacters, (c) => c.charCodeAt(0));
@@ -135,20 +126,6 @@ export class GlobalService {
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-    }
-
-    checksumThaiId(thaild: string) {
-        const m = thaild.match(/(\d{12})(\d)/);
-        if (!m) return false;
-
-        const digits: string[] = m[1].split('');
-        const sum: number = digits.reduce((total, digit, i) => {
-            return total + (13 - i) * +digit;
-        }, 0);
-
-        const lastDigit: number = (11 - (sum % 11)) % 10;
-        if (lastDigit === +m[2]) return true;
-        return false;
     }
 
     joinApi(segments: Array<string | number>): string {
