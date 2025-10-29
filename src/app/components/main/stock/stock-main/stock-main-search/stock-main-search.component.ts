@@ -18,10 +18,11 @@ import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../../../../interceptors/jwt.interceptor';
 import { CategoryData } from '../../../../../models/catagory-data';
 import { DropdownService } from '../../../../../services/dropdown.service';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-stock-main-search',
-  imports: [ CommonModule, FormsModule, TableModule, DialogModule,SelectModule, ButtonModule, TranslateModule],
+  imports: [ CommonModule, FormsModule, TableModule, DialogModule,SelectModule, ButtonModule, TranslateModule,InputTextModule],
 standalone: true,
   templateUrl: './stock-main-search.component.html',
   styleUrl: './stock-main-search.component.scss',

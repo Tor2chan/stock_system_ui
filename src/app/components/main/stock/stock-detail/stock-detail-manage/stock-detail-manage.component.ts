@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -26,6 +25,8 @@ import { DropdownService } from '../../../../../services/dropdown.service';
 
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SelectModule } from 'primeng/select';
+import { InputTextModule } from 'primeng/inputtext';
+
 
 @Component({
   selector: 'app-stock-detail-manage',

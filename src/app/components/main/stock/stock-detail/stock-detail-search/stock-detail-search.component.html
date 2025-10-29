@@ -4,19 +4,29 @@
   </h2>
 
   <!-- 🔍 Filters -->
-  <div class="flex items-center gap-2 mb-4">
-    <input
-      type="text"
-      pInputText
-      [placeholder]="'main.stock.stockdetail.stockdetailsearch.stockmainmanage.searchPlaceholder' | translate"
-      (input)="onSearch()"
-      class="px-4 py-2 rounded-lg border w-64"
-    />
+    <div class="flex items-center gap-2 mb-4">
 
-    <p-select [options]="categories" [(ngModel)]="filterCategory" (onChange)="filterByCategory()" [showClear]="true"
-      placeholder="{{ 'main.stock.stockmain.stockmainsearch.filterByCategory' | translate }}"
-      class="w-64 h-[42px] rounded-lg border"></p-select>
 
+
+    <!-- ช่องค้นหา -->
+    <input type="text" 
+    [(ngModel)]="criteria.name"
+    pInputText
+      placeholder="{{ 'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate }}" (input)="onSearch()"
+      class="px-4 py-2 rounded-lg border w-64 h-[42px]" />
+
+
+        <p-select
+        [showClear]="true"
+        [(ngModel)]="criteria.code"
+        [options]="itemCategory"
+        optionLabel="name"
+        optionValue="code"
+        class="w-54 border rounded-lg h-[42px]"
+        placeholder="{{ 'main.stock.stockmain.stockmainsearch.filterByCategory' | translate }}">
+      </p-select>
+      
+ 
     <p-button
       (click)="onSearch()"
       class="px-4 py-2 font-semibold transition gap-2 ml-2"

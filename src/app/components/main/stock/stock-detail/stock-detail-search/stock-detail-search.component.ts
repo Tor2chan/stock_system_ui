@@ -14,12 +14,13 @@ import { ProductData } from '../../../../../models/product-data';
 import { MessageService } from 'primeng/api';
 import { ProductService } from '../../../../../services/product.service';
 import { TranslateService } from '@ngx-translate/core';
+import { InputTextModule} from 'primeng/inputtext';
 
 
 
 @Component({
   selector: 'app-stock-detail-search',
-  imports: [ CommonModule, FormsModule, TableModule,Select, DialogModule, ButtonModule, TranslateModule],
+  imports: [ CommonModule, FormsModule, TableModule,Select, DialogModule, ButtonModule, TranslateModule,InputTextModule],
   standalone: true,
   templateUrl: './stock-detail-search.component.html',
   styleUrl: './stock-detail-search.component.scss',
@@ -31,6 +32,7 @@ export class StockDetailSearchComponent implements OnInit{
  };
 
  items: ProductData[] = [];
+ itemCategory: ProductData[] = [];
  totalRecords:number = 0;
  rows: number = 5;
 

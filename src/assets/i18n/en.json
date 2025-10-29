@@ -24,8 +24,8 @@
       "stockmain": {
         "stockmainsearch": {
           "title": "Stock",
-          "searchPlaceholder": "Search by name or code",
-          "filterByCategory": "Filter by Category",
+          "searchPlaceholder": "Name",
+          "filterByCategory": "Category",
           "search": "Search",
           "categorys": "Category",
           "addStock": "Add Stock",
@@ -35,6 +35,7 @@
           "batchCode": "Batch Code",
           "amount": "Amount",
           "addToCart": "Add to Cart"
+        
         },
         "stockmainmanage": {
           "add": "Add Product",
