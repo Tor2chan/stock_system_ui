@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -25,8 +26,6 @@ import { DropdownService } from '../../../../../services/dropdown.service';
 
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SelectModule } from 'primeng/select';
-import { InputTextModule } from 'primeng/inputtext';
-
 
 @Component({
   selector: 'app-stock-detail-manage',
@@ -80,8 +79,10 @@ export class StockDetailManageComponent implements OnInit {
     this.params = this.route.snapshot.paramMap.get('id');
     console.log('params =', this.params);
     console.log('mode:', this.mode);
-    this.onSearch();
+
     this.getDropdownCategory();
+    this.onSearch();
+
 
   }
 
@@ -153,7 +154,8 @@ export class StockDetailManageComponent implements OnInit {
 
   onCancel() {
     if (this.mode == 'edit') {
-      const sku = this.items[0]?.sku;
+      const sku = this.criteria.sku;
+      console.log("sku =",sku);
       this.router.navigate([`/stock-detail-search/${sku}`]);
     } else if (this.mode == 'create') {
       this.router.navigate([`/stock-detail-search/${this.params}`]);
@@ -166,15 +168,22 @@ export class StockDetailManageComponent implements OnInit {
       this.criteria.first = event.first;
     }
     this.rows = this.criteria.size ?? 5;
-    this.criteria.id = this.params !== null ? Number(this.params) : undefined;
-    this.productService
+
+    if(this.mode == 'edit'){
+      this.criteria.id = this.params !== null ? Number(this.params) : undefined;
+
+          this.productService
       .findProductDetail(this.criteria)
       .subscribe(({ status, message, entries, totalRecords }) => {
         if (status === 200) {
-          this.items = entries as ProductData[];
-          this.totalRecords = totalRecords as number;
-          console.log('item', this.items);
-          console.log('sku =', this.items[0]?.sku);
+
+        const data = entries as ProductData[];
+
+        if (data.length > 0) {
+          this.criteria = { ...data[0] };   
+        }
+
+          console.log('data edit', this.criteria);
         } else {
           this.messageService.add({
             severity: 'error',
@@ -185,5 +194,40 @@ export class StockDetailManageComponent implements OnInit {
           });
         }
       });
+    }else if(this.mode == 'create'){
+      this.criteria.sku = this.params ?? undefined;
+
+          this.productService
+      .findProductDetail(this.criteria)
+      .subscribe(({ status, message, entries, totalRecords }) => {
+        if (status === 200) {
+
+        const data = entries as ProductData[];
+        if (data.length > 0) {
+          this.criteria = { ...data[0] };   
+        }
+          console.log('sku =', this.criteria);
+          this.criteria.id = undefined;
+          this.criteria.batchCode = undefined;
+          this.criteria.amount = undefined;
+          this.criteria.price = undefined;
+          this.criteria.receivedDate = undefined;
+          this.criteria.expireDate = undefined;
+          console.log("check batchCode =",this.criteria.batchCode);
+
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary:
+              this.translate.instant('common.message.exception') || 'kkkk',
+            detail: this.translate.instant(message as string) || message,
+            life: 5000,
+          });
+        }
+      });
+    }
+
+
+
   }
 }

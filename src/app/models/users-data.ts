@@ -14,6 +14,7 @@ export interface UsersData{
     name?:string;
     password?:string;
     role?:string;
+    status?:string;
 
 
 }

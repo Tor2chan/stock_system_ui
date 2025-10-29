@@ -108,30 +108,30 @@ mode: MODE_PAGE = 'edit';
 
     onConfirmDelete(id: number){
 
-        this.loaderService.start();
-        setTimeout(() => {
-        this.usersService.deleteUsers(id).subscribe((result) => {
-            if (result.status === 200) {
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'สำเร็จ',
-                    detail: result.message,
-                    life: 2000
-                });
-                this.visibleDelete = false; 
-                this.onSearch();
-                this.loaderService.stop();
-            } else {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'ไม่สำเร็จ',
-                    detail: result.message,
-                    life: 3000
-                });
-                this.loaderService.stop();
-            }
-        });
-        }, 1500);
+    //     this.loaderService.start();
+    //     setTimeout(() => {
+    //     this.usersService.deleteUsers(id).subscribe((result) => {
+    //         if (result.status === 200) {
+    //             this.messageService.add({
+    //                 severity: 'success',
+    //                 summary: 'สำเร็จ',
+    //                 detail: result.message,
+    //                 life: 2000
+    //             });
+    //             this.visibleDelete = false; 
+    //             this.onSearch();
+    //             this.loaderService.stop();
+    //         } else {
+    //             this.messageService.add({
+    //                 severity: 'error',
+    //                 summary: 'ไม่สำเร็จ',
+    //                 detail: result.message,
+    //                 life: 3000
+    //             });
+    //             this.loaderService.stop();
+    //         }
+    //     });
+    //     }, 1500);
     }
 
   onOpenCart(id: number) {

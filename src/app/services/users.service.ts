@@ -22,31 +22,24 @@ export class UsersService {
             usersData
         );
     }
-    findUsers(usersctData: UsersData): Observable<ResponseListIf<UsersData>> {
+    findUsers(usersData: UsersData): Observable<ResponseListIf<UsersData>> {
         return this.http.post<ResponseListIf<UsersData>>(
             this.globalService.joinApi([this.baseService, 'find-users']),
-            usersctData
+            usersData
         );
     }
 
-    findUsersDetail(usersctData: UsersData): Observable<ResponseListIf<UsersData>> {
+    findUsersDetail(usersData: UsersData): Observable<ResponseListIf<UsersData>> {
         return this.http.post<ResponseListIf<UsersData>>(
             this.globalService.joinApi([this.baseService, 'find-users-detail']),
-            usersctData
+            usersData
         );
     }
 
-    saveUsers(usersctData: UsersData): Observable<ResponseListIf<UsersData>> {
+    saveUsers(usersData: UsersData): Observable<ResponseListIf<UsersData>> {
         return this.http.post<ResponseListIf<UsersData>>(
-            this.globalService.joinApi([this.baseService, 'save-users']),
-            usersctData
-        );
-    }
-
-    deleteUsers(id: number): Observable<ResponseOneIf<UsersData>> {
-        this.globalService.validatePathTraversal(id);
-        return this.http.delete<ResponseOneIf<UsersData>>(
-            this.globalService.joinApi([this.baseService, 'delete-users', id])
+            this.globalService.joinApi([this.baseService, 'save-user']),
+            usersData
         );
     }
 

@@ -13,11 +13,12 @@ export interface ProductData {
   amount?: number;
   category?: string;
   price?: number;
-  receivedDate?: string;
-  expireDate?: string;
-  createDate?: string;
+  receivedDate?: Date
+  expireDate?: Date;
+  createDate?: Date;
   
   //name.category
   code? : string;
+  categoryName?: string;
   sumAmount?: number;
 }
