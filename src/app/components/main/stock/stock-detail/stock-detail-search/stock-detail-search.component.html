@@ -101,26 +101,19 @@
         <td>{{ item.receivedDate }}</td>
         <td>{{ item.expireDate }}</td>
 
-        <td class="px-4 py-2 justify-center flex">
-          <button
-            class="text-blue-500 hover:text-blue-700 mr-2"
-            (click)="openPage('edit', item)"
-          >
-            <i class="pi pi-pencil"></i>
-          </button>
-          <button
-            class="text-red-500 hover:text-red-700 mr-2"
-            (click)="onOpenDelete(item)"
-          >
-            <i class="pi pi-trash"></i>
-          </button>
-          <button
-            class="text-yellow-400 hover:text-yellow-700"
-            (click)="onOpenCart(item)"
-          >
-            <i class="pi pi-shopping-cart"></i>
-          </button>
-        </td>
+       
+       <td style="text-align: center">
+            <i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer mr-2 text-blue-500 hover:text-blue-700"
+              [title]="'common.edit' | translate"></i>
+
+           <i (click)="onOpenCart(item)"class="pi pi-cart-plus cursor-pointer mr-2 text-red-500 hover:text-red-700"
+           [title]="'common.cart' | translate"></i>
+                      <i (click)="onOpenDelete(item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
+              [title]="'common.delete' | translate"></i>
+
+          
+          </td>
+
       </tr>
     </ng-template>
   </p-table>
@@ -166,7 +159,7 @@
     <p-button
       [label]="'common.confirm' | translate"
       size="small"
-      (onClick)="onConfirmDelete()"
+      (onClick)="onConfirmDelete(itemDelete.id!)"
     ></p-button>
   </div>
 </p-dialog>

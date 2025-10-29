@@ -39,7 +39,7 @@ export class ProductService  {
     deleteProduct(id: number): Observable<ResponseOneIf<ProductData>> {
                 this.globalService.validatePathTraversal(id);
                 return this.http.delete<ResponseOneIf<ProductData>>(
-                    this.globalService.joinApi([this.baseService, 'delete-category', id])
+                    this.globalService.joinApi([this.baseService, 'delete-product', id])
                 );
             }
  

@@ -51,18 +51,52 @@
         <td style="text-align: center; vertical-align: middle;">{{ item.username }}</td>
         <td style="text-align: center; vertical-align: middle;">{{ item.name }}</td>
         <td style="text-align: center; vertical-align: middle;">{{ item.role }}</td>
-      
-        <td style="text-align: center; vertical-align: middle;">
-          <button class="text-blue-500 hover:text-blue-700 mr-2" (click)="openPage('edit', item)">
-            <i class="pi pi-pencil"></i>
-          </button>
-          <button class="text-red-500 hover:text-red-700 mr-2">
-            <i class="pi pi-trash"></i>
-          </button>
+
+        <td style="text-align: center">
+
+          <!-- <i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer mr-2 text-blue-500 hover:text-blue-700"
+              [title]="'common.edit' | translate"></i> -->
+
+            <i (click)="onOpenDelete(item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
+              [title]="'common.delete' | translate"></i>
+
         </td>
       </tr>
     </ng-template>
   </p-table>
+  <p-dialog
+  [(visible)]="visibleDelete"
+  [modal]="true"
+  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
+  [contentStyle]="{ height: '100%', overflow: 'hidden' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="text-center">
+    <div>
+      <i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5"></i>
+    </div>
+    <div class="mt-4">
+      {{ 'common.deletedata' | translate }}
+    </div>
+  </div>
+
+  <div class="text-center mt-4 space-x-4">
+    <p-button
+      [label]="'common.cancel' | translate"
+      icon="pi pi-times"
+      styleClass="p-button-secondary p-button-sm"
+      size="small"
+      (onClick)="onCloseDelete()"
+    ></p-button>
+
+    <p-button
+      [label]="'common.confirm' | translate"
+      size="small"
+      (onClick)="onConfirmDelete(itemDelete.id!)"
+    ></p-button>
+  </div>
+</p-dialog>
 
   <div class="flex justify-end mt-4">
     <p-button

@@ -82,43 +82,12 @@
 
         <td>{{ item.sumAmount }}</td>
         <td>{{ item.category }}</td>
-        <td class="px-4 py-2 justify-center flex">
-          <!-- <button (click)="openPage('edit', item )" class="text-blue-500 hover:text-blue-700 mr-2" >
-                        <i class="pi pi-pencil"></i>
-                    </button> -->
-
-
-
-          <button class="text-yellow-400 hover:text-yellow-700 mr-2" (click)="ondetail(item.sku)">
-            <i class="pi pi-cart-plus"></i>
-          </button>
-
-          <button class="text-red-500 hover:text-red-700 mr-2" (click)="onDelete(item)">
-            <i class="pi pi-trash"></i>
-          </button>
-
-        </td>
+         <td style="text-align: center">
+         <i (click)="ondetail(item.sku)"class="pi pi-cart-plus cursor-pointer mr-2 text-red-500 hover:text-red-700"
+           [title]="'common.cart' | translate"></i>
+         </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
-<p-dialog [(visible)]="visibleEdit" [modal]="true"
-  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
-  [contentStyle]="{ height: '100%', overflow: 'hidden' }" [draggable]="false" [resizable]="false">
 
-  <div class="text-center">
-    <div class=""><i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5;"></i></div>
-    <div class="mt-4">{{ 'common.deletedata' | translate }}</div>
-  </div>
-
-
-  <div class="text-center mt-4 space-x-4">
-    <p-button [label]="'common.cancel' | translate " icon="pi pi-times" styleClass="p-button-secondary p-button-sm "
-      size="small" (onClick)="onCloseDelete()">
-    </p-button>
-
-    <p-button [label]="'common.confirm'| translate" size="small" (onClick)="onDeleteConfirm()">
-
-    </p-button>
-  </div>
-</p-dialog>

@@ -12,6 +12,7 @@ import { UsersData } from '../../../../models/users-data';
 import { UsersService } from '../../../../services/users.service';
 import { GlobalService } from '../../../../services/global.service';
 import { MessageService } from 'primeng/api';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../../../interceptors/jwt.interceptor';
@@ -34,6 +35,10 @@ export class EditUserComponent implements OnInit{
    totalRecords:number = 0;
    rows: number = 5;
 
+    itemDelete: UsersData = {}
+    visibleDelete = false;
+    visibleCart = false;
+    
 mode: MODE_PAGE = 'edit';
 
     page: number = 1;
@@ -45,6 +50,7 @@ mode: MODE_PAGE = 'edit';
   constructor( public readonly globalService:GlobalService,
              private readonly messageService:MessageService,
              private readonly usersService:UsersService,
+              private readonly loaderService: NgxUiLoaderService,
              private readonly translate : TranslateService,
          
              private router: Router)
@@ -89,6 +95,59 @@ mode: MODE_PAGE = 'edit';
                   }
               });
           }
+
+
+    onOpenDelete(item: UsersData){
+        this.visibleDelete = true;
+        this.itemDelete = structuredClone(item)
+    }
+
+    onCloseDelete(){
+        this.visibleDelete = false;
+    }
+
+    onConfirmDelete(id: number){
+
+        this.loaderService.start();
+        setTimeout(() => {
+        this.usersService.deleteUsers(id).subscribe((result) => {
+            if (result.status === 200) {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'สำเร็จ',
+                    detail: result.message,
+                    life: 2000
+                });
+                this.visibleDelete = false; 
+                this.onSearch();
+                this.loaderService.stop();
+            } else {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'ไม่สำเร็จ',
+                    detail: result.message,
+                    life: 3000
+                });
+                this.loaderService.stop();
+            }
+        });
+        }, 1500);
+    }
+
+  onOpenCart(id: number) {
+    this.visibleCart = true;
+  }
+    onCloseCart() {
+    this.visibleCart = false;
+  }
+    
+  onConfirmCart() {
+    // TODO: Implement update logic
+  }
+
+
+
+
 
 
   onBack() {

@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DecimalPipe } from '@angular/common';
@@ -12,15 +13,15 @@ import { TablePageEvent } from 'primeng/table';
 import { GlobalService } from '../../../../../services/global.service';
 import { ProductData } from '../../../../../models/product-data';
 import { MessageService } from 'primeng/api';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ProductService } from '../../../../../services/product.service';
 import { TranslateService } from '@ngx-translate/core';
-import { InputTextModule} from 'primeng/inputtext';
 
 
 
 @Component({
   selector: 'app-stock-detail-search',
-  imports: [ CommonModule, FormsModule, TableModule,Select, DialogModule, ButtonModule, TranslateModule,InputTextModule],
+  imports: [ CommonModule, FormsModule, TableModule,Select, DialogModule, ButtonModule, TranslateModule],
   standalone: true,
   templateUrl: './stock-detail-search.component.html',
   styleUrl: './stock-detail-search.component.scss',
@@ -32,7 +33,6 @@ export class StockDetailSearchComponent implements OnInit{
  };
 
  items: ProductData[] = [];
- itemCategory: ProductData[] = [];
  totalRecords:number = 0;
  rows: number = 5;
 
@@ -51,10 +51,14 @@ export class StockDetailSearchComponent implements OnInit{
 
   params: string | null = null; 
 
+  itemCategory: ProductData[] = [];
+  itemDelete: ProductData = {}
+
   constructor(
     public readonly globalService:GlobalService,
     private readonly messageService:MessageService,
     private readonly productService:ProductService,
+    private readonly loaderService: NgxUiLoaderService,
     private readonly translate : TranslateService,
     private router: Router,
     private route: ActivatedRoute
@@ -132,7 +136,7 @@ export class StockDetailSearchComponent implements OnInit{
       sessionStorage.setItem('mode', page);
   
       if (page === 'create') {
-          this.router.navigate([`/stock-detail-manage-create/${(this.params)}`]);
+          this.router.navigate(['/stock-detail-manage-create']);
       } else if (page === 'edit' && data?.id) {
         this.router.navigate([`/stock-detail-manage-edit/${(data.id)}`]);
       }
@@ -162,19 +166,43 @@ export class StockDetailSearchComponent implements OnInit{
     //   this.updatePagination();
     // }
   }
+ 
+    onOpenDelete(item: ProductData){
+        this.visibleDelete = true;
+        this.itemDelete = structuredClone(item)
+    }
 
-  onOpenDelete(id: number) {
-    this.visibleDelete = true;
-  }
+    onCloseDelete(){
+        this.visibleDelete = false;
+    }
 
-  onCloseDelete() {
-    this.visibleDelete = false;
-  }
+    onConfirmDelete(id: number){
 
-  
-  onConfirmDelete() {
-    // TODO: Implement update logic
-  }
+        this.loaderService.start();
+        setTimeout(() => {
+        this.productService.deleteProduct(id).subscribe((result) => {
+            if (result.status === 200) {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'สำเร็จ',
+                    detail: result.message,
+                    life: 2000
+                });
+                this.visibleDelete = false; 
+                this.onSearch();
+                this.loaderService.stop();
+            } else {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'ไม่สำเร็จ',
+                    detail: result.message,
+                    life: 3000
+                });
+                this.loaderService.stop();
+            }
+        });
+        }, 1500);
+    }
 
   onOpenCart(id: number) {
     this.visibleCart = true;
@@ -195,5 +223,4 @@ export class StockDetailSearchComponent implements OnInit{
     this.router.navigate(['/stock-main-search']); 
   }
 }
-
 
