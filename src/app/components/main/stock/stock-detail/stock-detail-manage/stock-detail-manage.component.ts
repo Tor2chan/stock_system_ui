@@ -55,28 +55,23 @@ export class StockDetailManageComponent {
 
   ngOnInit() {
       this. params = this.route.snapshot.paramMap.get('id');
-      console.log('mode:', this.mode)
       this.onSearch();
-      console.log("sku =", this.items[0]?.sku)
-      
     }
 
     onCancel() {
-      const sku = this.items[0]?.sku;
-      this.router.navigate([`/stock-detail-search/${(sku)}`]);
+      if(this.mode == 'edit'){
+        const sku = this.items[0]?.sku;
+        this.router.navigate([`/stock-detail-search/${(sku)}`]);
+      }else if(this.mode == 'create'){
+        this.router.navigate([`/stock-detail-search/${(this.params)}`]);
+      }
     }
 
   onSearch(event?: TablePageEvent) {
         if (event) {
             this.criteria.size = event.rows;
             this.criteria.first = event.first;
-            if (event.rows != this.rows) {
-                this.globalService.backToFirstPage();
-            }
-        } else {
-            this.globalService.backToFirstPage();
         }
-
         this.rows = this.criteria.size ?? 5;
         this.criteria.id = this.params !== null ? Number(this.params) : undefined;
         this.productService.findProductDetail(this.criteria).subscribe(({ status, message, entries, totalRecords }) => {
@@ -86,6 +81,7 @@ export class StockDetailManageComponent {
                 this.items = entries as ProductData[];
                 this.totalRecords = totalRecords as number;
                 console.log('item',this.items);
+                console.log("sku =", this.items[0]?.sku)
             } else {
                 this.messageService.add({
                     severity: 'error',

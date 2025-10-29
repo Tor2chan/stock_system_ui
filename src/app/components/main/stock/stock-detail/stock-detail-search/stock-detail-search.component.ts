@@ -130,7 +130,7 @@ export class StockDetailSearchComponent implements OnInit{
       sessionStorage.setItem('mode', page);
   
       if (page === 'create') {
-          this.router.navigate(['/stock-detail-manage-create']);
+          this.router.navigate([`/stock-detail-manage-create/${(this.params)}`]);
       } else if (page === 'edit' && data?.id) {
         this.router.navigate([`/stock-detail-manage-edit/${(data.id)}`]);
       }
