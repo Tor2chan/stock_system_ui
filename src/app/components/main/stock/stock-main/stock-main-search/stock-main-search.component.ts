@@ -11,13 +11,14 @@ import { TranslateModule} from '@ngx-translate/core';
 import { TablePageEvent } from 'primeng/table';
 import { GlobalService } from '../../../../../services/global.service';
 import { ProductData } from '../../../../../models/product-data';
-import { MessageService } from 'primeng/api';
+import { MessageService, PrimeIcons } from 'primeng/api';
 import { ProductService } from '../../../../../services/product.service';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../../../../interceptors/jwt.interceptor';
 import { CategoryData } from '../../../../../models/catagory-data';
 import { DropdownService } from '../../../../../services/dropdown.service';
+
 @Component({
   selector: 'app-stock-main-search',
   imports: [ CommonModule, FormsModule, TableModule, DialogModule,SelectModule, ButtonModule, TranslateModule],
@@ -102,6 +103,18 @@ export class StockMainSearchComponent implements OnInit{
             }
         });
     }
+onclear(){
+  this.criteria = {
+    name: "",
+    sku: "",
+    code: ""
+  };
+  this.onSearch();
+}
+
+
+
+
   onManageCategory() {
     this.router.navigate(['/category-search']); 
   }

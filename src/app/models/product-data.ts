@@ -17,7 +17,7 @@ export interface ProductData {
   expireDate?: string;
   createDate?: string;
   
-  //code.category
-  code?:string;
+  //name.category
+  code? : string;
   sumAmount?: number;
 }

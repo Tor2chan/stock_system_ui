@@ -82,7 +82,7 @@ export class StockMainManageComponent  implements OnInit {
                 this.globalService.validate(this.criteria.receivedDate) ||
                 this.globalService.validate(this.criteria.expireDate) ||
                  
-            this.globalService.validate(this.criteria.category)
+            this.globalService.validate(this.criteria.code)
             
           ){
             this.messageService.add({
@@ -91,7 +91,7 @@ export class StockMainManageComponent  implements OnInit {
                 detail: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                 life: 2000
             });
-            return;
+          this.loaderService.stop();
           }
 
           setTimeout(() => {
@@ -113,13 +113,12 @@ export class StockMainManageComponent  implements OnInit {
                     detail: message,
                     life: 2000
                   });
-                  }
             this.loaderService.stop();
+                  }
               });
         
           }, 1500);
 
-           this.loaderService.stop();
       }
 
 

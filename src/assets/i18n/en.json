@@ -134,7 +134,7 @@
     }
   },
   "common": {
-    "cancel": "Cancel",
+    "cancel": "Cancel",   
     "save": "Save",
     "back": "Back",
     "confirm": "Confirm",
@@ -143,6 +143,7 @@
     "deletedata": "Delete",
     "edit": "edit",
     "delete":"delete",
-   "cart":"cart"
+   "cart":"cart",
+   "clear":"Clear"
   }
 }

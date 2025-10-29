@@ -10,5 +10,5 @@ export interface CategoryData {
   code?: string;
   name?: string;
   active?:boolean;
-
+ categoryName?:string;
 }

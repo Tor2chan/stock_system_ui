@@ -16,6 +16,7 @@ import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../../../interceptors/jwt.interceptor';
 import { DialogModule } from 'primeng/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-category-search',
@@ -109,6 +110,7 @@ export class CategorySearchComponent implements OnInit{
     
     onOpenDelete(item: CategoryData){
         this.visibleDelete = true;
+        console.log('5555555555',item);
         this.itemDelete = structuredClone(item)
     }
 
