@@ -16,13 +16,14 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../../../interceptors/jwt.interceptor';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule],
+  imports: [CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule, InputTextModule],
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss'],
   providers:[MessageService]
@@ -95,14 +96,6 @@ mode: MODE_PAGE = 'edit';
                   }
               });
           }
-onclear(){
-  this.criteria = {
-    name: ""
-  
- 
-  };
-  this.onSearch();
-}
 
     onOpenDelete(item: UsersData){
         this.visibleDelete = true;
@@ -115,30 +108,30 @@ onclear(){
 
     onConfirmDelete(id: number){
 
-    //     this.loaderService.start();
-    //     setTimeout(() => {
-    //     this.usersService.deleteUsers(id).subscribe((result) => {
-    //         if (result.status === 200) {
-    //             this.messageService.add({
-    //                 severity: 'success',
-    //                 summary: 'สำเร็จ',
-    //                 detail: result.message,
-    //                 life: 2000
-    //             });
-    //             this.visibleDelete = false; 
-    //             this.onSearch();
-    //             this.loaderService.stop();
-    //         } else {
-    //             this.messageService.add({
-    //                 severity: 'error',
-    //                 summary: 'ไม่สำเร็จ',
-    //                 detail: result.message,
-    //                 life: 3000
-    //             });
-    //             this.loaderService.stop();
-    //         }
-    //     });
-    //     }, 1500);
+        this.loaderService.start();
+        setTimeout(() => {
+        this.usersService. deleteUsers(id).subscribe((result) => {
+            if (result.status === 200) {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'สำเร็จ',
+                    detail: result.message,
+                    life: 2000
+                });
+                this.visibleDelete = false; 
+                this.onSearch();
+                this.loaderService.stop();
+            } else {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'ไม่สำเร็จ',
+                    detail: result.message,
+                    life: 3000
+                });
+                this.loaderService.stop();
+            }
+        });
+        }, 1500);
     }
 
   onOpenCart(id: number) {
@@ -148,10 +141,6 @@ onclear(){
     this.visibleCart = false;
   }
     
-  onConfirmCart() {
-    // TODO: Implement update logic
-  }
-
 
 
 

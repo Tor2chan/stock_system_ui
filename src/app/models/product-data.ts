@@ -13,8 +13,8 @@ export interface ProductData {
   amount?: number;
   category?: string;
   price?: number;
-  receivedDate?: Date
-  expireDate?: Date;
+  receivedDate?: any
+  expireDate?: any;
   createDate?: Date;
   
   //name.category

@@ -175,32 +175,42 @@ export class StockDetailManageComponent implements OnInit {
     }
     this.rows = this.criteria.size ?? 5;
 
-    if(this.mode == 'edit'){
-      this.criteria.id = this.params !== null ? Number(this.params) : undefined;
+  if (this.mode == 'edit') {
+  this.criteria.id = this.params !== null ? Number(this.params) : undefined;
 
-          this.productService
-      .findProductDetail(this.criteria)
-      .subscribe(({ status, message, entries, totalRecords }) => {
-        if (status === 200) {
-
+  this.productService
+    .findProductDetail(this.criteria)
+    .subscribe(({ status, message, entries, totalRecords }) => {
+      if (status === 200) {
         const data = entries as ProductData[];
 
-        if (data.length > 0) {
-          this.criteria = { ...data[0] };   
-        }
 
-          console.log('data edit', this.criteria);
-        } else {
-          this.messageService.add({
-            severity: 'error',
-            summary:
-              this.translate.instant('common.message.exception') || 'kkkk',
-            detail: this.translate.instant(message as string) || message,
-            life: 5000,
-          });
+
+
+        if (data.length > 0) {
+          const p = data[0] as any;
+          this.criteria = {
+            ...p,
+            receivedDate: p.receivedDate ? new Date(p.receivedDate) : null,
+            expireDate: p.expireDate ? new Date(p.expireDate) : null,
+
+
+
+          };
         }
-      });
-    }else if(this.mode == 'create'){
+        console.log('data edit', this.criteria);
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary:
+            this.translate.instant('common.message.exception') || 'kkkk',
+          detail: this.translate.instant(message as string) || message,
+          life: 5000,
+        });
+      }
+    });
+}
+else if(this.mode == 'create'){
       this.criteria.sku = this.params ?? undefined;
 
           this.productService

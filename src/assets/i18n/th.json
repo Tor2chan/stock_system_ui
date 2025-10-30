@@ -24,7 +24,7 @@
       "stockmain": {
         "stockmainsearch": {
           "title": "คลังสินค้า",
-          "searchPlaceholder": "ค้นหาตามชื่อหรือรหัสสินค้า",
+          "searchPlaceholder": "ค้นหาตามชื่อ",
           "filterByCategory": "กรองตามหมวดหมู่",
           "search": "ค้นหา",
           "categorys": "หมวดหมู่",

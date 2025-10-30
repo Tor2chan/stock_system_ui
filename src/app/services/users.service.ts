@@ -43,6 +43,15 @@ export class UsersService {
         );
     }
 
+    deleteUsers(id: number): Observable<ResponseOneIf<UsersData>> {
+          this.globalService.validatePathTraversal(id);
+                      return this.http.delete<ResponseOneIf<UsersData>>(
+                          this.globalService.joinApi([this.baseService, 'delete-user', id])
+           
+        ); 
+    }
+
+
 
 
 }

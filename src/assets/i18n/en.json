@@ -24,7 +24,7 @@
       "stockmain": {
         "stockmainsearch": {
           "title": "Stock",
-          "searchPlaceholder": "Search by name or code",
+          "searchPlaceholder": "Search by name ",
           "filterByCategory": "Filter by Category",
           "search": "Search",
           "categorys": "Category",

@@ -69,12 +69,13 @@
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.priceCol' | translate }}
           <p-sortIcon field="price" />
         </th>
-        <th>
+        <th  pSortableColumn="receivedDate" style="text-align: center">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.receivedDateCol' | translate }}
+         <p-sortIcon field="receivedDate"></p-sortIcon>
         </th>
-        <th style="text-align: center">
+        <th  pSortableColumn="expireDate" style="text-align: center">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.expireCol' | translate }}
-          
+            <p-sortIcon field="expireDate"></p-sortIcon>
         </th>
         <th style="text-align: center">
           {{ 'common.manage' | translate }}
@@ -86,7 +87,7 @@
       <tr>
         <td>{{ rowIndex + 1 }}</td>
         <td>{{ item.name }}</td>
-        <td>{{ item.sku }}</td>
+        <td>{{ item.batchCode }}</td>
          <td>{{ item.categoryName }}</td>
         <td>{{ item.amount }}</td>
         <td>{{ item.price }}</td>

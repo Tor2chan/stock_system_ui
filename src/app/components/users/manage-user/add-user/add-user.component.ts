@@ -95,7 +95,7 @@ ngOnInit() {
                     life: 2000
                     
                   });
-            this.router.navigate(['/stock-main-search']);
+            this.router.navigate(['/edit-user']);
             this.loaderService.stop();
             } else {
                   this.messageService.add({
