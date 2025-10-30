@@ -43,4 +43,14 @@ export class ProductService  {
                 );
             }
  
+
+
+            withdrawProduct(productdata: ProductData): Observable<ResponseListIf<ProductData>> {
+        this.globalService.validatePathTraversal(productdata.id);
+        return this.http.put<ResponseListIf<ProductData>>(
+            this.globalService.joinApi([this.baseService, 'withdraw-product', productdata.id!]),
+            productdata
+        );
+    }
+
 }

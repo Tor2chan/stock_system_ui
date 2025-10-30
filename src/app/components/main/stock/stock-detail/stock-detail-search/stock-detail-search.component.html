@@ -98,7 +98,7 @@
             <i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer mr-2 text-blue-500 hover:text-blue-700"
               [title]="'common.edit' | translate"></i>
 
-           <i (click)="onOpenCart(item)"class="pi pi-cart-plus cursor-pointer mr-2 text-yellow-500 hover:text-yellow-700"
+           <i (click)="onCart(item)"class="pi pi-cart-plus cursor-pointer mr-2 text-yellow-500 hover:text-yellow-700"
            [title]="'common.cart' | translate"></i>
 
            <i (click)="onOpenDelete(item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
@@ -158,7 +158,7 @@
   </div>
 </p-dialog>
 
-<p-dialog [(visible)]="visibleCart" [modal]="true"
+<p-dialog [(visible)]="visibleCart" [modal]="true "
 
   [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
   [contentStyle]="{ height: '100%', overflow: 'hidden' }" [draggable]="false" [resizable]="false">
@@ -168,7 +168,7 @@
    
   </div>
 
-   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">  
+   <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mb-4 ">  
       <div class="flex flex-col">
         <label for="name" class="font-semibold mb-2">
           {{ 'main.stock.stockdetail.stockdetailmanage.nameLabel' | translate }}
@@ -177,30 +177,71 @@
           id="name"
           type="text"
           pInputText
-          [(ngModel)]="criteria.name"
+          [(ngModel)]="itemCart.name"
           name="name"
           required
           [placeholder]="'main.stock.stockdetail.stockdetailmanage.namePlaceholder' | translate"
           class="w-full"
         />
-      </div>
+           
+    </div>
 
-      <div class="flex flex-col">
-        <label for="code" class="font-semibold mb-2">
+    <div class="flex flex-col">
+        <label for="batchCode" class="font-semibold mb-2">
           {{ 'main.stock.stockdetail.stockdetailmanage.batchCodeLabel' | translate }}
         </label>
         <input
-          id="code"
+          id="batchCode"
           type="text"
           pInputText
-          [(ngModel)]="criteria.code"
-          name="code"
+          [(ngModel)]="itemCart.batchCode"
+          name="batchCode"
           required
-          [placeholder]="'main.stock.stockdetail.stockdetailmanage.batchCodePlaceholder' | translate"
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.namePlaceholder' | translate"
           class="w-full"
         />
-      </div>
+
+        
+           
     </div>
+
+
+    <div class="flex flex-col">
+        <label for="amount" class="font-semibold mb-2">
+          {{ 'main.stock.stockdetail.stockdetailmanage.amountLabel' | translate }}
+        </label>
+        <input
+          id="amount"
+          type="text"
+          pInputText
+          [(ngModel)]="itemCart.amount"
+          name="amount"
+          required
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.namePlaceholder' | translate"
+          class="w-full"
+        />
+           
+    </div>
+
+    <div class="flex flex-col">
+        <label for="withdraw" class="font-semibold mb-2">
+          {{ 'main.stock.stockdetail.stockdetailmanage.withdrawLabel' | translate }}
+        </label>
+        <input
+          id="withdraw"
+          type="text"
+          pInputText
+          [(ngModel)]="itemCart.withdraw"
+          name="withdraw"
+          required
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.withdrawPlaceholder' | translate"
+          class="w-full"
+        />
+
+        
+           
+    </div>
+   </div>
 
    
 
@@ -213,12 +254,12 @@
     </div>
 
 
-  <div class="text-center mt-4 space-x-4">
+  <div class="text-center mt-6 space-x-4">
     <p-button [label]="'common.cancel' | translate " icon="pi pi-times" styleClass="p-button-secondary p-button-sm "
       size="small" (onClick)="onCloseCart()">
     </p-button>
 
-    <p-button [label]="'common.confirm'| translate" size="small" (onClick)="onConfirmCart()">
+    <p-button [label]="'common.confirm'| translate" size="small" (onClick)="onSave()">
 
     </p-button>
   </div>

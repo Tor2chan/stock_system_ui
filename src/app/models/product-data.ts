@@ -21,4 +21,5 @@ export interface ProductData {
   code? : string;
   categoryName?: string;
   sumAmount?: number;
+  withdraw?: number;
 }

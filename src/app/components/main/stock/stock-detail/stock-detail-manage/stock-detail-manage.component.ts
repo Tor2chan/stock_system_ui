@@ -105,6 +105,7 @@ export class StockDetailManageComponent implements OnInit {
         life: 2000,
       });
       this.loaderService.stop();
+      return
     }
 
     setTimeout(() => {

@@ -78,6 +78,7 @@ export class CategoryManageComponent  implements OnInit{
                 detail: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                 life: 2000
             });
+            this.loaderService.stop();
             return;
           }
 

@@ -16,12 +16,12 @@ import { MessageService } from 'primeng/api';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ProductService } from '../../../../../services/product.service';
 import { TranslateService } from '@ngx-translate/core';
-
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @Component({
   selector: 'app-stock-detail-search',
-  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule],
+  imports: [ CommonModule, FormsModule, TableModule, DialogModule, ButtonModule, TranslateModule , InputTextModule],
   standalone: true,
   templateUrl: './stock-detail-search.component.html',
   styleUrl: './stock-detail-search.component.scss',
@@ -53,6 +53,7 @@ export class StockDetailSearchComponent implements OnInit{
 
   itemCategory: ProductData[] = [];
   itemDelete: ProductData = {}
+  itemCart: ProductData = {}
 
   constructor(
     public readonly globalService:GlobalService,
@@ -117,6 +118,50 @@ export class StockDetailSearchComponent implements OnInit{
     this.page = 1;
     this.updatePagination();
   }
+
+
+   onSave(){
+        this.loaderService.start();
+        if (
+            this.globalService.validate(this.itemCart.withdraw) 
+          ){
+            this.messageService.add({
+                severity: 'warn',
+                summary: 'เกิดข้อผิดพลาด',
+                detail: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                life: 2000
+            });
+            console.log("xxxxxx");
+            this.loaderService.stop();
+            return;
+          }
+
+          setTimeout(() => {
+            this.productService.withdrawProduct(this.itemCart).subscribe(({ status, message }) => {
+            if (status === 200) {
+                  this.messageService.add({
+                    severity: 'success',
+                    summary: 'สำเร็จ',
+                    detail: message,
+                    life: 2000
+                    
+                  });
+            this.visibleCart = false;
+            this.onSearch();
+            this.loaderService.stop();
+            } else {
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'เกิดข้อผิดพลาด',
+                    detail: message,
+                    life: 2000
+                  });
+                  }
+            this.loaderService.stop();
+              });
+        
+          }, 1500);
+      }
 
   updatePagination() {
     // let filtered = this.transactions.filter(t => {
@@ -210,10 +255,7 @@ export class StockDetailSearchComponent implements OnInit{
     onCloseCart() {
     this.visibleCart = false;
   }
-    
-  onConfirmCart() {
-    // TODO: Implement update logic
-  }
+
 
 
   onAdd() {
@@ -222,5 +264,14 @@ export class StockDetailSearchComponent implements OnInit{
   onback() {
     this.router.navigate(['/stock-main-search']); 
   }
+onCart(item: ProductData) {
+  this.visibleCart = true;
+  this.itemCart = structuredClone(item)
+
+
+}
+  // onConfirmCart() {
+  //   this.visibleCart = false;
+  // }
 }
 

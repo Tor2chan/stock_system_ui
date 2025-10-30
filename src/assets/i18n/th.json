@@ -72,7 +72,9 @@
           "expireDateLabel": "วันหมดอายุ",
           "expireDatePlaceholder": "เลือกวันหมดอายุ",
           "categoryLabel": "หมวดหมู่สินค้า",
-          "categoryPlaceholder": "-- เลือกหมวดหมู่สินค้า --"
+          "categoryPlaceholder": "-- เลือกหมวดหมู่สินค้า --",
+          "withdrawLabel": "จำนวนที่ถอน",
+          "withdrawPlaceholder":"กรอกจำนวนที่ถอน"
         },
         "stockdetailsearch": {
           "stockMainTitle": "การจัดการคลังสินค้า",

@@ -72,7 +72,11 @@
           "expireDateLabel": "Expire Date",
           "expireDatePlaceholder": "Select expire date",
           "categoryLabel": "Category",
-          "categoryPlaceholder": "-- Select Category --"
+          "categoryPlaceholder": "-- Select Category --",
+          "withdrawLabel": "Withdraw Amount",
+          "withdrawPlaceholder": "Enter withdraw amount"
+
+
         },
         "stockdetailsearch": {
           "stockMainTitle": "Stock Management",

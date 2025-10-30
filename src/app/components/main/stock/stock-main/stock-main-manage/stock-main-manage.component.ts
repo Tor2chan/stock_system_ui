@@ -75,12 +75,12 @@ export class StockMainManageComponent  implements OnInit {
         if (
             this.globalService.validate(this.criteria.name) ||
             this.globalService.validate(this.criteria.sku) ||
-             this.globalService.validate(this.criteria.batchCode) ||
-              this.globalService.validate(this.criteria.amount) ||
-               this.globalService.validate(this.criteria.price) ||
-                this.globalService.validate(this.criteria.receivedDate) ||
-                this.globalService.validate(this.criteria.expireDate) ||
-                 
+            this.globalService.validate(this.criteria.batchCode) ||
+            this.globalService.validate(this.criteria.amount) ||
+            this.globalService.validate(this.criteria.price) ||
+            this.globalService.validate(this.criteria.receivedDate) ||
+            this.globalService.validate(this.criteria.expireDate) ||
+
             this.globalService.validate(this.criteria.code)
             
           ){
@@ -91,6 +91,7 @@ export class StockMainManageComponent  implements OnInit {
                 life: 2000
             });
           this.loaderService.stop();
+          return;
           }
 
           setTimeout(() => {
