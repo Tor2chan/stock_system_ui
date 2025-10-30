@@ -5,26 +5,7 @@
 
   <!-- 🔍 Filters -->
   <div class="flex items-center gap-2 mb-4">
-    <!-- <input
-      type="text"
-      pInputText
-      [placeholder]="'main.stock.stockdetail.stockdetailsearch.stockmainmanage.searchPlaceholder' | translate"
-      (input)="onSearch()"
-      class="px-4 py-2 rounded-lg border w-64"
-    />
-
-    <p-select [options]="categories" [(ngModel)]="filterCategory" (onChange)="filterByCategory()" [showClear]="true"
-      placeholder="{{ 'main.stock.stockmain.stockmainsearch.filterByCategory' | translate }}"
-      class="w-64 h-[42px] rounded-lg border"></p-select>
-
-    <p-button
-      (click)="onSearch()"
-      class="px-4 py-2 font-semibold transition gap-2 ml-2"
-    >
-      <i class="pi pi-search"></i>
-      {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.searchBtn' | translate }}
-    </p-button> -->
-
+    
     <div class="flex-grow"></div>
 
     <p-button
@@ -89,8 +70,8 @@
         <td>{{ item.name }}</td>
         <td>{{ item.batchCode }}</td>
          <td>{{ item.categoryName }}</td>
-        <td>{{ item.amount }}</td>
-        <td>{{ item.price }}</td>
+        <td>{{ item.amount | number:'1.0-0' }}</td>
+        <td>{{ item.price | currency:'THB':'symbol-narrow':'1.2-2'}}</td>
        <td>{{ item.receivedDate | date:'yyyy-MM-dd' }}</td>
 <td>{{ item.expireDate   | date:'yyyy-MM-dd' }}</td>
        
@@ -158,20 +139,32 @@
   </div>
 </p-dialog>
 
-<p-dialog [(visible)]="visibleCart" [modal]="true "
+<p-dialog 
+  [(visible)]="visibleCart" 
+  [modal]="true"
+  [style]="{ width: '40vw', maxWidth: '90%' }"
+  [contentStyle]="{ overflow: 'hidden' }" 
+  [draggable]="false" 
+  [resizable]="false"
+  [header]="'main.stock.stockdetail.stockdetailsearch.stockmainmanage.confirmstockOut' | translate">
 
-  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
-  [contentStyle]="{ height: '100%', overflow: 'hidden' }" [draggable]="false" [resizable]="false">
-
-  <div class="text-center mb-4">
-    <i class="pi pi-shopping-cart" style="font-size: 2rem; opacity: 0.5;"></i>
-   
+  <!-- Header Icon Section -->
+  <div class="flex justify-center items-center mb-6">
+    <div class="bg-blue-50 rounded-full p-4">
+      <i class="pi pi-shopping-cart text-blue-500" style="font-size: 3rem;"></i>
+    </div>
   </div>
 
-   <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mb-4 ">  
-      <div class="flex flex-col">
-        <label for="name" class="font-semibold mb-2">
+  <!-- Form Section -->
+  <div class="bg-gray-50 rounded-lg p-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      
+      <!-- Name Field -->
+      <div class="flex flex-col space-y-2">
+        <label for="name" class="text-sm font-semibold text-gray-700">
           {{ 'main.stock.stockdetail.stockdetailmanage.nameLabel' | translate }}
+          
         </label>
         <input
           id="name"
@@ -179,15 +172,16 @@
           pInputText
           [(ngModel)]="itemCart.name"
           name="name"
-          required
+            required
+            readonly
           [placeholder]="'main.stock.stockdetail.stockdetailmanage.namePlaceholder' | translate"
-          class="w-full"
+          class="w-full p-3 pl-10 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
         />
-           
-    </div>
+      </div>
 
-    <div class="flex flex-col">
-        <label for="batchCode" class="font-semibold mb-2">
+      <!-- Batch Code Field -->
+      <div class="flex flex-col space-y-2">
+        <label for="batchCode" class="text-sm font-semibold text-gray-700">
           {{ 'main.stock.stockdetail.stockdetailmanage.batchCodeLabel' | translate }}
         </label>
         <input
@@ -196,65 +190,72 @@
           pInputText
           [(ngModel)]="itemCart.batchCode"
           name="batchCode"
-          required
-          [placeholder]="'main.stock.stockdetail.stockdetailmanage.namePlaceholder' | translate"
-          class="w-full"
+            required
+            readonly
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.batchCodePlaceholder' | translate"
+           class="w-full p-3 pl-10 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
         />
+      </div>
 
-        
-           
-    </div>
-
-
-    <div class="flex flex-col">
-        <label for="amount" class="font-semibold mb-2">
+      <!-- Amount Field -->
+      <div class="flex flex-col space-y-2">
+        <label for="amount" class="text-sm font-semibold text-gray-700">
           {{ 'main.stock.stockdetail.stockdetailmanage.amountLabel' | translate }}
         </label>
-        <input
-          id="amount"
-          type="text"
-          pInputText
-          [(ngModel)]="itemCart.amount"
-          name="amount"
-          required
-          [placeholder]="'main.stock.stockdetail.stockdetailmanage.namePlaceholder' | translate"
-          class="w-full"
-        />
-           
-    </div>
+        <div class="relative">
+         <input
+  id="amount"
+  type="text"
+  pInputText
+  [value]="itemCart.amount | number:'1.0-0'"
+  name="amount"
+  readonly
+  class="w-full p-3 pl-10 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
+/>
 
-    <div class="flex flex-col">
-        <label for="withdraw" class="font-semibold mb-2">
+          <i class=" absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        </div>
+      </div>
+
+      <!-- Withdraw Field -->
+      <div class="flex flex-col space-y-2">
+        <label for="withdraw" class="text-sm font-semibold text-gray-700">
           {{ 'main.stock.stockdetail.stockdetailmanage.withdrawLabel' | translate }}
+          <span class="text-red-500">*</span>
         </label>
-        <input
-          id="withdraw"
-          type="text"
-          pInputText
-          [(ngModel)]="itemCart.withdraw"
-          name="withdraw"
-          required
-          [placeholder]="'main.stock.stockdetail.stockdetailmanage.withdrawPlaceholder' | translate"
-          class="w-full"
-        />
+        <div class="relative">
+          <input
+            id="withdraw"
+            type="number"
+            pInputText
+            [(ngModel)]="itemCart.withdraw"
+            name="withdraw"
+            required
+            min="1"
+            [placeholder]="'main.stock.stockdetail.stockdetailmanage.withdrawPlaceholder' | translate"
+            class="w-full p-3 pl-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          />
+          <i class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        </div>
+      </div>
 
-        
-           
-    </div>
-   </div>
-
-   
-
-
-
-
-
-    <div>
-      
     </div>
 
+    <!-- Remaining Stock Info -->
+    <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-gray-600 font-medium">
+          {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.remainingLabel' | translate }}
+        </span>
+        <span class="text-blue-600 font-bold text-lg">
+          {{ (itemCart.amount || 0) - (itemCart.withdraw || 0) |number:'1.0-0' }}
+        </span>
+      </div>
+    </div>
+  </div>
 
-  <div class="text-center mt-6 space-x-4">
+  <!-- Action Buttons -->
+   <div class="text-center mt-6 space-x-4">
     <p-button [label]="'common.cancel' | translate " icon="pi pi-times" styleClass="p-button-secondary p-button-sm "
       size="small" (onClick)="onCloseCart()">
     </p-button>
@@ -263,4 +264,5 @@
 
     </p-button>
   </div>
+
 </p-dialog>

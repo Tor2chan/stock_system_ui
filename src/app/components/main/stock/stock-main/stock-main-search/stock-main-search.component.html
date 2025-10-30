@@ -61,7 +61,8 @@
         <th style="text-align: center">{{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}</th>
       
 
-        <th pSortableColumn="amount" style="text-align: center">
+        <th pSortableColumn="amount" style="text-align: center " >
+          
           {{ 'main.stock.stockmain.stockmainsearch.amount' | translate }}
           <p-sortIcon field="amount" />
         </th>
@@ -76,8 +77,10 @@
         <td>{{ rowIndex + 1 }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.sku }}</td>
-<td>{{ item.categoryName }}</td>
-        <td>{{ item.sumAmount }}</td>
+<td >{{ item.categoryName }}</td>
+        <td>
+          
+          {{ item.sumAmount | number:'1.0-0' }}</td>
       
          <td style="text-align: center">
          <i (click)="ondetail(item.sku)"class="pi pi-cart-plus cursor-pointer mr-2 text-yellow-500 hover:text-yellow-700"

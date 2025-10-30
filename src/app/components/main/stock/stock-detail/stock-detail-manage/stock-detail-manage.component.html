@@ -13,8 +13,9 @@
         }}</label>
       <input id="name" type="text" pInputText [(ngModel)]="criteria.name"
         name="name" required
+        readonly
         [placeholder]="'main.stock.stockmain.stockmainmanage.namePlaceholder' | translate"
-        class="w-full" />
+        class="w-full cursor-not-allowed" />
     </div>
 
     <div class="flex flex-col">
@@ -22,9 +23,11 @@
         'main.stock.stockmain.stockmainmanage.sku' | translate
         }}</label>
       <input id="code" type="text" pInputText [(ngModel)]="criteria.sku"
+      
         name="sku" required
+        readonly
         [placeholder]="'main.stock.stockmain.stockmainmanage.skuPlaceholder' | translate"
-        class="w-full" />
+        class="w-full cursor-not-allowed" />
     </div>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -36,6 +39,8 @@
         name="batchCode" required
         [placeholder]="'main.stock.stockmain.stockmainmanage.batchCodePlaceholder' | translate"
         class="w-full" />
+
+
     </div>
 
     <div class="flex flex-col">
@@ -86,11 +91,13 @@
       <p-select
         [showClear]="true"
         [(ngModel)]="criteria.code"
+        readonly
         [options]="itemCategory"
         optionLabel="name"
         optionValue="code"
-        class="w-full border rounded-lg h-[42px]"
+        class="w-full border rounded-lg h-[42px] cursor-not-allowed"
         placeholder="{{ 'main.stock.stockmain.stockmainmanage.selectCategory' | translate }}">
+        
       </p-select>
 
     </div>

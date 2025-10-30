@@ -20,6 +20,7 @@ import { CategoryData } from '../../../../../models/catagory-data';
 import { DropdownService } from '../../../../../services/dropdown.service';
 import { InputTextModule } from 'primeng/inputtext';
 
+
 @Component({
   selector: 'app-stock-main-search',
   imports: [ CommonModule, FormsModule, TableModule, DialogModule,SelectModule, ButtonModule, TranslateModule, InputTextModule],
