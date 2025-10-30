@@ -9,14 +9,16 @@
       placeholder="{{ 'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate }}" (input)="onSearch()"
       class="px-4 py-2 rounded-lg border w-64 h-[42px]" />
 
-    <select [(ngModel)]="criteria.code" class="px-4 py-2 rounded-lg border">
-      <option *ngFor="let c of itemCategory"
-              [value]="c.code">
-              {{ c.name }}
-      </option>
-
-    </select>
-
+   <p-select
+        [showClear]="true"
+        [(ngModel)]="criteria.code"
+        [options]="itemCategory"
+        optionLabel="name"
+        optionValue="code"
+        class="w-54 border rounded-lg h-[42px]"
+        placeholder="{{ 'main.stock.stockmain.stockmainsearch.filterByCategory' | translate }}">
+      </p-select>
+      
      
 
 
@@ -56,11 +58,15 @@
         </th>
         <th style="text-align: center">{{ 'main.stock.stockmain.stockmainsearch.sku' | translate }}</th>
 
+        <th style="text-align: center">{{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}</th>
+      
+
         <th pSortableColumn="amount" style="text-align: center">
           {{ 'main.stock.stockmain.stockmainsearch.amount' | translate }}
           <p-sortIcon field="amount" />
         </th>
-        <th style="text-align: center">{{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}</th>
+
+      
         <th style="text-align: center">{{ 'common.manage' | translate }}</th>
       </tr>
     </ng-template>
@@ -70,11 +76,11 @@
         <td>{{ rowIndex + 1 }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.sku }}</td>
-
+<td>{{ item.categoryName }}</td>
         <td>{{ item.sumAmount }}</td>
-        <td>{{ item.categoryName }}</td>
+      
          <td style="text-align: center">
-         <i (click)="ondetail(item.sku)"class="pi pi-cart-plus cursor-pointer mr-2 text-red-500 hover:text-red-700"
+         <i (click)="ondetail(item.sku)"class="pi pi-cart-plus cursor-pointer mr-2 text-yellow-500 hover:text-yellow-700"
            [title]="'common.cart' | translate"></i>
          </td>
       </tr>

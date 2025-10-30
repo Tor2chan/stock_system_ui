@@ -5,7 +5,7 @@
 
   <!-- 🔍 Filters -->
   <div class="flex items-center gap-2 mb-4">
-    <input
+    <!-- <input
       type="text"
       pInputText
       [placeholder]="'main.stock.stockdetail.stockdetailsearch.stockmainmanage.searchPlaceholder' | translate"
@@ -23,7 +23,7 @@
     >
       <i class="pi pi-search"></i>
       {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.searchBtn' | translate }}
-    </p-button>
+    </p-button> -->
 
     <div class="flex-grow"></div>
 
@@ -51,19 +51,20 @@
         <th>{{ 'common.no' | translate }}</th>
         <th pSortableColumn="name">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.nameCol' | translate }}
-          <p-sortIcon field="name" />
+          
         </th>
         <th pSortableColumn="code">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.batchCodeCol' | translate }}
-          <p-sortIcon field="code" />
+        
+        </th>
+         <th>
+          {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.categoryCol' | translate }}
         </th>
         <th pSortableColumn="amount">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.amountCol' | translate }}
           <p-sortIcon field="amount" />
         </th>
-        <th>
-          {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.categoryCol' | translate }}
-        </th>
+       
         <th pSortableColumn="price">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.priceCol' | translate }}
           <p-sortIcon field="price" />
@@ -73,6 +74,7 @@
         </th>
         <th style="text-align: center">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.expireCol' | translate }}
+          
         </th>
         <th style="text-align: center">
           {{ 'common.manage' | translate }}
@@ -85,21 +87,22 @@
         <td>{{ rowIndex + 1 }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.sku }}</td>
+         <td>{{ item.categoryName }}</td>
         <td>{{ item.amount }}</td>
-        <td>{{ item.categoryName }}</td>
         <td>{{ item.price }}</td>
-        <td>{{ item.receivedDate }}</td>
-        <td>{{ item.expireDate }}</td>
-
+       <td>{{ item.receivedDate | date:'yyyy-MM-dd' }}</td>
+<td>{{ item.expireDate   | date:'yyyy-MM-dd' }}</td>
        
        <td style="text-align: center">
             <i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer mr-2 text-blue-500 hover:text-blue-700"
               [title]="'common.edit' | translate"></i>
 
-           <i (click)="onOpenCart(item)"class="pi pi-cart-plus cursor-pointer mr-2 text-red-500 hover:text-red-700"
+           <i (click)="onOpenCart(item)"class="pi pi-cart-plus cursor-pointer mr-2 text-yellow-500 hover:text-yellow-700"
            [title]="'common.cart' | translate"></i>
-                      <i (click)="onOpenDelete(item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
+
+           <i (click)="onOpenDelete(item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
               [title]="'common.delete' | translate"></i>
+              
 
           
           </td>
@@ -155,14 +158,16 @@
 </p-dialog>
 
 <p-dialog [(visible)]="visibleCart" [modal]="true"
+
   [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
   [contentStyle]="{ height: '100%', overflow: 'hidden' }" [draggable]="false" [resizable]="false">
 
-  <div class="text-center">
-    <div class=""><i class="pi pi-shopping-cart" style="font-size: 6rem; opacity: 0.5;"></i></div>
-    <div class="mt-4">{{ 'common.cart' | translate }}</div>
+  <div class="text-center mb-4">
+    <i class="pi pi-shopping-cart" style="font-size: 2rem; opacity: 0.5;"></i>
+   
   </div>
-   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">  
       <div class="flex flex-col">
         <label for="name" class="font-semibold mb-2">
           {{ 'main.stock.stockdetail.stockdetailmanage.nameLabel' | translate }}
@@ -195,6 +200,13 @@
         />
       </div>
     </div>
+
+   
+
+
+
+
+
     <div>
       
     </div>

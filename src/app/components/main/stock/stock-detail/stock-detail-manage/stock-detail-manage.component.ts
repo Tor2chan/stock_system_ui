@@ -118,7 +118,13 @@ export class StockDetailManageComponent implements OnInit {
               detail: message,
               life: 2000,
             });
-            this.router.navigate(['/stock-main-search']);
+            if (this.mode == 'edit') {
+      const sku = this.criteria.sku;
+      console.log("sku =",sku);
+      this.router.navigate([`/stock-detail-search/${sku}`]);
+    } else if (this.mode == 'create') {
+      this.router.navigate([`/stock-detail-search/${this.params}`]);
+    }
             this.loaderService.stop();
           } else {
             this.messageService.add({

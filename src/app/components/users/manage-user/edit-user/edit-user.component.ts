@@ -95,7 +95,14 @@ mode: MODE_PAGE = 'edit';
                   }
               });
           }
-
+onclear(){
+  this.criteria = {
+    name: ""
+  
+ 
+  };
+  this.onSearch();
+}
 
     onOpenDelete(item: UsersData){
         this.visibleDelete = true;
