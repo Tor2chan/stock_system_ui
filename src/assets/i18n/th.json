@@ -34,7 +34,10 @@
           "sku": "รหัสสินค้า (SKU)",
           "batchCode": "รหัสล็อตสินค้า",
           "amount": "จำนวน",
-          "addToCart": "เพิ่มเข้าตะกร้า"
+          "addToCart": "เพิ่มเข้าตะกร้า", 
+          "totalProducts": "สินค้าทั้งหมด",
+          "totalStock": "สินค้าคงคลังทั้งหมด",
+          "totocategories": "หมวดหมู่ทั้งหมด"
         },
         "stockmainmanage": {
           "add": "เพิ่มสินค้าใหม่",
@@ -73,8 +76,8 @@
           "expireDatePlaceholder": "เลือกวันหมดอายุ",
           "categoryLabel": "หมวดหมู่สินค้า",
           "categoryPlaceholder": "-- เลือกหมวดหมู่สินค้า --",
-          "withdrawLabel": "จำนวนที่ถอน",
-          "withdrawPlaceholder":"กรอกจำนวนที่ถอน"
+          "withdrawLabel": "จำนวนที่เบิก",
+          "withdrawPlaceholder":"กรอกจำนวนที่เบิก"
         },
         "stockdetailsearch": {
           "stockMainTitle": "การจัดการคลังสินค้า",
@@ -89,7 +92,9 @@
             "categoryCol": "หมวดหมู่",
             "priceCol": "ราคา",
             "receivedDateCol": "วันที่รับเข้า",
-            "expireCol": "วันหมดอายุ"
+            "expireCol": "วันหมดอายุ",
+            "confirmstockOut": "ยืนยันการเบิกสินค้า",
+            "remainingLabel": "จำนวนคงเหลือ"
           }
         }
       }
@@ -146,6 +151,7 @@
     "edit": "แก้ไข",
     "delete":"ลบ",
     "cart":"ตะกร้า",
-    "clear":"ล้าง"
+    "clear":"ล้าง",
+    "noData":"ไม่พบข้อมูล"
   }
 }

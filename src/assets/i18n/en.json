@@ -34,7 +34,10 @@
           "sku": "SKU",
           "batchCode": "Batch Code",
           "amount": "Amount",
-          "addToCart": "Add to Cart"
+          "addToCart": "Add to Cart",
+          "totalProducts": "Total Products",
+          "totalStock": "Total Stock",
+          "totocategories": "Total Categories"
         },
         "stockmainmanage": {
           "add": "Add Product",
@@ -91,7 +94,9 @@
             "categoryCol": "Category",
             "priceCol": "Price",
             "receivedDateCol": "Received Date",
-            "expireCol": "Expire Date"
+            "expireCol": "Expire Date",
+            "confirmstockOut": "Confirm Stock Out",
+            "remainingLabel": "Remaining Amount"
           }
         }
       }
@@ -148,6 +153,7 @@
     "edit": "edit",
     "delete":"delete",
    "cart":"cart",
-   "clear":"Clear"
+   "clear":"Clear",
+   "noData":"No data found"
   }
 }
