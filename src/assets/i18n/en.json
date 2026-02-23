@@ -1,12 +1,35 @@
 {
   "main": {
+     "menu": {
+      "menu": "Menu",
+        "home": "Home",
+         "dashboard": "Dashboard",
+        "sitting": "Settings",
+        "logout": "Logout"
+    },
+    "dashboard": {
+      "dashboardsearch": {
+        "title": "Dashboard",
+        "totalProducts": "Total Products",
+        "lowStock": "Low Stock",
+        "category": "Total Categories",
+        "totalCategories": "Total Categories",
+        "category": "Products by Category"
+
+      
+      }
+    },
+
     "category": {
       "categorysearch": {
         "title": "Category",
         "create": "Create",
         "code": "Code",
         "name": "Category Name",
-        "status": "Active Status"
+        "status": "Active Status",
+        "home": "Home",
+        "sitting": "Sitting",
+        "logout": "Logout"
       },
       "categorymanage": {
         "add": "Add Category",

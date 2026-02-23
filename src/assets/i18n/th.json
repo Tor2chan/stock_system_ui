@@ -1,12 +1,32 @@
 {
   "main": {
+    "menu": {
+      "menu": "เมนู",
+        "home": "หน้าหลัก",
+        "dashboard": "แดชบอร์ด",
+        "sitting": "การตั้งค่า",
+        "logout": "ออกจากระบบ"
+    },
+    "dashboard": {
+      "dashboardsearch": {
+        "title": "แดชบอร์ด",
+        "totalProducts": "สินค้าทั้งหมด",
+        "lowStock": "สินค้าใกล้หมด",
+        "totalCategories": "หมวดหมู่ทั้งหมด",
+        "category": "สินค้าแยกตามหมวด"
+      }
+    },
+
     "category": {
       "categorysearch": {
         "title": "หมวดหมู่สินค้า",
         "create": "สร้างหมวดหมู่",
         "code": "รหัสหมวดหมู่",
         "name": "ชื่อหมวดหมู่",
-        "status": "สถานะการใช้งาน"
+        "status": "สถานะการใช้งาน",
+        "home": "หน้าหลัก",
+        "sitting": "การตั้งค่า",
+        "logout": "ออกจากระบบ"
       },
       "categorymanage": {
         "add": "เพิ่มหมวดหมู่",

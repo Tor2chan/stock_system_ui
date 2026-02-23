@@ -9,6 +9,7 @@ import { CategorySearchComponent } from './components/main/category/category-sea
 import { LoginComponent } from './components/users/login/login.component';
 import { AddUserComponent } from './components/users/manage-user/add-user/add-user.component';
 import { EditUserComponent } from './components/users/manage-user/edit-user/edit-user.component';
+import { DashboardSearchComponent } from './components/main/stock/dashboard/dashboard-search/dashboard-search.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -31,6 +32,7 @@ export const routes: Routes = [
       { path: 'stock-detail-manage-edit/:id', component: StockDetailManageComponent },
       { path: 'add-user', component: AddUserComponent },
       { path: 'edit-user', component: EditUserComponent },
+      { path: 'stock-main-dashboard', component: DashboardSearchComponent },
      
 
 

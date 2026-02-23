@@ -29,6 +29,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LayoutMainComponent {
    sidebarCollapsed = false;
+   visibleSidebar: boolean = false;
 
   constructor(
     private router: Router,

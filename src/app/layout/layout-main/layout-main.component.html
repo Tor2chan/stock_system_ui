@@ -3,7 +3,12 @@
 
   <!-- 🔝 Top Menubar -->
   <div class="menubar-header flex items-center justify-between bg-gray-300 shadow-md px-6 py-3">
-
+       <!-- ฝั่งซ้าย -->
+    <div class="flex items-center gap-3">
+      <p-button icon="pi pi-bars" rounded text pTooltip="Menu" tooltipPosition="bottom " (click)="visibleSidebar=true" >
+      
+      </p-button>
+       <div class = "flex items-center gap-3">
     <!-- โลโก้และชื่อระบบ -->
     <div class="flex items-center gap-3 cursor-pointer select-none" routerLink="/stock-main-search">
       <p-image src="assets/imag/duck.png" alt="Logo" class="w-10 h-10"></p-image>
@@ -11,6 +16,62 @@
         Easy<span class="text-primary">Stock</span>
       </span>
     </div>  
+    </div>
+    </div>
+    
+<<p-sidebar [(visible)]="visibleSidebar" position="left" class="w-64" [showCloseIcon]="false" >
+
+  <!-- ✅ Header Sidebar -->
+  <div class="flex items-center justify-between mb-4">
+
+    <!-- โลโก้ + ชื่อ -->
+    <div class="flex items-center gap-2 cursor-pointer" routerLink="/stock-main-search">
+      <p-image src="assets/imag/duck.png" alt="Logo" class="w-8 h-8"></p-image>
+      <span class="text-xl font-bold text-gray-700">
+        Easy<span class="text-primary">Stock</span>
+      </span>
+    </div>
+
+    <!-- ปุ่มปิด -->
+    <p-button icon="pi pi-times" text rounded (click)="visibleSidebar=false"></p-button>
+
+  </div>
+   <h2 class="text-lg font-semibold mb-3">{{ 'main.menu.menu' | translate }}</h2>
+
+  <ul class="flex flex-col gap-1">
+    <li>
+      <a routerLink="/stock-main-search" (click)="visibleSidebar=false"
+         class="flex items-center gap-2 p-2 rounded hover:bg-gray-200">
+        <i class="pi pi-home"></i>
+        <span>{{ 'main.menu.home' | translate }}</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/stock-main-dashboard" (click)="visibleSidebar=false"
+         class="flex items-center gap-2 p-2 rounded hover:bg-gray-200">
+        <i class="pi pi-chart-bar"></i>
+        <span>{{ 'main.menu.dashboard' | translate }}</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/edit-user" (click)="visibleSidebar=false"
+         class="flex items-center gap-2 p-2 rounded hover:bg-gray-200">
+        <i class="pi pi-cog"></i>
+        <span>{{ 'main.menu.sitting' | translate }}</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/login" (click)="visibleSidebar=false"
+         class="flex items-center gap-2 p-2 rounded hover:bg-gray-200 text-red-500">
+        <i class="pi pi-sign-out"></i>
+        <span>{{ 'main.menu.logout' | translate }}</span>
+      </a>
+    </li>
+  </ul>
+
+</p-sidebar>
 
     <!-- ปุ่มด้านขวา -->
     <div class="flex items-center gap-3">
