@@ -1,5 +1,5 @@
 <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
-  <h2 class="text-2xl font-bold mb-4">{{ 'main.stock.stockmain.stockmainsearch.title' | translate }}</h2>
+<h2 class="text-2xl font-bold mb-4 ">{{ 'main.stock.stockmain.stockmainsearch.title' | translate }}</h2>
 
   <!-- Filters -->
   <div class="flex items-center gap-2 mb-4">
@@ -39,10 +39,19 @@
       {{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}
     </p-button> -->
 
+
     <p-button (onClick)="openPage('create')" class="px-4 py-2 font-semibold transition">
       <i class="pi pi-plus"></i>
       {{ 'main.stock.stockmain.stockmainsearch.product' | translate }}
     </p-button>
+
+     <p-button
+  icon="pi pi-file-excel"
+  label="Export Excel"
+  
+  (onClick)="exportExcel()">
+</p-button>
+
   </div>
 
   <!-- Table -->

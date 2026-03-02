@@ -19,11 +19,12 @@ import { JwtInterceptor } from '../../../../../interceptors/jwt.interceptor';
 import { CategoryData } from '../../../../../models/catagory-data';
 import { DropdownService } from '../../../../../services/dropdown.service';
 import { InputTextModule } from 'primeng/inputtext';
-
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-stock-main-search',
-  imports: [ CommonModule, FormsModule, TableModule, DialogModule,SelectModule, ButtonModule, TranslateModule, InputTextModule],
+  imports: [ CommonModule, FormsModule, TableModule, DialogModule,SelectModule, ButtonModule, TranslateModule, InputTextModule ],
 standalone: true,
   templateUrl: './stock-main-search.component.html',
   styleUrl: './stock-main-search.component.scss',
@@ -31,6 +32,7 @@ standalone: true,
 
 })
 export class StockMainSearchComponent implements OnInit{
+
 
  criteria:ProductData ={
     code: ""
@@ -105,6 +107,51 @@ export class StockMainSearchComponent implements OnInit{
             }
         });
     }
+
+    exportExcel() {
+
+  if (!this.items || this.items.length === 0) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Warning',
+      detail: 'No data to export'
+    });
+    return;
+  }
+
+  const exportData = this.items.map((item, index) => ({
+    No: index + 1,
+    Name: item.name ?? '',
+    SKU: item.sku ?? '',
+    Category: item.categoryName ?? '',
+    Stock: item.sumAmount ?? 0
+  }));
+
+  const worksheet: XLSX.WorkSheet =
+    XLSX.utils.json_to_sheet(exportData);
+
+  const workbook: XLSX.WorkBook = {
+    Sheets: { Stock: worksheet },
+    SheetNames: ['Stock']
+  };
+
+  const excelBuffer = XLSX.write(workbook, {
+    bookType: 'xlsx',
+    type: 'array'
+  });
+
+  const data: Blob = new Blob([excelBuffer], {
+    type:
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+  });
+
+  const today = new Date();
+  const fileName =
+    `Stock_List_${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}.xlsx`;
+
+  // ✅ ต้องเรียกแบบนี้
+ saveAs(data, fileName);
+}
 onclear(){
   this.criteria = {
     name: "",
@@ -177,5 +224,7 @@ onclear(){
   
       }
     }
+
+    
 }
 

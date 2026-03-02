@@ -17,6 +17,8 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ProductService } from '../../../../../services/product.service';
 import { TranslateService } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -269,6 +271,52 @@ onCart(item: ProductData) {
   this.itemCart = structuredClone(item)
 
 
+}
+
+
+ exportExcel() {
+
+  if (!this.items || this.items.length === 0) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Warning',
+      detail: 'No data to export'
+    });
+    return;
+  }
+
+  const exportData = this.items.map((item, index) => ({
+    No: index + 1,
+    Name: item.name ?? '',
+    SKU: item.sku ?? '',
+    Category: item.categoryName ?? '',
+    Stock: item.sumAmount ?? 0
+  }));
+
+  const worksheet: XLSX.WorkSheet =
+    XLSX.utils.json_to_sheet(exportData);
+
+  const workbook: XLSX.WorkBook = {
+    Sheets: { Stock: worksheet },
+    SheetNames: ['Stock']
+  };
+
+  const excelBuffer = XLSX.write(workbook, {
+    bookType: 'xlsx',
+    type: 'array'
+  });
+
+  const data: Blob = new Blob([excelBuffer], {
+    type:
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+  });
+
+  const today = new Date();
+  const fileName =
+    `Stock_List_${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}.xlsx`;
+
+  // ✅ ต้องเรียกแบบนี้
+ saveAs(data, fileName);
 }
   // onConfirmCart() {
   //   this.visibleCart = false;

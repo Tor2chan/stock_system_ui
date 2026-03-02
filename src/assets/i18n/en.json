@@ -4,7 +4,7 @@
       "menu": "Menu",
         "home": "Home",
          "dashboard": "Dashboard",
-        "sitting": "Settings",
+        "sitting": "Settings User",
         "logout": "Logout"
     },
     "dashboard": {

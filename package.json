@@ -23,12 +23,14 @@
     "@primeng/themes": "^19.0.6",
     "chart.js": "^4.4.7",
     "chartjs-plugin-datalabels": "^2.2.0",
+    "file-saver": "^2.0.5",
     "ngx-ui-loader": "^19.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^19.0.6",
     "rxjs": "~7.8.0",
     "tailwindcss-primeui": "^0.4.0",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -36,6 +38,7 @@
     "@angular/cli": "^19.1.7",
     "@angular/compiler-cli": "^19.1.0",
     "@tailwindcss/postcss": "^4.0.6",
+    "@types/file-saver": "^2.0.7",
     "@types/jasmine": "~5.1.0",
     "autoprefixer": "^10.4.20",
     "jasmine-core": "~5.5.0",

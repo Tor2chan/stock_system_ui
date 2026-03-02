@@ -20,9 +20,16 @@ export class DashboardSearchComponent implements OnInit {
   totalProducts = 0;
   lowStock = 0;
   categoryCount = 0;
-
+chartType: 'bar' | 'pie' = 'bar';
   chartData: any;
+chartOptions: any;
+chartHeight = '320px';
+changeChart(type: 'bar' | 'pie') {
+  this.chartType = type;
+  this.chartHeight = type === 'pie' ? '220px' : '320px';
 
+  this.buildChart();
+}
   constructor(
     private productService: ProductService,
     private translate: TranslateService
@@ -58,19 +65,58 @@ export class DashboardSearchComponent implements OnInit {
     });
   }
 
-  buildChart() {
-    const categories = new Set(this.items.map(i => i.categoryName));
+   buildChart() {
 
-    this.chartData = {
-      labels: [...categories],
-      datasets: [
-        {
-          label: this.translate.instant('main.dashboard.dashboardsearch.totalProducts'),
-          data: [...categories].map(cat =>
-            this.items.filter(i => i.categoryName === cat).length
-          )
+  const categories = [...new Set(this.items.map(i => i.categoryName))];
+
+  const data = categories.map(cat =>
+    this.items.filter(i => i.categoryName === cat).length
+  );
+
+  const colors = [
+    '#C8A165',
+    '#A1887F',
+    '#8D6E63',
+    '#6D4C41',
+    '#4E342E',
+    '#BCAAA4'
+  ];
+
+  this.chartData = {
+    labels: categories,
+    datasets: [
+      {
+        label: this.translate.instant('main.dashboard.dashboardsearch.totalProducts'),
+        data: data,
+        backgroundColor: this.chartType === 'pie' ? colors : '#C8A165',
+        borderColor: '#4E342E',
+        borderWidth: 2
+      }
+    ]
+  };
+
+ this.chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,   // สำคัญมาก
+  plugins: {
+    legend: {
+      labels: {
+        color: '#4E342E'
+      }
+    }
+  },
+  scales: this.chartType === 'bar'
+    ? {
+        x: {
+          ticks: { color: '#6D4C41' },
+          grid: { color: '#E8D8C3' }
+        },
+        y: {
+          ticks: { color: '#6D4C41' },
+          grid: { color: '#E8D8C3' }
         }
-      ]
-    };
-  }
+      }
+    : {}
+};
+}
 }

@@ -319,19 +319,19 @@ const MyPreset = definePreset(Aura, {
         disabledOpacity: "0.6",
         iconSize: "1rem",
         anchorGutter: "2px",
-        primary: {
-            50:  "#f7f5f9",
-            100: "#d8d0e1",
-            200: "#b9abc8",
-            300: "#9b85b0",
-            400: "#7c6098",
-            500: "#0A84FF", 
-            600: "#144678",
-            700: "#0d3661",
-            800: "#332046",
-            900: "#251833",
-            950: "#170f20"
-        },
+       primary: {
+    50:  "#EFEBE9",
+    100: "#D7CCC8",
+    200: "#BCAAA4",
+    300: "#A1887F",
+    400: "#8D6E63",
+    500: "#6D4C41",  // ⭐ น้ำตาลหลัก
+    600: "#5D4037",
+    700: "#4E342E",
+    800: "#3E2723",
+    900: "#2E1F1A",
+    950: "#1B1210"
+},
         formField: {
             paddingX: "0.75rem",
             paddingY: "0.5rem",

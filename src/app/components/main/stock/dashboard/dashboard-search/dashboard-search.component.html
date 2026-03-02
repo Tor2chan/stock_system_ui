@@ -23,8 +23,45 @@
   </div>
 
   <!-- Chart -->
-  <p-card header="{{ 'main.dashboard.dashboardsearch.category' | translate }}">
-    <p-chart type="bar" [data]="chartData"></p-chart>
-  </p-card>
+  <!-- ================= CHART ================= -->
+<p-card class="mb-6">
+
+  <div class="flex justify-between items-center mb-4">
+
+    <h2 class="text-lg font-semibold text-[#4E342E]">
+      {{ 'main.dashboard.dashboardsearch.category' | translate }}
+    </h2>
+
+    <!-- ปุ่มสลับกราฟ -->
+    <div class="flex gap-2">
+      <button
+        class="px-4 py-2 rounded-lg border transition"
+        [ngClass]="chartType === 'bar'
+          ? 'bg-[#4E342E] text-white'
+          : 'bg-white text-[#4E342E]'"
+        (click)="changeChart('bar')">
+        Bar
+      </button>
+
+      <button
+        class="px-4 py-2 rounded-lg border transition"
+        [ngClass]="chartType === 'pie'
+          ? 'bg-[#4E342E] text-white'
+          : 'bg-white text-[#4E342E]'"
+        (click)="changeChart('pie')">
+        Pie
+      </button>
+    </div>
+
+  </div>
+
+<p-chart
+  [type]="chartType"
+  [data]="chartData"
+  [options]="chartOptions"
+  [style.height]="chartHeight"
+  style="width: 100%;">
+</p-chart>
+</p-card>
 
 </div>
