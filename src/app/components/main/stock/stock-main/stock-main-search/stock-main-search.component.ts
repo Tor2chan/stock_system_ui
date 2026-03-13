@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { MODE_PAGE } from '../../../../../modules/common/common';
 import { TranslateModule} from '@ngx-translate/core';
+
 import { TablePageEvent } from 'primeng/table';
 import { GlobalService } from '../../../../../services/global.service';
 import { ProductData } from '../../../../../models/product-data';
@@ -58,6 +59,8 @@ export class StockMainSearchComponent implements OnInit{
   page: number = 1;
   pageSize: number = 5;
   totalPages: number = 1;
+  role?: string | null ;
+
 
   constructor(
     public readonly globalService:GlobalService,
@@ -74,6 +77,9 @@ export class StockMainSearchComponent implements OnInit{
   ngOnInit() {
     this.getDropdownCategory();
     this.onSearch();
+     this.role = localStorage.getItem('role');
+const username = localStorage.getItem('username');
+
   }
 
   onSearch(event?: TablePageEvent) {

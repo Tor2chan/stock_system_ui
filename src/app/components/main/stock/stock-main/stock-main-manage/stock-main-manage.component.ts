@@ -72,8 +72,11 @@ export class StockMainManageComponent  implements OnInit {
 
      onSave(){
         this.loaderService.start();
+         const selectedCat = this.itemCategory.find(c => (c as any).code === this.criteria.code);
+    this.criteria.category = (selectedCat as any)?.name ?? this.criteria.code ?? '';
         if (
-            this.globalService.validate(this.criteria.name) ||
+           this.globalService.validate(this.criteria.name) ||
+            this.globalService.validate(this.criteria.category) ||
             this.globalService.validate(this.criteria.sku) ||
             this.globalService.validate(this.criteria.batchCode) ||
             this.globalService.validate(this.criteria.amount) ||

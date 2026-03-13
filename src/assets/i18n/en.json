@@ -4,9 +4,39 @@
       "menu": "Menu",
         "home": "Home",
          "dashboard": "Dashboard",
+         "report": "Report",
         "sitting": "Settings User",
         "logout": "Logout"
     },
+
+    "report": {
+  "title": "Withdrawal History Report",
+  "subtitle": "All withdrawal records",
+  "search": "Search",
+  "clear": "Clear",
+  "searchPlaceholder": "Product name / SKU",
+  "category": "Category",
+  "allCategory": "-- All Categories --",
+  "dateFrom": "Start Date",
+  "dateTo": "End Date",
+  "totalRecords": "Total Records",
+  "totalQty": "Total Qty",
+  "totalValue": "Total Value (THB)",
+  "tableTitle": "Withdrawal Records",
+  "allRecords": "records",
+  "show": "Showing",
+  "from": "of",
+  "no": "#",
+  "productName": "Product Name",
+  "sku": "SKU",
+  "qty": "Qty",
+  "price": "Price (THB)",
+  "date": "Date",
+  "by": "By",
+  "exportPDF": "Export PDF",
+  "refresh": "Refresh"
+},
+
     "dashboard": {
       "dashboardsearch": {
         "title": "Dashboard",
@@ -14,7 +44,11 @@
         "lowStock": "Low Stock",
         "category": "Total Categories",
         "totalCategories": "Total Categories",
-        "category": "Products by Category"
+        "topProducts": "Top Products",
+        "category": "Products by Category",
+        "stockTrend": "Stock Trend",
+        "recentActivity": "Recent Activity",
+        "overallStockStatus": "Overall Stock Status"
 
       
       }

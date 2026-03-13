@@ -1,0 +1,162 @@
+<div class="p-6 min-h-screen">
+
+  <!-- HEADER -->
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-3xl font-bold text-[#4E342E]">{{ 'main.report.title' | translate }}</h1>
+      <p class="text-sm text-black mt-1">{{ 'main.report.subtitle' | translate }}</p>
+    </div>
+    <div class="flex gap-2">
+    
+      <button
+        class="flex items-center gap-2 px-4 py-2 bg-[#4E342E] text-white text-sm rounded-lg hover:bg-[#3E2723] transition"
+        (click)="exportPDF()">
+        🖨️ {{ 'main.report.exportPDF' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <p-card styleClass="shadow-md mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-gray-500 font-medium">{{ 'main.report.searchPlaceholder' | translate }}</label>
+        <input
+          type="text"
+          [(ngModel)]="filterKeyword"
+          [placeholder]="'main.report.searchPlaceholder' | translate"
+          class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#C8A165]" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-gray-500 font-medium">{{ 'main.report.category' | translate }}</label>
+        <select
+          [(ngModel)]="filterCategory"
+          class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#C8A165]">
+          <option value="">{{ 'main.report.allCategory' | translate }}</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-gray-500 font-medium">{{ 'main.report.dateFrom' | translate }}</label>
+        <input type="date" [(ngModel)]="filterDateFrom"
+          class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#C8A165]" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-gray-500 font-medium">{{ 'main.report.dateTo' | translate }}</label>
+        <input type="date" [(ngModel)]="filterDateTo"
+          class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#C8A165]" />
+      </div>
+    </div>
+    <div class="flex gap-3 mt-4">
+      <button
+        class="px-5 py-2 bg-[#4E342E] text-white text-sm rounded-lg hover:bg-[#3E2723] transition"
+        (click)="search()">
+        🔍 {{ 'main.report.search' | translate }}
+      </button>
+      <button
+        class="px-5 py-2 bg-white border border-gray-300 text-gray-600 text-sm rounded-lg hover:bg-gray-50 transition"
+        (click)="clearFilter()">
+        {{ 'main.report.clear' | translate }}
+      </button>
+    </div>
+  </p-card>
+
+  <!-- SUMMARY -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white rounded-xl shadow-sm border-l-4 border-[#C8A165] p-4">
+      <div class="text-xs text-gray-500 mb-1">{{ 'main.report.totalRecords' | translate }}</div>
+      <div class="text-2xl font-bold text-[#4E342E]">{{ filteredItems.length }}</div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm border-l-4 border-blue-400 p-4">
+      <div class="text-xs text-gray-500 mb-1">{{ 'main.report.totalQty' | translate }}</div>
+      <div class="text-2xl font-bold text-blue-500">{{ totalWithdrawnAmount }}</div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm border-l-4 border-green-400 p-4">
+      <div class="text-xs text-gray-500 mb-1">{{ 'main.report.totalValue' | translate }}</div>
+      <div class="text-2xl font-bold text-green-500">{{ totalWithdrawnValue | number:'1.2-2' }}</div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <p-card styleClass="shadow-md">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-base font-semibold text-[#4E342E]">{{ 'main.report.tableTitle' | translate }}</h2>
+      <span class="text-xs text-gray-400">{{ 'main.report.totalRecords' | translate }} {{ filteredItems.length }} {{ 'main.report.allRecords' | translate }}</span>
+    </div>
+
+    <div class="overflow-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-[#4E342E] border-b-2 border-[#E8D8C3] bg-[#FDF6EE]">
+            <th class="px-3 py-3 font-semibold w-8">{{ 'main.report.no' | translate }}</th>
+            <th class="px-3 py-3 font-semibold">{{ 'main.report.productName' | translate }}</th>
+            <th class="px-3 py-3 font-semibold">{{ 'main.report.sku' | translate }}</th>
+            <th class="px-3 py-3 font-semibold">{{ 'main.report.category' | translate }}</th>
+            <th class="px-3 py-3 font-semibold text-right">{{ 'main.report.qty' | translate }}</th>
+            <th class="px-3 py-3 font-semibold text-right">{{ 'main.report.price' | translate }}</th>
+            <th class="px-3 py-3 font-semibold">{{ 'main.report.date' | translate }}</th>
+            <th class="px-3 py-3 font-semibold">{{ 'main.report.by' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of paginatedItems; let i = index"
+            class="border-b border-[#F5EDE3] hover:bg-[#FDF6EE] transition">
+            <td class="px-3 py-3 text-gray-400 text-xs">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td class="px-3 py-3 font-medium text-gray-800">{{ item['productName'] }}</td>
+            <td class="px-3 py-3 text-gray-500 font-mono text-xs">{{ item['sku'] }}</td>
+            <td class="px-3 py-3">
+              <span class="px-2 py-0.5 rounded-full text-xs bg-[#F5EDE3] text-[#6D4C41]">
+                {{ item['categoryName'] ?? '-' }}
+              </span>
+            </td>
+            <td class="px-3 py-3 text-right font-semibold text-[#4E342E]">{{ item['withdrawAmount'] }}</td>
+            <td class="px-3 py-3 text-right text-gray-700">{{ item['withdrawPrice'] | number:'1.2-2' }}</td>
+            <td class="px-3 py-3 text-gray-500 text-xs">{{ item['withdrawDate'] | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td class="px-3 py-3">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-[#E8D8C3] flex items-center justify-center text-xs font-bold text-[#4E342E]">
+                  {{ item['withdrawBy']?.charAt(0)?.toUpperCase() }}
+                </div>
+                <span class="text-gray-700 text-xs">{{ item['withdrawBy'] }}</span>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="filteredItems.length === 0">
+            <td colspan="8" class="py-10 text-center text-gray-400">
+              <div class="text-3xl mb-2">📭</div>
+              <div class="text-sm">{{ 'common.noData' | translate }}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="flex items-center justify-between mt-4 pt-4 border-t border-[#F5EDE3]" *ngIf="filteredItems.length > 0">
+      <span class="text-xs text-gray-400">
+        {{ 'main.report.show' | translate }}
+        {{ (currentPage - 1) * pageSize + 1 }}–{{ min(currentPage * pageSize, filteredItems.length) }}
+        {{ 'main.report.from' | translate }} {{ filteredItems.length }} {{ 'main.report.allRecords' | translate }}
+      </span>
+      <div class="flex gap-1">
+        <button
+          class="px-3 py-1.5 text-sm rounded-lg border transition"
+          [ngClass]="currentPage === 1 ? 'text-gray-300 border-gray-200 cursor-not-allowed' : 'text-[#4E342E] border-[#C8A165] hover:bg-[#FDF6EE]'"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)">‹</button>
+        <button
+          *ngFor="let p of pages"
+          class="px-3 py-1.5 text-sm rounded-lg border transition"
+          [ngClass]="p === currentPage ? 'bg-[#4E342E] text-white border-[#4E342E]' : 'text-[#4E342E] border-[#C8A165] hover:bg-[#FDF6EE]'"
+          (click)="changePage(p)">{{ p }}</button>
+        <button
+          class="px-3 py-1.5 text-sm rounded-lg border transition"
+          [ngClass]="currentPage === totalPages ? 'text-gray-300 border-gray-200 cursor-not-allowed' : 'text-[#4E342E] border-[#C8A165] hover:bg-[#FDF6EE]'"
+          [disabled]="currentPage === totalPages"
+          (click)="changePage(currentPage + 1)">›</button>
+      </div>
+    </div>
+  </p-card>
+
+</div>

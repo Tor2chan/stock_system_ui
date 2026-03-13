@@ -5,24 +5,16 @@
 
   <!-- 🔍 Filters -->
   <div class="flex items-center gap-2 mb-4">
-    
     <div class="flex-grow"></div>
-
-    <p-button
-      (click)="openPage('create')"
-      class="px-4 py-2 font-semibold transition"
-    >
-      <i class="pi pi-plus"></i>
-      {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.addStockBtn' | translate }}
-    </p-button>
-
-     <p-button
-  icon="pi pi-file-excel"
-  label="Export Excel"
-  
-  (onClick)="exportExcel()">
-</p-button>
-    
+    <div *ngIf="role=='admin'">
+      <p-button (click)="openPage('create')" class="px-4 py-2 font-semibold transition">
+        <i class="pi pi-plus"></i>
+        {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.addStockBtn' | translate }}
+      </p-button>
+    </div>
+    <div *ngIf="role=='admin'">
+      <p-button icon="pi pi-file-excel" label="Export Excel" (onClick)="exportExcel()"></p-button>
+    </div>
   </div>
 
   <!-- 📋 Table -->
@@ -40,33 +32,30 @@
         <th>{{ 'common.no' | translate }}</th>
         <th pSortableColumn="name">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.nameCol' | translate }}
-          
         </th>
         <th pSortableColumn="code">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.batchCodeCol' | translate }}
-        
         </th>
-         <th>
+        <th>
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.categoryCol' | translate }}
         </th>
         <th pSortableColumn="amount">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.amountCol' | translate }}
           <p-sortIcon field="amount" />
         </th>
-       
         <th pSortableColumn="price">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.priceCol' | translate }}
           <p-sortIcon field="price" />
         </th>
-        <th  pSortableColumn="receivedDate" style="text-align: center">
+        <th pSortableColumn="receivedDate" style="text-align: center">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.receivedDateCol' | translate }}
-         <p-sortIcon field="receivedDate"></p-sortIcon>
+          <p-sortIcon field="receivedDate"></p-sortIcon>
         </th>
-        <th  pSortableColumn="expireDate" style="text-align: center">
+        <th pSortableColumn="expireDate" style="text-align: center">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.expireCol' | translate }}
-            <p-sortIcon field="expireDate"></p-sortIcon>
+          <p-sortIcon field="expireDate"></p-sortIcon>
         </th>
-        <th style="text-align: center">
+        <th style="text-align: center; min-width: 140px">
           {{ 'common.manage' | translate }}
         </th>
       </tr>
@@ -77,26 +66,37 @@
         <td>{{ rowIndex + 1 }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.batchCode }}</td>
-         <td>{{ item.categoryName }}</td>
+        <td>{{ item.categoryName }}</td>
         <td>{{ item.amount | number:'1.0-0' }}</td>
-        <td>{{ item.price | currency:'THB':'symbol-narrow':'1.2-2'}}</td>
-       <td>{{ item.receivedDate | date:'yyyy-MM-dd' }}</td>
-<td>{{ item.expireDate   | date:'yyyy-MM-dd' }}</td>
-       
-       <td style="text-align: center">
-            <i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer mr-2 text-blue-500 hover:text-blue-700"
-              [title]="'common.edit' | translate"></i>
+        <td>{{ item.price | currency:'THB':'symbol-narrow':'1.2-2' }}</td>
+        <td>{{ item.receivedDate | date:'yyyy-MM-dd' }}</td>
+        <td>{{ item.expireDate | date:'yyyy-MM-dd' }}</td>
 
-           <i (click)="onCart(item)"class="pi pi-cart-plus cursor-pointer mr-2 text-yellow-500 hover:text-yellow-700"
-           [title]="'common.cart' | translate"></i>
+        <!-- ⭐ ปุ่มแยกชัดเจน -->
+        <td style="text-align: center">
+          <div class="flex items-center justify-center gap-3">
 
-           <i (click)="onOpenDelete(item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
-              [title]="'common.delete' | translate"></i>
-              
+            <!-- ปุ่มแก้ไข (admin เท่านั้น) -->
+            <button
+              *ngIf="role=='admin'"
+              (click)="openPage('edit', item)"
+              class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition"
+              [title]="'common.edit' | translate">
+              <i class="pi pi-pencil text-xs"></i>
+              {{ 'common.edit' | translate }}
+            </button>
 
-          
-          </td>
+            <!-- ปุ่มเบิก -->
+            <button
+              (click)="onCart(item)"
+              class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition"
+              [title]="'common.cart' | translate">
+              <i class="pi pi-cart-plus text-xs"></i>
+              {{ 'common.cart' | translate }}
+            </button>
 
+          </div>
+        </td>
       </tr>
     </ng-template>
   </p-table>
@@ -129,7 +129,6 @@
       {{ 'common.deletedata' | translate }}
     </div>
   </div>
-
   <div class="text-center mt-4 space-x-4">
     <p-button
       [label]="'common.cancel' | translate"
@@ -138,7 +137,6 @@
       size="small"
       (onClick)="onCloseDelete()"
     ></p-button>
-
     <p-button
       [label]="'common.confirm' | translate"
       size="small"
@@ -147,130 +145,78 @@
   </div>
 </p-dialog>
 
-<p-dialog 
-  [(visible)]="visibleCart" 
+<!-- 🛒 Cart Dialog -->
+<p-dialog
+  [(visible)]="visibleCart"
   [modal]="true"
   [style]="{ width: '40vw', maxWidth: '90%' }"
-  [contentStyle]="{ overflow: 'hidden' }" 
-  [draggable]="false" 
+  [contentStyle]="{ overflow: 'hidden' }"
+  [draggable]="false"
   [resizable]="false"
   [header]="'main.stock.stockdetail.stockdetailsearch.stockmainmanage.confirmstockOut' | translate">
 
-  <!-- Header Icon Section -->
   <div class="flex justify-center items-center mb-6">
     <div class="bg-blue-50 rounded-full p-4">
       <i class="pi pi-shopping-cart text-blue-500" style="font-size: 3rem;"></i>
     </div>
   </div>
 
-  <!-- Form Section -->
   <div class="bg-gray-50 rounded-lg p-6 mb-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      
-      
-      <!-- Name Field -->
+
       <div class="flex flex-col space-y-2">
-        <label for="name" class="text-sm font-semibold text-gray-700">
+        <label class="text-sm font-semibold text-gray-700">
           {{ 'main.stock.stockdetail.stockdetailmanage.nameLabel' | translate }}
-          
         </label>
-        <input
-          id="name"
-          type="text"
-          pInputText
-          [(ngModel)]="itemCart.name"
-          name="name"
-            required
-            readonly
-          [placeholder]="'main.stock.stockdetail.stockdetailmanage.namePlaceholder' | translate"
-          class="w-full p-3 pl-10 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
-        />
+        <input type="text" pInputText [(ngModel)]="itemCart.name" readonly
+          class="w-full p-3 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" />
       </div>
 
-      <!-- Batch Code Field -->
       <div class="flex flex-col space-y-2">
-        <label for="batchCode" class="text-sm font-semibold text-gray-700">
+        <label class="text-sm font-semibold text-gray-700">
           {{ 'main.stock.stockdetail.stockdetailmanage.batchCodeLabel' | translate }}
         </label>
-        <input
-          id="batchCode"
-          type="text"
-          pInputText
-          [(ngModel)]="itemCart.batchCode"
-          name="batchCode"
-            required
-            readonly
-          [placeholder]="'main.stock.stockdetail.stockdetailmanage.batchCodePlaceholder' | translate"
-           class="w-full p-3 pl-10 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
-        />
+        <input type="text" pInputText [(ngModel)]="itemCart.batchCode" readonly
+          class="w-full p-3 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" />
       </div>
 
-      <!-- Amount Field -->
       <div class="flex flex-col space-y-2">
-        <label for="amount" class="text-sm font-semibold text-gray-700">
+        <label class="text-sm font-semibold text-gray-700">
           {{ 'main.stock.stockdetail.stockdetailmanage.amountLabel' | translate }}
         </label>
-        <div class="relative">
-         <input
-  id="amount"
-  type="text"
-  pInputText
-  [value]="itemCart.amount | number:'1.0-0'"
-  name="amount"
-  readonly
-  class="w-full p-3 pl-10 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
-/>
-
-          <i class=" absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-        </div>
+        <input type="text" pInputText [value]="itemCart.amount | number:'1.0-0'" readonly
+          class="w-full p-3 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" />
       </div>
 
-      <!-- Withdraw Field -->
       <div class="flex flex-col space-y-2">
-        <label for="withdraw" class="text-sm font-semibold text-gray-700">
+        <label class="text-sm font-semibold text-gray-700">
           {{ 'main.stock.stockdetail.stockdetailmanage.withdrawLabel' | translate }}
           <span class="text-red-500">*</span>
         </label>
-        <div class="relative">
-          <input
-            id="withdraw"
-            type="number"
-            pInputText
-            [(ngModel)]="itemCart.withdraw"
-            name="withdraw"
-            required
-            min="1"
-            [placeholder]="'main.stock.stockdetail.stockdetailmanage.withdrawPlaceholder' | translate"
-            class="w-full p-3 pl-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-          />
-          <i class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-        </div>
+        <input type="number" pInputText [(ngModel)]="itemCart.withdraw" min="1"
+          [placeholder]="'main.stock.stockdetail.stockdetailmanage.withdrawPlaceholder' | translate"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 transition" />
       </div>
 
     </div>
 
-    <!-- Remaining Stock Info -->
     <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
       <div class="flex items-center justify-between text-sm">
         <span class="text-gray-600 font-medium">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.remainingLabel' | translate }}
         </span>
         <span class="text-blue-600 font-bold text-lg">
-          {{ (itemCart.amount || 0) - (itemCart.withdraw || 0) |number:'1.0-0' }}
+          {{ (itemCart.amount || 0) - (itemCart.withdraw || 0) | number:'1.0-0' }}
         </span>
       </div>
     </div>
   </div>
 
-  <!-- Action Buttons -->
-   <div class="text-center mt-6 space-x-4">
-    <p-button [label]="'common.cancel' | translate " icon="pi pi-times" styleClass="p-button-secondary p-button-sm "
-      size="small" (onClick)="onCloseCart()">
+  <div class="text-center mt-6 space-x-4">
+    <p-button [label]="'common.cancel' | translate" icon="pi pi-times"
+      styleClass="p-button-secondary p-button-sm" size="small" (onClick)="onCloseCart()">
     </p-button>
-
-    <p-button [label]="'common.confirm'| translate" size="small" (onClick)="onSave()">
-
+    <p-button [label]="'common.confirm' | translate" size="small" (onClick)="onSave()">
     </p-button>
   </div>
-
 </p-dialog>

@@ -3,18 +3,7 @@
 
   <!-- Filters -->
   <div class="flex items-center gap-2 mb-4">
-      <!-- <input type="text" pInputText [(ngModel)]="criteria.name"
-      placeholder="{{ 'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate }}" (input)="onSearch()"
-      class="px-4 py-2 rounded-lg border w-64 h-[42px]" />
-
-
-    <p-button (click)="onSearch()" class="px-4 py-2 font-semibold transition gap-2 ml-2">
-      <i class="pi pi-search"></i>
-      {{ 'users.manageuser.edituser.search' | translate }}
-    </p-button> -->
-
     <div class="flex-grow"></div>
-
     <p-button (click)="openPage('create')" class="px-4 py-2 font-semibold transition">
       <i class="pi pi-plus"></i>
       {{ 'users.manageuser.edituser.addUser' | translate }}
@@ -34,10 +23,10 @@
     <ng-template pTemplate="header">
       <tr>
         <th style="text-align: center">{{ 'common.no' | translate }}</th>
-
         <th style="text-align: center">{{ 'users.manageuser.edituser.username' | translate }}</th>
         <th style="text-align: center">{{ 'users.manageuser.edituser.name' | translate }}</th>
         <th style="text-align: center">{{ 'users.manageuser.edituser.role' | translate }}</th>
+        <th style="text-align: center">{{ 'users.manageuser.adduser.status' | translate }}</th>
         <th style="text-align: center">{{ 'common.manage' | translate }}</th>
       </tr>
     </ng-template>
@@ -49,51 +38,33 @@
         <td style="text-align: center; vertical-align: middle;">{{ item.name }}</td>
         <td style="text-align: center; vertical-align: middle;">{{ item.role }}</td>
 
-        <td style="text-align: center">
+        <!-- Badge status -->
+        <td style="text-align: center; vertical-align: middle;">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold"
+            [ngClass]="item.active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-500'">
+            {{ item.active
+              ? ('users.manageuser.adduser.active' | translate)
+              : ('users.manageuser.adduser.inactive' | translate) }}
+          </span>
+        </td>
 
-          <!-- <i (click)="openPage('edit', item)" class="pi pi-pencil cursor-pointer mr-2 text-blue-500 hover:text-blue-700"
-              [title]="'common.edit' | translate"></i> -->
-
-            <i (click)="onOpenDelete(item)" class="pi pi-trash cursor-pointer mr-2 text-red-500 hover:text-red-700"
-              [title]="'common.delete' | translate"></i>
-
+        <!-- Toggle switch -->
+        <td style="text-align: center; vertical-align: middle;">
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only peer"
+              [checked]="item.active"
+              (change)="onToggleStatus(item)" />
+            <div class="w-11 h-6 bg-gray-300 rounded-full peer
+              peer-checked:bg-green-500
+              after:content-[''] after:absolute after:top-[2px] after:left-[2px]
+              after:bg-white after:rounded-full after:h-5 after:w-5
+              after:transition-all peer-checked:after:translate-x-full">
+            </div>
+          </label>
         </td>
       </tr>
     </ng-template>
   </p-table>
-  <p-dialog
-  [(visible)]="visibleDelete"
-  [modal]="true"
-  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
-  [contentStyle]="{ height: '100%', overflow: 'hidden' }"
-  [draggable]="false"
-  [resizable]="false"
->
-  <div class="text-center">
-    <div>
-      <i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5"></i>
-    </div>
-    <div class="mt-4">
-      {{ 'common.deletedata' | translate }}
-    </div>
-  </div>
-
-  <div class="text-center mt-4 space-x-4">
-    <p-button
-      [label]="'common.cancel' | translate"
-      icon="pi pi-times"
-      styleClass="p-button-secondary p-button-sm"
-      size="small"
-      (onClick)="onCloseDelete()"
-    ></p-button>
-
-    <p-button
-      [label]="'common.confirm' | translate"
-      size="small"
-      (onClick)="onConfirmDelete(itemDelete.id!)"
-    ></p-button>
-  </div>
-</p-dialog>
 
   <div class="flex justify-end mt-4">
     <p-button
@@ -104,3 +75,38 @@
     ></p-button>
   </div>
 </div>
+
+<!-- Confirm Toggle Dialog -->
+<p-dialog
+  [(visible)]="visibleToggle"
+  [modal]="true"
+  [style]="{ width: '30vw', maxWidth: '400px' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="text-center py-4">
+    <i class="pi pi-question-circle"
+      style="font-size: 5rem; opacity: 0.5"
+      [ngClass]="itemToggle.active ? 'text-red-400' : 'text-green-400'"></i>
+    <p class="mt-4 text-gray-700">
+      {{ itemToggle.active
+        ? ('users.manageuser.adduser.inactive' | translate)
+        : ('users.manageuser.adduser.active' | translate) }}
+      <span class="font-bold text-[#4E342E]">{{ itemToggle.username }}</span> ?
+    </p>
+  </div>
+  <div class="text-center mt-2 space-x-4">
+    <p-button
+      [label]="'common.cancel' | translate"
+      icon="pi pi-times"
+      styleClass="p-button-secondary"
+      size="small"
+      (onClick)="onCloseToggle()"
+    ></p-button>
+    <p-button
+      [label]="'common.confirm' | translate"
+      size="small"
+      (onClick)="onConfirmToggle()"
+    ></p-button>
+  </div>
+</p-dialog>

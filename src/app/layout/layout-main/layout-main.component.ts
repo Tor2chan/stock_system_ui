@@ -30,6 +30,7 @@ import { AuthService } from '../../services/auth.service';
 export class LayoutMainComponent {
    sidebarCollapsed = false;
    visibleSidebar: boolean = false;
+    role?: string | null ;
 
   constructor(
     private router: Router,
@@ -63,6 +64,7 @@ export class LayoutMainComponent {
 
   ngOnInit() {
     this.checkScreenWidth();
+     this.role = localStorage.getItem('role');
   }
 
   checkScreenWidth() {

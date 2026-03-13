@@ -1,35 +1,47 @@
-<div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10">
-<h2 class="text-2xl font-bold mb-4 ">{{ 'main.stock.stockmain.stockmainsearch.title' | translate }}</h2>
+<div
+  class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-10 relative z-10"
+>
+  <h2 class="text-2xl font-bold mb-4">
+    {{ "main.stock.stockmain.stockmainsearch.title" | translate }}
+  </h2>
 
   <!-- Filters -->
   <div class="flex items-center gap-2 mb-4">
-
     <!-- ช่องค้นหา -->
-    <input type="text" pInputText [(ngModel)]="criteria.name"
-      placeholder="{{ 'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate }}" (input)="onSearch()"
-      class="px-4 py-2 rounded-lg border w-64 h-[42px]" />
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="criteria.name"
+      placeholder="{{
+        'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate
+      }}"
+      (input)="onSearch()"
+      class="px-4 py-2 rounded-lg border w-64 h-[42px]"
+    />
 
-   <p-select
-        
-        [(ngModel)]="criteria.code"
-        [options]="itemCategory"
-        optionLabel="name"
-        optionValue="code"
-        class="w-54 border rounded-lg h-[42px]"
-        placeholder="{{ 'main.stock.stockmain.stockmainsearch.filterByCategory' | translate }}">
-      </p-select>
-      
-     
+    <p-select
+      [(ngModel)]="criteria.code"
+      [options]="itemCategory"
+      optionLabel="name"
+      optionValue="code"
+      class="w-54 border rounded-lg h-[42px]"
+      placeholder="{{
+        'main.stock.stockmain.stockmainsearch.filterByCategory' | translate
+      }}"
+    >
+    </p-select>
 
-
-    <p-button (click)="onSearch()" class=" font-semibold transition gap-2 ml-2">
+    <p-button (click)="onSearch()" class="font-semibold transition gap-2 ml-2">
       <i class="pi pi-search"></i>
-      {{ 'main.stock.stockmain.stockmainsearch.search' | translate }}
+      {{ "main.stock.stockmain.stockmainsearch.search" | translate }}
     </p-button>
-     <p-button label="{{ 'common.clear' | translate }}" icon="pi pi-undo" styleClass="p-button-secondary"
-        (onClick)="onclear()">
-      </p-button>
-
+    <p-button
+      label="{{ 'common.clear' | translate }}"
+      icon="pi pi-undo"
+      styleClass="p-button-secondary"
+      (onClick)="onclear()"
+    >
+    </p-button>
 
     <!-- ใช้ flex-grow เพื่อดันปุ่ม Add ไปขวาสุด -->
     <div class="flex-grow"></div>
@@ -38,46 +50,60 @@
       <i class="pi pi-plus"></i>
       {{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}
     </p-button> -->
+<div *ngIf="role=='admin' ">
 
-
-    <p-button (onClick)="openPage('create')" class="px-4 py-2 font-semibold transition">
+    <p-button
+      (onClick)="openPage('create')"
+      class="px-4 py-2 font-semibold transition"
+    >
       <i class="pi pi-plus"></i>
-      {{ 'main.stock.stockmain.stockmainsearch.product' | translate }}
+      {{ "main.stock.stockmain.stockmainsearch.product" | translate }}
     </p-button>
+      </div>
 
-     <p-button
-  icon="pi pi-file-excel"
-  label="Export Excel"
-  
-  (onClick)="exportExcel()">
-</p-button>
+    <div *ngIf="role=='admin' ">
 
+   <p-button 
+     
+      icon="pi pi-file-excel"
+      label="Export Excel"
+      (onClick)="exportExcel()"
+    >
+    </p-button>
+    </div>
   </div>
 
   <!-- Table -->
-  <p-table [value]="items" showGridlines="true" [paginator]="true"
-    [globalFilterFields]="['name', 'code', 'amount','price']" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }"
-    [rowsPerPageOptions]="[5, 10, 20]">
+  <p-table
+    [value]="items"
+    showGridlines="true"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'code', 'amount', 'price']"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+  >
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center">{{ 'common.no' | translate }}</th>
+        <th style="text-align: center">{{ "common.no" | translate }}</th>
         <th pSortableColumn="name" style="text-align: center">
-          {{ 'main.stock.stockmain.stockmainsearch.name' | translate }}
+          {{ "main.stock.stockmain.stockmainsearch.name" | translate }}
           <p-sortIcon field="name" />
         </th>
-        <th style="text-align: center">{{ 'main.stock.stockmain.stockmainsearch.sku' | translate }}</th>
+        <th style="text-align: center">
+          {{ "main.stock.stockmain.stockmainsearch.sku" | translate }}
+        </th>
 
-        <th style="text-align: center">{{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}</th>
-      
+        <th style="text-align: center">
+          {{ "main.stock.stockmain.stockmainsearch.categorys" | translate }}
+        </th>
 
-        <th pSortableColumn="amount" style="text-align: center " >
-          
-          {{ 'main.stock.stockmain.stockmainsearch.amount' | translate }}
+        <th pSortableColumn="amount" style="text-align: center">
+          {{ "main.stock.stockmain.stockmainsearch.amount" | translate }}
           <p-sortIcon field="amount" />
         </th>
 
-      
-        <th style="text-align: center">{{ 'common.manage' | translate }}</th>
+        <th style="text-align: center">{{ "common.manage" | translate }}</th>
       </tr>
     </ng-template>
 
@@ -86,17 +112,24 @@
         <td>{{ rowIndex + 1 }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.sku }}</td>
-<td >{{ item.categoryName }}</td>
+        <td>{{ item.categoryName }}</td>
         <td>
+          {{ item.sumAmount | number: "1.0-0" }}
+        </td>
+
+        <td style="text-align: center">
           
-          {{ item.sumAmount | number:'1.0-0' }}</td>
-      
-         <td style="text-align: center">
-         <i (click)="ondetail(item.sku)"class="pi pi-cart-plus cursor-pointer mr-2 text-yellow-500 hover:text-yellow-700"
-           [title]="'common.cart' | translate"></i>
-         </td>
+        <div class="flex items-center justify-center gap-3">
+           <button
+              (click)="ondetail(item.sku)"
+              class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition"
+              [title]="'common.cart' | translate">
+              <i class="pi pi-cart-plus text-xs"></i>
+        
+            </button>
+          </div>
+        </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
-

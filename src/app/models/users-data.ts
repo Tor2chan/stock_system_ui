@@ -15,6 +15,6 @@ export interface UsersData{
     password?:string;
     role?:string;
     status?:string;
-
+active?: boolean;
 
 }

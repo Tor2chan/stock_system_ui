@@ -20,6 +20,14 @@ export interface ProductData {
   //name.category
   code? : string;
   categoryName?: string;
+  productName?: string;
   sumAmount?: number;
   withdraw?: number;
+
+  
+
+  withdrawAmount?: number;
+  withdrawPrice?: number;
+  withdrawDate?: Date;
+  withdrawBy?: string;
 }

@@ -11,6 +11,7 @@ import { AddUserComponent } from './components/users/manage-user/add-user/add-us
 import { EditUserComponent } from './components/users/manage-user/edit-user/edit-user.component';
 import { DashboardSearchComponent } from './components/main/stock/dashboard/dashboard-search/dashboard-search.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ReportComponent } from './components/main/report/report/report.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -33,6 +34,7 @@ export const routes: Routes = [
       { path: 'add-user', component: AddUserComponent },
       { path: 'edit-user', component: EditUserComponent },
       { path: 'stock-main-dashboard', component: DashboardSearchComponent },
+      { path: 'report', component: ReportComponent}
      
 
 

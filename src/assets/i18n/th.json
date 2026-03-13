@@ -4,6 +4,7 @@
       "menu": "เมนู",
         "home": "หน้าหลัก",
         "dashboard": "แดชบอร์ด",
+        "report": "รายงาน",
         "sitting": "การตั้งค่าผู้ใช้งาน",
         "logout": "ออกจากระบบ"
     },
@@ -13,9 +14,40 @@
         "totalProducts": "สินค้าทั้งหมด",
         "lowStock": "สินค้าใกล้หมด",
         "totalCategories": "หมวดหมู่ทั้งหมด",
-        "category": "สินค้าแยกตามหมวด"
+        "category": "สินค้าแยกตามหมวด",
+        "topProducts": "สินค้าที่นิยม",
+        "stockTrend": "แนวโน้มสินค้าคงคลัง",
+        "recentActivity": "กิจกรรมล่าสุด",
+        "overallStockStatus": "สถานะสต็อกภาพรวม"
       }
     },
+    "report": {
+  "title": "รายงานประวัติการเบิก",
+  "subtitle": "ข้อมูลการเบิกสินค้าทั้งหมด",
+  "search": "ค้นหา",
+  "clear": "ล้าง",
+  "searchPlaceholder": "ชื่อสินค้า / SKU",
+  "category": "หมวดหมู่",
+  "allCategory": "-- ทุกหมวดหมู่ --",
+  "dateFrom": "วันที่เริ่มต้น",
+  "dateTo": "วันที่สิ้นสุด",
+  "totalRecords": "รายการทั้งหมด",
+  "totalQty": "จำนวนรวม",
+  "totalValue": "มูลค่ารวม (บาท)",
+  "tableTitle": "รายการเบิกสินค้า",
+  "allRecords": "รายการ",
+  "show": "แสดง",
+  "from": "จาก",
+  "no": "#",
+  "productName": "ชื่อสินค้า",
+  "sku": "SKU",
+  "qty": "จำนวนที่เบิก",
+  "price": "ราคา (บาท)",
+  "date": "วันที่เบิก",
+  "by": "ผู้เบิก",
+  "exportPDF": "Export PDF",
+  "refresh": "รีเฟรช"
+},
 
     "category": {
       "categorysearch": {

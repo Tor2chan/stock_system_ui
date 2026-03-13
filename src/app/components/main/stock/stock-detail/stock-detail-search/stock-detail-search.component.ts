@@ -54,8 +54,9 @@ export class StockDetailSearchComponent implements OnInit{
   params: string | null = null; 
 
   itemCategory: ProductData[] = [];
-  itemDelete: ProductData = {}
-  itemCart: ProductData = {}
+  itemDelete: ProductData = {};
+  itemCart: ProductData = {};
+   role?: string | null ;
 
   constructor(
     public readonly globalService:GlobalService,
@@ -73,6 +74,7 @@ export class StockDetailSearchComponent implements OnInit{
       this. params = this.route.snapshot.paramMap.get('id');
       console.log("sku = ",this.params)
       this.onSearch();
+        this.role = localStorage.getItem('role');
   }
 
   onSearch(event?: TablePageEvent) {
@@ -123,6 +125,7 @@ export class StockDetailSearchComponent implements OnInit{
 
 
    onSave(){
+    this.itemCart.category = this.itemCart.categoryName ?? this.itemCart.category;
         this.loaderService.start();
         if (
             this.globalService.validate(this.itemCart.withdraw) 
@@ -132,10 +135,12 @@ export class StockDetailSearchComponent implements OnInit{
                 summary: 'เกิดข้อผิดพลาด',
                 detail: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                 life: 2000
-            });
+            }
+          );
             console.log("xxxxxx");
             this.loaderService.stop();
             return;
+            
           }
 
           setTimeout(() => {
@@ -268,9 +273,9 @@ export class StockDetailSearchComponent implements OnInit{
   }
 onCart(item: ProductData) {
   this.visibleCart = true;
-  this.itemCart = structuredClone(item)
-
-
+  this.itemCart = structuredClone(item);
+  // ⭐ ดึง username จาก localStorage
+  this.itemCart.withdrawBy = localStorage.getItem('username') ?? 'unknown';
 }
 
 

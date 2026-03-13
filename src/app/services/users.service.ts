@@ -43,6 +43,14 @@ export class UsersService {
         );
     }
 
+    toggleStatus(id: number): Observable<ResponseOneIf<UsersData>> {
+    this.globalService.validatePathTraversal(id);
+    return this.http.put<ResponseOneIf<UsersData>>(
+        this.globalService.joinApi([this.baseService, 'toggle-status', id]),
+        {}
+    );
+}
+
     deleteUsers(id: number): Observable<ResponseOneIf<UsersData>> {
           this.globalService.validatePathTraversal(id);
                       return this.http.delete<ResponseOneIf<UsersData>>(

@@ -29,15 +29,12 @@ import { MessageService } from 'primeng/api';
     TranslateModule,
     ImageModule,
     ToastModule,
-    
-
   ],
   providers: [MessageService],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
   username = '';
   password = '';
   errorMessage = '';
@@ -47,59 +44,64 @@ export class LoginComponent {
     private router: Router,
     private translateService: TranslateService,
     private http: HttpClient,
-     private authService: AuthService,
-     private messageService: MessageService
-  ) 
-  {
+    private authService: AuthService,
+    private messageService: MessageService,
+  ) {
     const savedLang = localStorage.getItem('language') || 'en';
     this.translateService.setDefaultLang(savedLang);
     this.translateService.use(savedLang);
   }
 
   login() {
-  this.errorMessage = '';
-  this.isLoading = true;
+    this.errorMessage = '';
+    this.isLoading = true;
 
-  if (!this.username || !this.password) {
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Warning',
-      detail: 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน'
-    });
-    this.isLoading = false;
-    return;
-  }
-
-  this.http.post<any>('http://localhost:8080/stock-api/auth/login', {
-    username: this.username,
-    password: this.password
-  }).subscribe({
-    next: res => {
-      this.authService.setToken(res.access_token);
-
+    if (!this.username || !this.password) {
       this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'เข้าสู่ระบบสำเร็จ'
+        severity: 'warn',
+        summary: 'Warning',
+        detail: 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน',
       });
-
-      setTimeout(() => {
-        this.router.navigate(['/stock-main-search']);
-      }, 1000);
-
       this.isLoading = false;
-    },
-    error: err => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Login Failed',
-        detail: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
-      });
-
-      this.isLoading = false;
+      return;
     }
-  });
-}
+
+    this.http
+      .post<any>('http://localhost:8080/stock-api/auth/login', {
+        username: this.username,
+        password: this.password,
+      })
+      .subscribe({
+        next: (res) => {
+          this.authService.setToken(res.access_token);
+          localStorage.setItem('access_token', res.access_token);
+          localStorage.setItem('refresh_token', res.refresh_token);
+          localStorage.setItem('username', res.username);
+          localStorage.setItem('role', res.role);
+
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'เข้าสู่ระบบสำเร็จ',
+          });
+
+          setTimeout(() => {
+            this.router.navigate(['/stock-main-search']);
+          }, 1000);
+
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Login Failed',
+            detail: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
+          });
+
+          this.isLoading = false;
+        },
+      });
+  }
   onCheck() {
     this.errorMessage = '';
 
@@ -113,8 +115,6 @@ export class LoginComponent {
     }
   }
 
- 
-
   toggleLanguage() {
     const currentLang = this.translateService.currentLang;
     const newLang = currentLang === 'en' ? 'th' : 'en';
@@ -122,6 +122,4 @@ export class LoginComponent {
     localStorage.setItem('language', newLang);
     window.location.reload();
   }
-
-
 }

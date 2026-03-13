@@ -91,7 +91,18 @@
           <span>{{ 'main.menu.dashboard' | translate }}</span>
         </a>
       </li>
-
+      <div *ngIf="role=='admin' || role=='staff' ">
+       <li>
+        <a routerLink="/report"
+           (click)="visibleSidebar=false"
+           class="flex items-center gap-2 p-2 rounded 
+                  hover:bg-[#E8D8C3] transition">
+          <i class="pi pi-file"></i>
+          <span>{{ 'main.menu.report' | translate }}</span>
+        </a>
+      </li>
+</div>
+<div *ngIf="role=='admin' ">
       <li>
         <a routerLink="/edit-user"
            (click)="visibleSidebar=false"
@@ -101,6 +112,7 @@
           <span>{{ 'main.menu.sitting' | translate }}</span>
         </a>
       </li>
+      </div>
 
       <li>
         <a routerLink="/login"

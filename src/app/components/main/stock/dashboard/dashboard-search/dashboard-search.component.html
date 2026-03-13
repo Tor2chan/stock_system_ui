@@ -1,67 +1,247 @@
-<div class="p-4">
+<div class="p-6 min-h-screen">
 
-  <h1 class="text-2xl font-bold mb-4">{{ 'main.dashboard.dashboardsearch.title' | translate }}</h1>
+  <!-- ===== HEADER ===== -->
+  <h1 class="text-3xl font-bold text-[#4E342E] mb-6">
+    {{ 'main.dashboard.dashboardsearch.title' | translate }}
+  </h1>
 
-  <!-- Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+  <!-- ===== CARDS ===== -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
 
-    <p-card>
-      <div class="text-gray-500">{{ 'main.dashboard.dashboardsearch.totalProducts' | translate }}</div>
-      <div class="text-2xl font-bold text-blue-500">{{ totalProducts }}</div>
+    <p-card styleClass="shadow-md border-l-4 border-blue-400">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-sm text-gray-500 mb-1">{{ 'main.dashboard.dashboardsearch.totalProducts' | translate }}</div>
+          <div class="text-3xl font-bold text-blue-500">{{ totalProducts }}</div>
+        </div>
+        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-2xl">📦</div>
+      </div>
     </p-card>
 
-    <p-card>
-      <div class="text-gray-500">{{ 'main.dashboard.dashboardsearch.lowStock' | translate }}</div>
-      <div class="text-2xl font-bold text-orange-500">{{ lowStock }}</div>
+    <p-card styleClass="shadow-md border-l-4 border-orange-400">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-sm text-gray-500 mb-1">{{ 'main.dashboard.dashboardsearch.lowStock' | translate }}</div>
+          <div class="text-3xl font-bold text-orange-500">{{ lowStock }}</div>
+        </div>
+        <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-2xl">⚠️</div>
+      </div>
     </p-card>
 
-    <p-card>
-      <div class="text-gray-500">{{ 'main.dashboard.dashboardsearch.totalCategories' | translate }}</div>
-      <div class="text-2xl font-bold text-green-500">{{ categoryCount }}</div>
+    <p-card styleClass="shadow-md border-l-4 border-green-400">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-sm text-gray-500 mb-1">{{ 'main.dashboard.dashboardsearch.totalCategories' | translate }}</div>
+          <div class="text-3xl font-bold text-green-500">{{ categoryCount }}</div>
+        </div>
+        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-2xl">🗂️</div>
+      </div>
     </p-card>
 
   </div>
 
-  <!-- Chart -->
-  <!-- ================= CHART ================= -->
-<p-card class="mb-6">
-
-  <div class="flex justify-between items-center mb-4">
-
-    <h2 class="text-lg font-semibold text-[#4E342E]">
-      {{ 'main.dashboard.dashboardsearch.category' | translate }}
-    </h2>
-
-    <!-- ปุ่มสลับกราฟ -->
-    <div class="flex gap-2">
-      <button
-        class="px-4 py-2 rounded-lg border transition"
-        [ngClass]="chartType === 'bar'
-          ? 'bg-[#4E342E] text-white'
-          : 'bg-white text-[#4E342E]'"
-        (click)="changeChart('bar')">
-        Bar
-      </button>
-
-      <button
-        class="px-4 py-2 rounded-lg border transition"
-        [ngClass]="chartType === 'pie'
-          ? 'bg-[#4E342E] text-white'
-          : 'bg-white text-[#4E342E]'"
-        (click)="changeChart('pie')">
-        Pie
-      </button>
+  <!-- ===== SUMMARY BAR (% สต็อกต่ำ / ปกติ / สูง) ===== -->
+  <p-card styleClass="shadow-md mb-6">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-base font-semibold text-[#4E342E]">{{ 'main.dashboard.dashboardsearch.overallStockStatus' | translate }}</h2>
+      <div class="flex items-center gap-4 text-xs text-gray-500">
+        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span> ต่ำ (&lt;10)</span>
+        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span> ปานกลาง (10–50)</span>
+        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-green-400 inline-block"></span> สูง (&gt;50)</span>
+      </div>
     </div>
 
+    <!-- Progress Bar -->
+    <div class="w-full h-5 rounded-full overflow-hidden flex bg-gray-100 mb-3">
+      <div
+        class="h-full bg-red-400 transition-all duration-700"
+        [style.width.%]="stockLowPct">
+      </div>
+      <div
+        class="h-full bg-yellow-400 transition-all duration-700"
+        [style.width.%]="stockMidPct">
+      </div>
+      <div
+        class="h-full bg-green-400 transition-all duration-700"
+        [style.width.%]="stockHighPct">
+      </div>
+    </div>
+
+    <!-- ตัวเลข % -->
+    <div class="grid grid-cols-3 gap-4 text-center">
+      <div class="bg-red-50 rounded-xl py-3">
+        <div class="text-2xl font-bold text-red-500">{{ stockLowPct | number:'1.1-1' }}%</div>
+        <div class="text-xs text-gray-500 mt-0.5">สต็อกต่ำ ({{ stockLowCount }} รายการ)</div>
+      </div>
+      <div class="bg-yellow-50 rounded-xl py-3">
+        <div class="text-2xl font-bold text-yellow-500">{{ stockMidPct | number:'1.1-1' }}%</div>
+        <div class="text-xs text-gray-500 mt-0.5">ปานกลาง ({{ stockMidCount }} รายการ)</div>
+      </div>
+      <div class="bg-green-50 rounded-xl py-3">
+        <div class="text-2xl font-bold text-green-500">{{ stockHighPct | number:'1.1-1' }}%</div>
+        <div class="text-xs text-gray-500 mt-0.5">สต็อกสูง ({{ stockHighCount }} รายการ)</div>
+      </div>
+    </div>
+  </p-card>
+
+  <!-- ===== BAR / PIE CHART + LINE CHART (2 คอลัมน์) ===== -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">
+
+    <!-- Bar / Pie -->
+    <p-card styleClass="shadow-md h-full">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-base font-semibold text-[#4E342E]">
+          {{ 'main.dashboard.dashboardsearch.category' | translate }}
+        </h2>
+        <div class="flex gap-2">
+          <button
+            class="px-3 py-1.5 text-sm rounded-lg border transition"
+            [ngClass]="chartType === 'bar' ? 'bg-[#4E342E] text-white' : 'bg-white text-[#4E342E]'"
+            (click)="changeChart('bar')">
+            Bar
+          </button>
+          <button
+            class="px-3 py-1.5 text-sm rounded-lg border transition"
+            [ngClass]="chartType === 'pie' ? 'bg-[#4E342E] text-white' : 'bg-white text-[#4E342E]'"
+            (click)="changeChart('pie')">
+            Pie
+          </button>
+        </div>
+      </div>
+      <p-chart
+        [type]="chartType"
+        [data]="chartData"
+        [options]="chartOptions"
+        [style.height]="chartHeight"
+        style="width: 100%;">
+      </p-chart>
+    </p-card>
+
+    <!-- Line Chart -->
+    <p-card styleClass="shadow-md h-full">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-base font-semibold text-[#4E342E]">{{ 'main.dashboard.dashboardsearch.stockTrend' | translate }}</h2>
+      </div>
+      <p-chart
+        type="line"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        style="width: 100%; height: 280px;">
+      </p-chart>
+    </p-card>
+
   </div>
 
-<p-chart
-  [type]="chartType"
-  [data]="chartData"
-  [options]="chartOptions"
-  [style.height]="chartHeight"
-  style="width: 100%;">
-</p-chart>
-</p-card>
+  
+
+  <!-- ===== TABLE + ACTIVITY FEED (2 คอลัมน์) ===== -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+    <!-- ตาราง Top สินค้า -->
+    <p-card styleClass="shadow-md">
+      <div class="flex gap-2 mb-4">
+        <button
+          class="px-3 py-1.5 text-sm rounded-lg border transition"
+          [ngClass]="tableTab === 'lowstock' ? 'bg-[#4E342E] text-white' : 'bg-white text-[#4E342E]'"
+          (click)="tableTab = 'lowstock'">
+          {{ 'main.dashboard.dashboardsearch.lowStock' | translate }}
+        </button>
+        <button
+          class="px-3 py-1.5 text-sm rounded-lg border transition"
+          [ngClass]="tableTab === 'top' ? 'bg-[#4E342E] text-white' : 'bg-white text-[#4E342E]'"
+          (click)="tableTab = 'top'">
+            {{ 'main.dashboard.dashboardsearch.topProducts' | translate }}
+        </button>
+      </div>
+
+      <div class="overflow-auto max-h-64">
+        <!-- ตารางสต็อกต่ำ -->
+        <table *ngIf="tableTab === 'lowstock'" class="w-full text-sm">
+          <thead class="sticky top-0 bg-white">
+            <tr class="text-left text-[#4E342E] border-b-2 border-[#E8D8C3]">
+              <th class="pb-2 font-semibold w-8">#</th>
+              <th class="pb-2 font-semibold">{{ 'main.stock.stockmain.stockmainsearch.name' | translate }}</th>
+              <th class="pb-2 font-semibold">{{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}</th>
+              <th class="pb-2 font-semibold text-right">{{ 'main.stock.stockmain.stockmainsearch.amount' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of lowStockItems; let i = index"
+              class="border-b border-[#F5EDE3] hover:bg-[#FDF6EE] transition">
+              <td class="py-2 text-gray-400 text-xs">{{ i + 1 }}</td>
+              <td class="py-2 font-medium text-gray-700">{{ item.name }}</td>
+              <td class="py-2 text-gray-500 text-xs">{{ item.categoryName }}</td>
+              <td class="py-2 text-right">
+                <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-orange-100 text-orange-600">
+                  {{ item.sumAmount }}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="lowStockItems.length === 0">
+              <td colspan="4" class="py-6 text-center text-gray-400 text-sm">
+                {{ 'common.noData' | translate }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ตาราง Top สินค้า (มากสุด) -->
+        <table *ngIf="tableTab === 'top'" class="w-full text-sm">
+          <thead class="sticky top-0 bg-white">
+            <tr class="text-left text-[#4E342E] border-b-2 border-[#E8D8C3]">
+              <th class="pb-2 font-semibold w-8">#</th>
+              <th class="pb-2 font-semibold">{{ 'main.stock.stockmain.stockmainsearch.name' | translate }}</th>
+              <th class="pb-2 font-semibold">{{ 'main.stock.stockmain.stockmainsearch.categorys' | translate }}</th>
+              <th class="pb-2 font-semibold text-right">{{ 'main.stock.stockmain.stockmainsearch.amount' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of topStockItems; let i = index"
+              class="border-b border-[#F5EDE3] hover:bg-[#FDF6EE] transition">
+              <td class="py-2 text-gray-400 text-xs">{{ i + 1 }}</td>
+              <td class="py-2 font-medium text-gray-700">{{ item.name }}</td>
+              <td class="py-2 text-gray-500 text-xs">{{ item.categoryName }}</td>
+              <td class="py-2 text-right">
+                <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-600">
+                  {{ item.sumAmount }}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="topStockItems.length === 0">
+              <td colspan="4" class="py-6 text-center text-gray-400 text-sm">
+                {{ 'common.noData' | translate }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </p-card>
+
+    <!-- Activity Feed -->
+    <p-card styleClass="shadow-md">
+      <h2 class="text-base font-semibold text-[#4E342E] mb-4">{{ 'main.dashboard.dashboardsearch.recentActivity' | translate }}</h2>
+      <ul class="space-y-3 overflow-auto max-h-64">
+        <li
+          *ngFor="let act of activityFeed"
+          class="flex items-start gap-3 pb-3 border-b border-[#F5EDE3] last:border-0">
+          <div
+            class="mt-0.5 w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 text-base"
+            [ngClass]="act.type === 'low' ? 'bg-orange-100' : act.type === 'new' ? 'bg-blue-100' : 'bg-green-100'">
+            {{ act.type === 'low' ? '⚠️' : act.type === 'new' ? '🆕' : '✅' }}
+          </div>
+          <div class="min-w-0">
+            <p class="text-sm font-medium text-gray-700 truncate">{{ act.message }}</p>
+            <p class="text-xs text-gray-400 mt-0.5">{{ act.category }}</p>
+          </div>
+        </li>
+        <li *ngIf="activityFeed.length === 0" class="text-center text-gray-400 text-sm py-6">
+          {{ 'common.noData' | translate }}
+        </li>
+      </ul>
+    </p-card>
+
+  </div>
 
 </div>
