@@ -8,6 +8,6 @@
 //render 
 export const environment = {
   production: false,
-  apiUrl : 'https://stock-system-1-s8be.onrender.com/stock-api',
+  apiUrl : 'https://stock-system-1qye.onrender.com/stock-api',
   version: 'v0.0.01'
 };
