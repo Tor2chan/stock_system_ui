@@ -67,7 +67,7 @@ export class LoginComponent {
     }
 
     this.http
-      .post<any>('http://localhost:8080/stock-api/auth/login', {
+      .post<any>('http://stock-system-1-s8be.onrender.com/stock-api/auth/login', {
         username: this.username,
         password: this.password,
       })
