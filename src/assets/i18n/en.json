@@ -48,7 +48,16 @@
         "category": "Products by Category",
         "stockTrend": "Stock Trend",
         "recentActivity": "Recent Activity",
-        "overallStockStatus": "Overall Stock Status"
+        "overallStockStatus": "Overall Stock Status",
+        "stockLow": "Low",
+"stockMid": "Medium", 
+"stockHigh": "High",
+"stockLowItems": "items",
+"stockRemaining": "Stock remaining",
+"stockReady": "Stock ready",
+"categoryHas": "Category",
+"categoryProducts": "products",
+"avgPrice": "Average Price"
 
       
       }

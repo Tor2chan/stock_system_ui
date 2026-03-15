@@ -64,15 +64,15 @@ ngOnInit() {
      
       
     }
-
+isLoading = false; 
  onSave(){
+  this.isLoading = true;    
         this.loaderService.start();
         if (
             this.globalService.validate(this.criteria.name) ||
             this.globalService.validate(this.criteria.username) ||
             this.globalService.validate(this.criteria.password) ||
-            this.globalService.validate(this.criteria.role ) ||
-            this.globalService.validate(this.criteria.status ) 
+            this.globalService.validate(this.criteria.role ) 
            
             
           ){
@@ -82,6 +82,7 @@ ngOnInit() {
                 detail: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                 life: 2000
             });
+             this.isLoading = false;
           this.loaderService.stop();
           }
 

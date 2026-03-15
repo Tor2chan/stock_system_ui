@@ -18,7 +18,16 @@
         "topProducts": "สินค้าที่นิยม",
         "stockTrend": "แนวโน้มสินค้าคงคลัง",
         "recentActivity": "กิจกรรมล่าสุด",
-        "overallStockStatus": "สถานะสต็อกภาพรวม"
+        "overallStockStatus": "สถานะสต็อกภาพรวม",
+        "stockLow": "ต่ำ",
+"stockMid": "ปานกลาง",
+"stockHigh": "สูง", 
+"stockLowItems": "รายการ",
+"stockRemaining": "สต็อกเหลือ",
+"stockReady": "สต็อกพร้อม",
+"categoryHas": "หมวด",
+"categoryProducts": "รายการ",
+"avgPrice": "ราคาเฉลี่ย"
       }
     },
     "report": {

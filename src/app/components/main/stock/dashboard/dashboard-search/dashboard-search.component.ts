@@ -14,19 +14,16 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrl: './dashboard-search.component.scss'
 })
 export class DashboardSearchComponent implements OnInit {
-  
 
   items: ProductData[] = [];
 
-  // ── Cards ──────────────────────────────────────────────
   totalProducts = 0;
   lowStock = 0;
   categoryCount = 0;
 
-  // ── Summary Bar ────────────────────────────────────────
-  stockLowCount = 0;   // sumAmount < 10
-  stockMidCount = 0;   // 10 <= sumAmount <= 50
-  stockHighCount = 0;  // sumAmount > 50
+  stockLowCount = 0;
+  stockMidCount = 0;
+  stockHighCount = 0;
 
   get stockLowPct(): number {
     return this.totalProducts ? (this.stockLowCount / this.totalProducts) * 100 : 0;
@@ -38,26 +35,21 @@ export class DashboardSearchComponent implements OnInit {
     return this.totalProducts ? (this.stockHighCount / this.totalProducts) * 100 : 0;
   }
 
-  // ── Bar / Pie chart ────────────────────────────────────
   chartType: 'bar' | 'pie' = 'bar';
   chartData: any;
   chartOptions: any;
   chartHeight = '320px';
 
-  // ── Line chart ─────────────────────────────────────────
   lineChartData: any;
   lineChartOptions: any;
 
-  // ── Avg Price chart ────────────────────────────────────
   avgPriceChartData: any;
   avgPriceChartOptions: any;
 
-  // ── Table ──────────────────────────────────────────────
   tableTab: 'lowstock' | 'top' = 'lowstock';
   lowStockItems: ProductData[] = [];
   topStockItems: ProductData[] = [];
 
-  // ── Activity Feed ──────────────────────────────────────
   activityFeed: { type: 'low' | 'new' | 'ok'; message: string; category: string }[] = [];
 
   constructor(
@@ -67,28 +59,22 @@ export class DashboardSearchComponent implements OnInit {
 
   ngOnInit() {
     this.loadDashboard();
+    // ⭐ rebuild ทุกอย่างเมื่อเปลี่ยนภาษา
     this.translate.onLangChange.subscribe(() => {
       this.buildChart();
       this.buildLineChart();
       this.buildAvgPriceChart();
-
+      this.buildActivityFeed();
     });
-    const role = localStorage.getItem('role');
-const username = localStorage.getItem('username');
-console.log('User Role:', role);
-console.log('Username:', username);
   }
 
-  // ── Load ───────────────────────────────────────────────
   loadDashboard() {
     const criteria: ProductData = { size: 9999, first: 0 };
-
     this.productService.findProduct(criteria).subscribe(({ status, entries }) => {
       if (status === 200) {
         this.items = entries as ProductData[];
         this.totalProducts = this.items.length;
         this.lowStock = this.items.filter(i => (i.sumAmount ?? 0) < 10).length;
-
         const categories = new Set(this.items.map(i => i.categoryName));
         this.categoryCount = categories.size;
 
@@ -102,14 +88,12 @@ console.log('Username:', username);
     });
   }
 
-  // ── Summary Bar ────────────────────────────────────────
   buildSummaryBar() {
     this.stockLowCount  = this.items.filter(i => (i.sumAmount ?? 0) < 10).length;
     this.stockMidCount  = this.items.filter(i => (i.sumAmount ?? 0) >= 10 && (i.sumAmount ?? 0) <= 50).length;
     this.stockHighCount = this.items.filter(i => (i.sumAmount ?? 0) > 50).length;
   }
 
-  // ── Bar / Pie ──────────────────────────────────────────
   changeChart(type: 'bar' | 'pie') {
     this.chartType = type;
     this.chartHeight = type === 'pie' ? '220px' : '320px';
@@ -147,7 +131,6 @@ console.log('Username:', username);
     };
   }
 
-  // ── Line Chart ─────────────────────────────────────────
   buildLineChart() {
     const categories = [...new Set(this.items.map(i => i.categoryName))];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
@@ -180,7 +163,6 @@ console.log('Username:', username);
     };
   }
 
-  // ── Avg Price Chart ────────────────────────────────────
   buildAvgPriceChart() {
     const categories = [...new Set(this.items.map(i => i.categoryName))];
 
@@ -195,16 +177,15 @@ console.log('Username:', username);
 
     this.avgPriceChartData = {
       labels: categories,
-      datasets: [
-        {
-          label: 'ราคาเฉลี่ย (บาท)',
-          data: avgPrices,
-          backgroundColor: categories.map((_, i) => colors[i % colors.length]),
-          borderColor: '#4E342E',
-          borderWidth: 1.5,
-          borderRadius: 6
-        }
-      ]
+      datasets: [{
+        // ⭐ เปลี่ยนจาก hardcode ไทย → translate
+        label: this.translate.instant('main.dashboard.dashboardsearch.avgPrice'),
+        data: avgPrices,
+        backgroundColor: categories.map((_, i) => colors[i % colors.length]),
+        borderColor: '#4E342E',
+        borderWidth: 1.5,
+        borderRadius: 6
+      }]
     };
 
     this.avgPriceChartOptions = {
@@ -232,7 +213,6 @@ console.log('Username:', username);
     };
   }
 
-  // ── Tables ─────────────────────────────────────────────
   buildTables() {
     const sorted = [...this.items].sort((a, b) => (a.sumAmount ?? 0) - (b.sumAmount ?? 0));
     this.lowStockItems = sorted.filter(i => (i.sumAmount ?? 0) < 10).slice(0, 10);
@@ -241,37 +221,33 @@ console.log('Username:', username);
       .slice(0, 10);
   }
 
-  // ── Activity Feed ──────────────────────────────────────
   buildActivityFeed() {
     this.activityFeed = [];
 
-    this.items
-      .filter(i => (i.sumAmount ?? 0) < 10)
-      .slice(0, 4)
-      .forEach(item => {
-        this.activityFeed.push({
-          type: 'low',
-          message: `${item.name} — สต็อกเหลือ ${item.sumAmount ?? 0} ชิ้น`,
-          category: item.categoryName ?? ''
-        });
+    // ⭐ สต็อกต่ำ
+    this.items.filter(i => (i.sumAmount ?? 0) < 10).slice(0, 4).forEach(item => {
+      this.activityFeed.push({
+        type: 'low',
+        message: `${item.name} — ${this.translate.instant('main.dashboard.dashboardsearch.stockRemaining')} ${item.sumAmount ?? 0} ${this.translate.instant('main.dashboard.dashboardsearch.stockLowItems')}`,
+        category: item.categoryName ?? ''
       });
+    });
 
-    [...this.items]
-      .sort((a, b) => (b.sumAmount ?? 0) - (a.sumAmount ?? 0))
-      .slice(0, 3)
-      .forEach(item => {
-        this.activityFeed.push({
-          type: 'ok',
-          message: `${item.name} — สต็อกพร้อม ${item.sumAmount} ชิ้น`,
-          category: item.categoryName ?? ''
-        });
+    // ⭐ สต็อกพร้อม
+    [...this.items].sort((a, b) => (b.sumAmount ?? 0) - (a.sumAmount ?? 0)).slice(0, 3).forEach(item => {
+      this.activityFeed.push({
+        type: 'ok',
+        message: `${item.name} — ${this.translate.instant('main.dashboard.dashboardsearch.stockReady')} ${item.sumAmount} ${this.translate.instant('main.dashboard.dashboardsearch.stockLowItems')}`,
+        category: item.categoryName ?? ''
       });
+    });
 
+    // ⭐ หมวดหมู่
     [...new Set(this.items.map(i => i.categoryName))].slice(0, 2).forEach(cat => {
       const count = this.items.filter(i => i.categoryName === cat).length;
       this.activityFeed.push({
         type: 'new',
-        message: `หมวด ${cat} มีสินค้า ${count} รายการ`,
+        message: `${this.translate.instant('main.dashboard.dashboardsearch.categoryHas')} ${cat} ${count} ${this.translate.instant('main.dashboard.dashboardsearch.categoryProducts')}`,
         category: cat ?? ''
       });
     });

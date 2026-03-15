@@ -10,8 +10,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ImageModule } from 'primeng/image';
 import { AuthService } from '../../../services/auth.service';
-import { JwtInterceptor } from '../../../interceptors/jwt.interceptor';
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
@@ -19,16 +18,9 @@ import { MessageService } from 'primeng/api';
   selector: 'app-login',
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
-    InputTextModule,
-    PasswordModule,
-    ButtonModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    TranslateModule,
-    ImageModule,
-    ToastModule,
+    CommonModule, FormsModule, InputTextModule, PasswordModule,
+    ButtonModule, InputGroupModule, InputGroupAddonModule,
+    TranslateModule, ImageModule, ToastModule,
   ],
   providers: [MessageService],
   templateUrl: './login.component.html',
@@ -92,33 +84,34 @@ export class LoginComponent {
           this.isLoading = false;
         },
         error: (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Login Failed',
-            detail: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
-          });
-
+          // ⭐ เช็ค 403 = account disabled
+          if (err.status === 403) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Login Failed',
+              detail: 'บัญชีนี้ถูกระงับการใช้งาน กรุณาติดต่อผู้ดูแลระบบ',
+            });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Login Failed',
+              detail: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
+            });
+          }
           this.isLoading = false;
         },
       });
   }
+
   onCheck() {
     this.errorMessage = '';
-
-    if (!this.username) {
-      this.errorMessage = 'กรุณากรอกชื่อผู้ใช้';
-      return;
-    }
-    if (!this.password) {
-      this.errorMessage = 'กรุณากรอกรหัสผ่าน';
-      return;
-    }
+    if (!this.username) { this.errorMessage = 'กรุณากรอกชื่อผู้ใช้'; return; }
+    if (!this.password) { this.errorMessage = 'กรุณากรอกรหัสผ่าน'; return; }
   }
 
   toggleLanguage() {
     const currentLang = this.translateService.currentLang;
     const newLang = currentLang === 'en' ? 'th' : 'en';
-
     localStorage.setItem('language', newLang);
     window.location.reload();
   }
