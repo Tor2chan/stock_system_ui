@@ -31,6 +31,8 @@ export class LayoutMainComponent {
    sidebarCollapsed = false;
    visibleSidebar: boolean = false;
     role?: string | null ;
+    username = localStorage.getItem('username') ?? '';
+currentLang = localStorage.getItem('language') || 'en';
 
   constructor(
     private router: Router,

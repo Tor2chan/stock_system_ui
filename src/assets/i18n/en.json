@@ -6,7 +6,10 @@
          "dashboard": "Dashboard",
          "report": "Report",
         "sitting": "Settings User",
-        "logout": "Logout"
+        "logout": "Logout",
+        "translate": "Thai",
+        "brandName": "Punthai Coffee",
+"brandSub": "Mega Home Rangsit"
     },
 
     "report": {
@@ -171,7 +174,7 @@
   "users": {
     "login": {
       "welcome": "Welcome",
-      "slogan": "Complete stock\ncomplete every business",
+      "slogan": " Phan Thai Coffee Shop \n Mega Home Rangsit",
       "username": "Username",
       "password": "Password",
       "login": "Login",

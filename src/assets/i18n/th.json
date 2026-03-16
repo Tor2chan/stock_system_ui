@@ -6,7 +6,10 @@
         "dashboard": "แดชบอร์ด",
         "report": "รายงาน",
         "sitting": "การตั้งค่าผู้ใช้งาน",
-        "logout": "ออกจากระบบ"
+        "logout": "ออกจากระบบ",
+        "translate": "EN",
+        "brandName": "กาแฟพันธุ์ไทย",
+"brandSub": "เมกาโฮมรังสิต"
     },
     "dashboard": {
       "dashboardsearch": {
@@ -164,7 +167,7 @@
   "users": {
     "login": {
       "welcome": "ยินดีต้อนรับ",
-      "slogan": "สต็อกครบ จบทุกธุรกิจ",
+      "slogan": "ร้านกาแฟพันธุ์ไทย สาขาเมกาโฮม รังสิต",
       "username": "ชื่อผู้ใช้",
       "password": "รหัสผ่าน",
       "login": "เข้าสู่ระบบ",
