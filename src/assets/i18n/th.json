@@ -8,8 +8,8 @@
         "sitting": "การตั้งค่าผู้ใช้งาน",
         "logout": "ออกจากระบบ",
         "translate": "EN",
-        "brandName": "กาแฟพันธุ์ไทย",
-"brandSub": "เมกาโฮมรังสิต"
+        "brandName": "Coffee",
+"brandSub": "Stories"
     },
     "dashboard": {
       "dashboardsearch": {
@@ -57,8 +57,9 @@
   "price": "ราคา (บาท)",
   "date": "วันที่เบิก",
   "by": "ผู้เบิก",
-  "exportPDF": "Export PDF",
-  "refresh": "รีเฟรช"
+  "exportPDF": "ปริ้น",
+  "refresh": "รีเฟรช",
+  "summaryTitle": "สรุปสินค้าที่เบิก"
 },
 
     "category": {
@@ -167,7 +168,7 @@
   "users": {
     "login": {
       "welcome": "ยินดีต้อนรับ",
-      "slogan": "ร้านกาแฟพันธุ์ไทย สาขาเมกาโฮม รังสิต",
+      "slogan": "Coffee Stories",
       "username": "ชื่อผู้ใช้",
       "password": "รหัสผ่าน",
       "login": "เข้าสู่ระบบ",
@@ -214,8 +215,10 @@
     "deletedata": "ลบข้อมูล",
     "edit": "แก้ไข",
     "delete":"ลบ",
-    "cart":"ตะกร้า",
+    "cart":"รายละเอียด",
     "clear":"ล้าง",
-    "noData":"ไม่พบข้อมูล"
+    "noData":"ไม่พบข้อมูล",
+    "lots":"ดูล็อต",
+    "withdraw":"เบิกสินค้า"
   }
 }

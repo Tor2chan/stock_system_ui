@@ -83,16 +83,16 @@
               class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition"
               [title]="'common.edit' | translate">
               <i class="pi pi-pencil text-xs"></i>
-              {{ 'common.edit' | translate }}
+             
             </button>
 
             <!-- ปุ่มเบิก -->
             <button
               (click)="onCart(item)"
               class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition"
-              [title]="'common.cart' | translate">
-              <i class="pi pi-cart-plus text-xs"></i>
-              {{ 'common.cart' | translate }}
+              [title]="'common.withdraw' | translate">
+              <i class="pi pi-download text-xs"></i>
+            
             </button>
 
           </div>
@@ -157,7 +157,7 @@
 
   <div class="flex justify-center items-center mb-6">
     <div class="bg-blue-50 rounded-full p-4">
-      <i class="pi pi-shopping-cart text-blue-500" style="font-size: 3rem;"></i>
+      <i class="pi pi-download text-blue-500" style="font-size: 3rem;"></i>
     </div>
   </div>
 

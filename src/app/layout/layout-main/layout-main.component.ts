@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-layout-main',
   templateUrl: './layout-main.component.html',
-  styleUrl: './layout-main.component.scss',
+  styleUrls: ['./layout-main.component.scss'],
   standalone: true,
   imports: [
     CommonModule,

@@ -6,14 +6,6 @@
       <h1 class="text-3xl font-bold text-[#4E342E]">{{ 'main.report.title' | translate }}</h1>
       <p class="text-sm text-black mt-1">{{ 'main.report.subtitle' | translate }}</p>
     </div>
-    <div class="flex gap-2">
-    
-      <button
-        class="flex items-center gap-2 px-4 py-2 bg-[#4E342E] text-white text-sm rounded-lg hover:bg-[#3E2723] transition"
-        (click)="exportPDF()">
-        🖨️ {{ 'main.report.exportPDF' | translate }}
-      </button>
-    </div>
   </div>
 
   <!-- FILTER -->
@@ -21,16 +13,13 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div class="flex flex-col gap-1">
         <label class="text-xs text-gray-500 font-medium">{{ 'main.report.searchPlaceholder' | translate }}</label>
-        <input
-          type="text"
-          [(ngModel)]="filterKeyword"
+        <input type="text" [(ngModel)]="filterKeyword"
           [placeholder]="'main.report.searchPlaceholder' | translate"
           class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#C8A165]" />
       </div>
       <div class="flex flex-col gap-1">
         <label class="text-xs text-gray-500 font-medium">{{ 'main.report.category' | translate }}</label>
-        <select
-          [(ngModel)]="filterCategory"
+        <select [(ngModel)]="filterCategory"
           class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#C8A165]">
           <option value="">{{ 'main.report.allCategory' | translate }}</option>
           <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
@@ -48,20 +37,18 @@
       </div>
     </div>
     <div class="flex gap-3 mt-4">
-      <button
-        class="px-5 py-2 bg-[#4E342E] text-white text-sm rounded-lg hover:bg-[#3E2723] transition"
+      <button class="px-5 py-2 bg-[#4E342E] text-white text-sm rounded-lg hover:bg-[#3E2723] transition"
         (click)="search()">
         🔍 {{ 'main.report.search' | translate }}
       </button>
-      <button
-        class="px-5 py-2 bg-white border border-gray-300 text-gray-600 text-sm rounded-lg hover:bg-gray-50 transition"
+      <button class="px-5 py-2 bg-white border border-gray-300 text-gray-600 text-sm rounded-lg hover:bg-gray-50 transition"
         (click)="clearFilter()">
         {{ 'main.report.clear' | translate }}
       </button>
     </div>
   </p-card>
 
-  <!-- SUMMARY -->
+  <!-- SUMMARY CARDS -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
     <div class="bg-white rounded-xl shadow-sm border-l-4 border-[#C8A165] p-4">
       <div class="text-xs text-gray-500 mb-1">{{ 'main.report.totalRecords' | translate }}</div>
@@ -77,11 +64,57 @@
     </div>
   </div>
 
-  <!-- TABLE -->
+  <!-- ⭐ SUMMARY BY PRODUCT TABLE -->
+  <p-card styleClass="shadow-md mb-6">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-base font-semibold text-[#4E342E]">{{ 'main.report.summaryTitle' | translate }}</h2>
+    </div>
+    <div class="overflow-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-[#4E342E] border-b-2 border-[#E8D8C3] bg-[#FDF6EE]">
+            <th class="px-3 py-2 font-semibold w-8">#</th>
+            <th class="px-3 py-2 font-semibold">{{ 'main.report.productName' | translate }}</th>
+            <th class="px-3 py-2 font-semibold">{{ 'main.report.sku' | translate }}</th>
+            <th class="px-3 py-2 font-semibold">{{ 'main.report.category' | translate }}</th>
+            <th class="px-3 py-2 font-semibold text-right">{{ 'main.report.totalQty' | translate }}</th>
+            <th class="px-3 py-2 font-semibold text-right">{{ 'main.report.totalValue' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of summarizedItems; let i = index"
+            class="border-b border-[#F5EDE3] hover:bg-[#FDF6EE] transition">
+            <td class="px-3 py-2 text-gray-400 text-xs">{{ i + 1 }}</td>
+            <td class="px-3 py-2 font-medium text-gray-800">{{ item.productName }}</td>
+            <td class="px-3 py-2 text-gray-500 font-mono text-xs">{{ item.sku }}</td>
+            <td class="px-3 py-2">
+              <span class="px-2 py-0.5 rounded-full text-xs bg-[#F5EDE3] text-[#6D4C41]">
+                {{ item.categoryName }}
+              </span>
+            </td>
+            <td class="px-3 py-2 text-right font-bold text-[#4E342E]">{{ item.totalQty }}</td>
+            <td class="px-3 py-2 text-right text-green-600 font-semibold">{{ item.totalValue | number:'1.2-2' }}</td>
+          </tr>
+          <tr *ngIf="summarizedItems.length === 0">
+            <td colspan="6" class="py-6 text-center text-gray-400 text-sm">{{ 'common.noData' | translate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </p-card>
+
+  <!-- DETAIL TABLE -->
   <p-card styleClass="shadow-md">
     <div class="flex items-center justify-between mb-3">
       <h2 class="text-base font-semibold text-[#4E342E]">{{ 'main.report.tableTitle' | translate }}</h2>
-      <span class="text-xs text-gray-400">{{ 'main.report.totalRecords' | translate }} {{ filteredItems.length }} {{ 'main.report.allRecords' | translate }}</span>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-gray-400">{{ filteredItems.length }} {{ 'main.report.allRecords' | translate }}</span>
+        <button
+          class="flex items-center gap-2 px-4 py-2 bg-[#4E342E] text-white text-sm rounded-lg hover:bg-[#3E2723] transition"
+          (click)="exportPDF()">
+          🖨️ {{ 'main.report.exportPDF' | translate }}
+        </button>
+      </div>
     </div>
 
     <div class="overflow-auto">
@@ -99,8 +132,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="let item of paginatedItems; let i = index"
+          <tr *ngFor="let item of paginatedItems; let i = index"
             class="border-b border-[#F5EDE3] hover:bg-[#FDF6EE] transition">
             <td class="px-3 py-3 text-gray-400 text-xs">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
             <td class="px-3 py-3 font-medium text-gray-800">{{ item['productName'] }}</td>
@@ -140,18 +172,15 @@
         {{ 'main.report.from' | translate }} {{ filteredItems.length }} {{ 'main.report.allRecords' | translate }}
       </span>
       <div class="flex gap-1">
-        <button
-          class="px-3 py-1.5 text-sm rounded-lg border transition"
+        <button class="px-3 py-1.5 text-sm rounded-lg border transition"
           [ngClass]="currentPage === 1 ? 'text-gray-300 border-gray-200 cursor-not-allowed' : 'text-[#4E342E] border-[#C8A165] hover:bg-[#FDF6EE]'"
           [disabled]="currentPage === 1"
           (click)="changePage(currentPage - 1)">‹</button>
-        <button
-          *ngFor="let p of pages"
+        <button *ngFor="let p of pages"
           class="px-3 py-1.5 text-sm rounded-lg border transition"
           [ngClass]="p === currentPage ? 'bg-[#4E342E] text-white border-[#4E342E]' : 'text-[#4E342E] border-[#C8A165] hover:bg-[#FDF6EE]'"
           (click)="changePage(p)">{{ p }}</button>
-        <button
-          class="px-3 py-1.5 text-sm rounded-lg border transition"
+        <button class="px-3 py-1.5 text-sm rounded-lg border transition"
           [ngClass]="currentPage === totalPages ? 'text-gray-300 border-gray-200 cursor-not-allowed' : 'text-[#4E342E] border-[#C8A165] hover:bg-[#FDF6EE]'"
           [disabled]="currentPage === totalPages"
           (click)="changePage(currentPage + 1)">›</button>
@@ -159,4 +188,26 @@
     </div>
   </p-card>
 
+</div>
+
+<!-- ⭐ PDF Preview Modal -->
+<div *ngIf="showPdfPreview"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+  <div class="bg-white rounded-2xl shadow-2xl w-[90vw] h-[90vh] flex flex-col overflow-hidden">
+
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between px-5 py-3 border-b border-gray-200 flex-shrink-0">
+      <h3 class="text-base font-semibold text-[#4E342E]">📄 Preview</h3>
+      <div class="flex gap-2">
+     
+        <button (click)="closePdfPreview()"
+          class="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-600 text-sm rounded-lg hover:bg-gray-200 transition">
+          ✕ Close
+        </button>
+      </div>
+    </div>
+
+    <!-- PDF iframe -->
+    <iframe [src]="pdfPreviewUrl" class="flex-1 w-full border-0"></iframe>
+  </div>
 </div>

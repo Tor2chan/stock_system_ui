@@ -8,8 +8,8 @@
         "sitting": "Settings User",
         "logout": "Logout",
         "translate": "Thai",
-        "brandName": "Punthai Coffee",
-"brandSub": "Mega Home Rangsit"
+        "brandName": "Coffee",
+"brandSub": "Stories"
     },
 
     "report": {
@@ -36,8 +36,9 @@
   "price": "Price (THB)",
   "date": "Date",
   "by": "By",
-  "exportPDF": "Export PDF",
-  "refresh": "Refresh"
+  "exportPDF": "Print",
+  "refresh": "Refresh",
+  "summaryTitle": "Summary of Withdrawal"
 },
 
     "dashboard": {
@@ -174,7 +175,7 @@
   "users": {
     "login": {
       "welcome": "Welcome",
-      "slogan": " Phan Thai Coffee Shop \n Mega Home Rangsit",
+      "slogan": " Coffee Stories",
       "username": "Username",
       "password": "Password",
       "login": "Login",
@@ -221,8 +222,10 @@
     "deletedata": "Delete",
     "edit": "edit",
     "delete":"delete",
-   "cart":"cart",
+   "cart":"stock",
    "clear":"Clear",
-   "noData":"No data found"
+   "noData":"No data found",
+   "lots":"Lots",
+   "withdraw":"Withdraw"
   }
 }
