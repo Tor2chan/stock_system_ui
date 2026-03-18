@@ -94,7 +94,7 @@
       "stockmain": {
         "stockmainsearch": {
           "title": "Stock",
-          "searchPlaceholder": "Search by name ",
+          "searchPlaceholder": "Search by name/sku ",
           "filterByCategory": "Filter by Category",
           "search": "Search",
           "categorys": "Category",
