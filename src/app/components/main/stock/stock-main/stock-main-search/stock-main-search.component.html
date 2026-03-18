@@ -8,16 +8,14 @@
   <!-- Filters -->
   <div class="flex items-center gap-2 mb-4">
     <!-- ช่องค้นหา -->
-    <input
-      type="text"
-      pInputText
-      [(ngModel)]="criteria.name"
-      placeholder="{{
-        'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate
-      }}"
-      (input)="onSearch()"
-      class="px-4 py-2 rounded-lg border w-64 h-[42px]"
-    />
+   <input
+  type="text"
+  pInputText
+  [(ngModel)]="searchKeyword"
+  placeholder="{{ 'main.stock.stockmain.stockmainsearch.searchPlaceholder' | translate }}"
+  (input)="onSearch()"
+  class="px-4 py-2 rounded-lg border w-64 h-[42px]"
+/>
 
     <p-select
       [(ngModel)]="criteria.code"
