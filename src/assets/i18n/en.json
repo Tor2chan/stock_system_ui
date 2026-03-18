@@ -61,7 +61,12 @@
 "stockReady": "Stock ready",
 "categoryHas": "Category",
 "categoryProducts": "products",
-"avgPrice": "Average Price"
+"avgPrice": "Average Price",
+"expireSoon": "Expiring Soon",
+"expireIn": "Expires in",
+"days": "days",
+"expireDate": "Expire Date",
+"daysLeft": "Days Left"
 
       
       }
@@ -166,7 +171,10 @@
             "receivedDateCol": "Received Date",
             "expireCol": "Expire Date",
             "confirmstockOut": "Confirm Stock Out",
-            "remainingLabel": "Remaining Amount"
+            "remainingLabel": "Remaining Amount",
+            "have": "Have",
+            "items": "items"
+
           }
         }
       }

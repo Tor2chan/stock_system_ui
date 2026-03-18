@@ -25,6 +25,10 @@ export class DashboardSearchComponent implements OnInit {
   stockMidCount = 0;
   stockHighCount = 0;
 
+  // ⭐ สินค้าใกล้หมดอายุ (ภายใน 30 วัน)
+  expiringItems: ProductData[] = [];
+  expiringCount = 0;
+
   get stockLowPct(): number {
     return this.totalProducts ? (this.stockLowCount / this.totalProducts) * 100 : 0;
   }
@@ -46,11 +50,11 @@ export class DashboardSearchComponent implements OnInit {
   avgPriceChartData: any;
   avgPriceChartOptions: any;
 
-  tableTab: 'lowstock' | 'top' = 'lowstock';
+  tableTab: 'lowstock' | 'top' | 'expiring' = 'lowstock';
   lowStockItems: ProductData[] = [];
   topStockItems: ProductData[] = [];
 
-  activityFeed: { type: 'low' | 'new' | 'ok'; message: string; category: string }[] = [];
+  activityFeed: { type: 'low' | 'new' | 'ok' | 'expire'; message: string; category: string }[] = [];
 
   constructor(
     private productService: ProductService,
@@ -59,7 +63,6 @@ export class DashboardSearchComponent implements OnInit {
 
   ngOnInit() {
     this.loadDashboard();
-    // ⭐ rebuild ทุกอย่างเมื่อเปลี่ยนภาษา
     this.translate.onLangChange.subscribe(() => {
       this.buildChart();
       this.buildLineChart();
@@ -84,6 +87,7 @@ export class DashboardSearchComponent implements OnInit {
         this.buildAvgPriceChart();
         this.buildTables();
         this.buildActivityFeed();
+        this.buildExpiringItems(); // ⭐
       }
     });
   }
@@ -92,6 +96,32 @@ export class DashboardSearchComponent implements OnInit {
     this.stockLowCount  = this.items.filter(i => (i.sumAmount ?? 0) < 10).length;
     this.stockMidCount  = this.items.filter(i => (i.sumAmount ?? 0) >= 10 && (i.sumAmount ?? 0) <= 50).length;
     this.stockHighCount = this.items.filter(i => (i.sumAmount ?? 0) > 50).length;
+  }
+
+  // ⭐ build สินค้าใกล้หมดอายุ ภายใน 30 วัน
+  buildExpiringItems() {
+    const today = new Date();
+    const in30days = new Date();
+    in30days.setDate(today.getDate() + 30);
+
+    this.expiringItems = this.items
+      .filter(i => {
+        if (!i.expireDate) return false;
+        const exp = new Date(i.expireDate);
+        return exp >= today && exp <= in30days;
+      })
+      .sort((a, b) => new Date(a.expireDate!).getTime() - new Date(b.expireDate!).getTime())
+      .slice(0, 10);
+
+    this.expiringCount = this.expiringItems.length;
+  }
+
+  // ⭐ คำนวณจำนวนวันที่เหลือ
+  daysUntilExpiry(expireDate: any): number {
+    const today = new Date();
+    const exp = new Date(expireDate);
+    const diff = exp.getTime() - today.getTime();
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
   }
 
   changeChart(type: 'bar' | 'pie') {
@@ -178,7 +208,6 @@ export class DashboardSearchComponent implements OnInit {
     this.avgPriceChartData = {
       labels: categories,
       datasets: [{
-        // ⭐ เปลี่ยนจาก hardcode ไทย → translate
         label: this.translate.instant('main.dashboard.dashboardsearch.avgPrice'),
         data: avgPrices,
         backgroundColor: categories.map((_, i) => colors[i % colors.length]),
@@ -224,8 +253,8 @@ export class DashboardSearchComponent implements OnInit {
   buildActivityFeed() {
     this.activityFeed = [];
 
-    // ⭐ สต็อกต่ำ
-    this.items.filter(i => (i.sumAmount ?? 0) < 10).slice(0, 4).forEach(item => {
+    // สต็อกต่ำ
+    this.items.filter(i => (i.sumAmount ?? 0) < 10).slice(0, 3).forEach(item => {
       this.activityFeed.push({
         type: 'low',
         message: `${item.name} — ${this.translate.instant('main.dashboard.dashboardsearch.stockRemaining')} ${item.sumAmount ?? 0} ${this.translate.instant('main.dashboard.dashboardsearch.stockLowItems')}`,
@@ -233,22 +262,28 @@ export class DashboardSearchComponent implements OnInit {
       });
     });
 
-    // ⭐ สต็อกพร้อม
-    [...this.items].sort((a, b) => (b.sumAmount ?? 0) - (a.sumAmount ?? 0)).slice(0, 3).forEach(item => {
+    // ⭐ ใกล้หมดอายุ
+    const today = new Date();
+    const in30days = new Date();
+    in30days.setDate(today.getDate() + 30);
+    this.items
+      .filter(i => i.expireDate && new Date(i.expireDate) >= today && new Date(i.expireDate) <= in30days)
+      .slice(0, 3)
+      .forEach(item => {
+        const days = this.daysUntilExpiry(item.expireDate);
+        this.activityFeed.push({
+          type: 'expire',
+          message: `${item.name} — ${this.translate.instant('main.dashboard.dashboardsearch.expireIn')} ${days} ${this.translate.instant('main.dashboard.dashboardsearch.days')}`,
+          category: item.categoryName ?? ''
+        });
+      });
+
+    // สต็อกพร้อม
+    [...this.items].sort((a, b) => (b.sumAmount ?? 0) - (a.sumAmount ?? 0)).slice(0, 2).forEach(item => {
       this.activityFeed.push({
         type: 'ok',
         message: `${item.name} — ${this.translate.instant('main.dashboard.dashboardsearch.stockReady')} ${item.sumAmount} ${this.translate.instant('main.dashboard.dashboardsearch.stockLowItems')}`,
         category: item.categoryName ?? ''
-      });
-    });
-
-    // ⭐ หมวดหมู่
-    [...new Set(this.items.map(i => i.categoryName))].slice(0, 2).forEach(cat => {
-      const count = this.items.filter(i => i.categoryName === cat).length;
-      this.activityFeed.push({
-        type: 'new',
-        message: `${this.translate.instant('main.dashboard.dashboardsearch.categoryHas')} ${cat} ${count} ${this.translate.instant('main.dashboard.dashboardsearch.categoryProducts')}`,
-        category: cat ?? ''
       });
     });
   }

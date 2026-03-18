@@ -68,6 +68,11 @@
   <p-card styleClass="shadow-md mb-6">
     <div class="flex items-center justify-between mb-3">
       <h2 class="text-base font-semibold text-[#4E342E]">{{ 'main.report.summaryTitle' | translate }}</h2>
+       <button
+          class="flex items-center gap-2 px-4 py-2 bg-[#4E342E] text-white text-sm rounded-lg hover:bg-[#3E2723] transition"
+          (click)="exportPDF()">
+          🖨️ {{ 'main.report.exportPDF' | translate }}
+        </button>
     </div>
     <div class="overflow-auto">
       <table class="w-full text-sm">
@@ -109,11 +114,11 @@
       <h2 class="text-base font-semibold text-[#4E342E]">{{ 'main.report.tableTitle' | translate }}</h2>
       <div class="flex items-center gap-3">
         <span class="text-xs text-gray-400">{{ filteredItems.length }} {{ 'main.report.allRecords' | translate }}</span>
-        <button
+        <!-- <button
           class="flex items-center gap-2 px-4 py-2 bg-[#4E342E] text-white text-sm rounded-lg hover:bg-[#3E2723] transition"
           (click)="exportPDF()">
           🖨️ {{ 'main.report.exportPDF' | translate }}
-        </button>
+        </button> -->
       </div>
     </div>
 

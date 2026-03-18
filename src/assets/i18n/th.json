@@ -30,7 +30,12 @@
 "stockReady": "สต็อกพร้อม",
 "categoryHas": "หมวด",
 "categoryProducts": "รายการ",
-"avgPrice": "ราคาเฉลี่ย"
+"avgPrice": "ราคาเฉลี่ย",
+"expireSoon": "ใกล้หมดอายุ",
+"expireIn": "หมดอายุใน",
+"days": "วัน",
+"expireDate": "วันหมดอายุ",
+"daysLeft": "วันที่เหลือ"
       }
     },
     "report": {
@@ -159,7 +164,8 @@
             "receivedDateCol": "วันที่รับเข้า",
             "expireCol": "วันหมดอายุ",
             "confirmstockOut": "ยืนยันการเบิกสินค้า",
-            "remainingLabel": "จำนวนคงเหลือ"
+            "remainingLabel": "จำนวนคงเหลือ",
+            "items": "รายการ"
           }
         }
       }

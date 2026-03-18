@@ -124,24 +124,32 @@ export class StockDetailSearchComponent implements OnInit{
   }
 
 
-   onSave(){
-    this.itemCart.category = this.itemCart.categoryName ?? this.itemCart.category;
-        this.loaderService.start();
-        if (
-            this.globalService.validate(this.itemCart.withdraw) 
-          ){
-            this.messageService.add({
-                severity: 'warn',
-                summary: 'เกิดข้อผิดพลาด',
-                detail: 'กรุณากรอกข้อมูลให้ครบถ้วน',
-                life: 2000
-            }
-          );
-            console.log("xxxxxx");
-            this.loaderService.stop();
-            return;
-            
-          }
+  onSave() {
+  this.itemCart.category = this.itemCart.categoryName ?? this.itemCart.category;
+  this.loaderService.start();
+
+  // ⭐ เช็คว่าเบิกเกินสต็อกไหม
+  if (!this.itemCart.withdraw || this.itemCart.withdraw <= 0) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Warning',
+      detail: 'กรุณากรอกจำนวนที่ต้องการเบิก',
+      life: 2000
+    });
+    this.loaderService.stop();
+    return;
+  }
+
+  if (this.itemCart.withdraw > (this.itemCart.amount ?? 0)) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: `จำนวนที่เบิกเกินสต็อก (มีอยู่ ${this.itemCart.amount} ชิ้น)`,
+      life: 3000
+    });
+    this.loaderService.stop();
+    return;
+  }
 
           setTimeout(() => {
             this.productService.withdrawProduct(this.itemCart).subscribe(({ status, message }) => {
