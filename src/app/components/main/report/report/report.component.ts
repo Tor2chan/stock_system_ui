@@ -30,7 +30,6 @@ export class ReportComponent implements OnInit {
   currentPage = 1;
   pageSize = 15;
 
-  // ⭐ PDF preview
   pdfPreviewUrl: SafeResourceUrl | null = null;
   pdfBlobUrl: string | null = null;
   showPdfPreview = false;
@@ -64,7 +63,6 @@ export class ReportComponent implements OnInit {
       sum + (((i as any).withdrawAmount ?? 0) * ((i as any).withdrawPrice ?? 0)), 0);
   }
 
-  // ⭐ สรุปรวมแต่ละสินค้า
   get summarizedItems(): { productName: string; sku: string; categoryName: string; totalQty: number; totalValue: number }[] {
     const map = new Map<string, any>();
     this.filteredItems.forEach((item: any) => {
@@ -83,6 +81,28 @@ export class ReportComponent implements OnInit {
       entry.totalValue += (item.withdrawAmount ?? 0) * (item.withdrawPrice ?? 0);
     });
     return Array.from(map.values()).sort((a, b) => b.totalQty - a.totalQty);
+  }
+
+  private fmt(value: number): string {
+    return value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  // ⭐ โหลด logo เป็น base64
+  private loadImageAsBase64(url: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.onerror = reject;
+      img.src = url;
+    });
   }
 
   min = Math.min;
@@ -161,7 +181,7 @@ export class ReportComponent implements OnInit {
     link.click();
   }
 
-  exportPDF() {
+  async exportPDF() {
     const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
     const pageW = doc.internal.pageSize.getWidth();
     const today = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -169,23 +189,34 @@ export class ReportComponent implements OnInit {
       ? `${this.filterDateFrom || '-'}  to  ${this.filterDateTo || '-'}`
       : 'All dates';
 
-    // ── หัวรายงาน
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Coffee Stories', pageW / 2, 18, { align: 'center' });
+    // ⭐ โหลด logo และใส่ในหัวกระดาษ
+    try {
+      const logoBase64 = await this.loadImageAsBase64('assets/imag/pug.png');
+      const logoSize = 18;
+      const logoX = (pageW - logoSize) / 2;
+      doc.addImage(logoBase64, 'PNG', logoX, 8, logoSize, logoSize);
+    } catch (e) {
+      console.warn('Logo not loaded', e);
+    }
 
-    doc.setFontSize(11);
+    // ── หัวรายงาน (เลื่อนลงมาหลัง logo)
+    doc.setFontSize(13);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(0);
+    doc.text('Coffee Stories', pageW / 2, 30, { align: 'center' });
+
+    doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.text('Withdrawal History Report', pageW / 2, 25, { align: 'center' });
+    doc.text('Withdrawal History Report', pageW / 2, 36, { align: 'center' });
 
     doc.setFontSize(8);
-    doc.setTextColor(100);
-    doc.text(`Printed: ${today}`, pageW / 2, 31, { align: 'center' });
-    if (this.filterCategory) doc.text(`Category: ${this.filterCategory}`, pageW / 2, 36, { align: 'center' });
-    doc.text(`Period: ${dateRange}`, pageW / 2, this.filterCategory ? 41 : 36, { align: 'center' });
+    doc.setTextColor(120);
+    doc.text(`Printed: ${today}`, pageW / 2, 42, { align: 'center' });
+    if (this.filterCategory) doc.text(`Category: ${this.filterCategory}`, pageW / 2, 47, { align: 'center' });
+    doc.text(`Period: ${dateRange}`, pageW / 2, this.filterCategory ? 52 : 47, { align: 'center' });
 
-    const lineY = this.filterCategory ? 45 : 40;
-    doc.setDrawColor(180);
+    const lineY = this.filterCategory ? 56 : 51;
+    doc.setDrawColor(200);
     doc.line(14, lineY, pageW - 14, lineY);
 
     // ── ตารางรายละเอียด
@@ -199,23 +230,30 @@ export class ReportComponent implements OnInit {
         item.sku ?? '',
         item.categoryName ?? '-',
         item.withdrawAmount ?? 0,
-        Number(item.withdrawPrice ?? 0).toFixed(2),
+        this.fmt(Number(item.withdrawPrice ?? 0)),
         item.withdrawDate ? new Date(item.withdrawDate).toLocaleDateString('en-GB') : '',
         item.withdrawBy ?? ''
       ]),
-      styles: { fontSize: 8, cellPadding: 2, textColor: 0, lineColor: 255, lineWidth: 0.1 },
-      headStyles: { fillColor: false as any, textColor: 0, fontStyle: 'bold', lineColor: 0, lineWidth: 0 },
+      styles: { fontSize: 8, cellPadding: 2, textColor: 0, lineColor: 255, lineWidth: 0 },
+      // ⭐ สีคอลัมน์ไม่เด่นมาก เทาอ่อน
+      headStyles: {
+        fillColor: [240, 240, 240] as any,
+        textColor: 80,
+        fontStyle: 'bold',
+        lineColor: 200,
+        lineWidth: 0.1
+      },
       alternateRowStyles: { fillColor: false as any },
       columnStyles: {
         0: { halign: 'center', cellWidth: 8 },
         4: { halign: 'right', cellWidth: 12 },
-        5: { halign: 'right', cellWidth: 20 },
+        5: { halign: 'right', cellWidth: 22 },
         6: { cellWidth: 22 },
       },
       margin: { left: 14, right: 14 }
     });
 
-    // ── ⭐ ตารางสรุปรายสินค้า
+    // ── ตารางสรุปรายสินค้า
     const summaryY = (doc as any).lastAutoTable.finalY + 8;
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
@@ -229,11 +267,18 @@ export class ReportComponent implements OnInit {
         item.productName,
         item.sku,
         item.categoryName,
-        item.totalQty,
-        item.totalValue.toFixed(2)
+        item.totalQty.toLocaleString('en-US'),
+        this.fmt(item.totalValue)
       ]),
-      styles: { fontSize: 8, cellPadding: 2, textColor: 0, lineColor: 255, lineWidth: 0.1 },
-      headStyles: { fillColor: false as any, textColor: 0, fontStyle: 'bold', lineColor: 0, lineWidth: 0 },
+      styles: { fontSize: 8, cellPadding: 2, textColor: 0, lineColor: 255, lineWidth: 0 },
+      // ⭐ สีคอลัมน์ไม่เด่นมาก เทาอ่อน
+      headStyles: {
+        fillColor: [240, 240, 240] as any,
+        textColor: 80,
+        fontStyle: 'bold',
+        lineColor: 200,
+        lineWidth: 0.1
+      },
       alternateRowStyles: { fillColor: false as any },
       columnStyles: {
         3: { halign: 'right' },
@@ -244,27 +289,26 @@ export class ReportComponent implements OnInit {
 
     // ── สรุปรวม
     const finalY = (doc as any).lastAutoTable.finalY + 6;
-    doc.setDrawColor(180);
+    doc.setDrawColor(200);
     doc.line(14, finalY, pageW - 14, finalY);
 
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(0);
     doc.text(`Total records : ${this.filteredItems.length}`, 14, finalY + 7);
-    doc.text(`Total qty     : ${this.totalWithdrawnAmount}`, 14, finalY + 13);
+    doc.text(`Total qty     : ${this.totalWithdrawnAmount.toLocaleString('en-US')}`, 14, finalY + 13);
 
     doc.setFont('helvetica', 'bold');
-    doc.text(`Total value : ${this.totalWithdrawnValue.toFixed(2)} THB`, pageW - 14, finalY + 7, { align: 'right' });
+    doc.text(`Total value : ${this.fmt(this.totalWithdrawnValue)} THB`, pageW - 14, finalY + 7, { align: 'right' });
 
     doc.setFont('helvetica', 'normal');
-    doc.setDrawColor(180);
+    doc.setDrawColor(200);
     doc.line(14, finalY + 18, pageW - 14, finalY + 18);
 
     doc.setFontSize(7);
-    doc.setTextColor(150);
+    doc.setTextColor(160);
     doc.text('Coffee Stories', pageW / 2, finalY + 23, { align: 'center' });
 
-    // ⭐ แสดง preview แทน download ทันที
     const blob = doc.output('blob');
     this.pdfBlobUrl = URL.createObjectURL(blob);
     this.pdfPreviewUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfBlobUrl);

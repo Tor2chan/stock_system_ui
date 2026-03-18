@@ -12,9 +12,6 @@
         {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.addStockBtn' | translate }}
       </p-button>
     </div>
-    <!-- <div *ngIf="role=='admin'">
-      <p-button icon="pi pi-file-excel" label="Export Excel" (onClick)="exportExcel()"></p-button>
-    </div> -->
   </div>
 
   <!-- 📋 Table -->
@@ -72,87 +69,53 @@
         <td>{{ item.receivedDate | date:'yyyy-MM-dd' }}</td>
         <td>{{ item.expireDate | date:'yyyy-MM-dd' }}</td>
 
-        <!-- ⭐ ปุ่มแยกชัดเจน -->
         <td style="text-align: center">
           <div class="flex items-center justify-center gap-3">
-
-            <!-- ปุ่มแก้ไข (admin เท่านั้น) -->
-            <button
-              *ngIf="role=='admin'"
+            <button *ngIf="role=='admin'"
               (click)="openPage('edit', item)"
               class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition"
               [title]="'common.edit' | translate">
               <i class="pi pi-pencil text-xs"></i>
-             
             </button>
-
-            <!-- ปุ่มเบิก -->
-            <button
-              (click)="onCart(item)"
+            <button (click)="onCart(item)"
               class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition"
               [title]="'common.withdraw' | translate">
               <i class="pi pi-download text-xs"></i>
-            
             </button>
-
           </div>
         </td>
       </tr>
     </ng-template>
   </p-table>
 
-  <!-- 🔙 Back Button -->
   <div class="flex justify-end mt-4">
-    <p-button
-      [label]="'common.back' | translate"
-      icon="pi pi-angle-left"
-      styleClass="p-button-secondary"
-      (onClick)="onback()"
-    ></p-button>
+    <p-button [label]="'common.back' | translate" icon="pi pi-angle-left"
+      styleClass="p-button-secondary" (onClick)="onback()"></p-button>
   </div>
 </div>
 
 <!-- 🗑️ Delete Dialog -->
-<p-dialog
-  [(visible)]="visibleDelete"
-  [modal]="true"
-  [style]="{ width: '30vw', maxWidth: '30%', border: '1px solid #ccc' }"
+<p-dialog [(visible)]="visibleDelete" [modal]="true"
+  [style]="{ width: '30vw', maxWidth: '30%' }"
   [contentStyle]="{ height: '100%', overflow: 'hidden' }"
-  [draggable]="false"
-  [resizable]="false"
->
+  [draggable]="false" [resizable]="false">
   <div class="text-center">
-    <div>
-      <i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5"></i>
-    </div>
-    <div class="mt-4">
-      {{ 'common.deletedata' | translate }}
-    </div>
+    <i class="pi pi-info-circle" style="font-size: 6rem; opacity: 0.5"></i>
+    <div class="mt-4">{{ 'common.deletedata' | translate }}</div>
   </div>
   <div class="text-center mt-4 space-x-4">
-    <p-button
-      [label]="'common.cancel' | translate"
-      icon="pi pi-times"
-      styleClass="p-button-secondary p-button-sm"
-      size="small"
-      (onClick)="onCloseDelete()"
-    ></p-button>
-    <p-button
-      [label]="'common.confirm' | translate"
-      size="small"
-      (onClick)="onConfirmDelete(itemDelete.id!)"
-    ></p-button>
+    <p-button [label]="'common.cancel' | translate" icon="pi pi-times"
+      styleClass="p-button-secondary p-button-sm" size="small" (onClick)="onCloseDelete()"></p-button>
+    <p-button [label]="'common.confirm' | translate" size="small"
+      (onClick)="onConfirmDelete(itemDelete.id!)"></p-button>
   </div>
 </p-dialog>
 
 <!-- 🛒 Cart Dialog -->
-<p-dialog
-  [(visible)]="visibleCart"
-  [modal]="true"
+<p-dialog [(visible)]="visibleCart" [modal]="true"
   [style]="{ width: '40vw', maxWidth: '90%' }"
   [contentStyle]="{ overflow: 'hidden' }"
-  [draggable]="false"
-  [resizable]="false"
+  [draggable]="false" [resizable]="false"
   [header]="'main.stock.stockdetail.stockdetailsearch.stockmainmanage.confirmstockOut' | translate">
 
   <div class="flex justify-center items-center mb-6">
@@ -188,6 +151,7 @@
           class="w-full p-3 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" />
       </div>
 
+      <!-- ⭐ input เบิก + warning -->
       <div class="flex flex-col space-y-2">
         <label class="text-sm font-semibold text-gray-700">
           {{ 'main.stock.stockdetail.stockdetailmanage.withdrawLabel' | translate }}
@@ -195,17 +159,34 @@
         </label>
         <input type="number" pInputText [(ngModel)]="itemCart.withdraw" min="1"
           [placeholder]="'main.stock.stockdetail.stockdetailmanage.withdrawPlaceholder' | translate"
-          class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 transition" />
+          class="w-full p-3 border rounded-md focus:ring-2 transition"
+          [ngClass]="itemCart.withdraw && itemCart.withdraw > (itemCart.amount ?? 0)
+            ? 'border-red-400 focus:ring-red-300 bg-red-50'
+            : 'border-gray-300 focus:ring-blue-500'" />
+
+        <!-- ⭐ warning message -->
+        <div *ngIf="itemCart.withdraw && itemCart.withdraw > (itemCart.amount ?? 0)"
+          class="flex items-center gap-1.5 text-xs text-red-600 font-medium bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+          <i class="pi pi-exclamation-triangle"></i>
+         {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.remainingLabel' | translate }} {{ itemCart.amount | number:'1.0-0' }}  {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.items' | translate }}
+        </div>
       </div>
 
     </div>
 
-    <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+    <!-- Remaining -->
+    <div class="mt-4 p-3 rounded-md border transition"
+      [ngClass]="itemCart.withdraw && itemCart.withdraw > (itemCart.amount ?? 0)
+        ? 'bg-red-50 border-red-200'
+        : 'bg-blue-50 border-blue-200'">
       <div class="flex items-center justify-between text-sm">
         <span class="text-gray-600 font-medium">
           {{ 'main.stock.stockdetail.stockdetailsearch.stockmainmanage.remainingLabel' | translate }}
         </span>
-        <span class="text-blue-600 font-bold text-lg">
+        <span class="font-bold text-lg"
+          [ngClass]="itemCart.withdraw && itemCart.withdraw > (itemCart.amount ?? 0)
+            ? 'text-red-500'
+            : 'text-blue-600'">
           {{ (itemCart.amount || 0) - (itemCart.withdraw || 0) | number:'1.0-0' }}
         </span>
       </div>
@@ -216,7 +197,10 @@
     <p-button [label]="'common.cancel' | translate" icon="pi pi-times"
       styleClass="p-button-secondary p-button-sm" size="small" (onClick)="onCloseCart()">
     </p-button>
-    <p-button [label]="'common.confirm' | translate" size="small" (onClick)="onSave()">
+    <!-- ⭐ ปุ่ม confirm disable เมื่อเกินสต็อก -->
+    <p-button [label]="'common.confirm' | translate" size="small"
+      [disabled]="!itemCart.withdraw || itemCart.withdraw <= 0 || itemCart.withdraw > (itemCart.amount ?? 0)"
+      (onClick)="onSave()">
     </p-button>
   </div>
 </p-dialog>

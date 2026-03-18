@@ -43,15 +43,16 @@
 
     </div>
 
-    <div class="flex flex-col">
-      <label for="code" class="font-semibold mb-2">{{
-        'main.stock.stockdetail.stockdetailmanage.amountLabel' | translate
-        }}</label>
-      <input id="code" type="text" pInputText [(ngModel)]="criteria.amount"
-        name="amount" required
-        [placeholder]="'main.stock.stockdetail.stockdetailmanage.amountPlaceholder' | translate"
-        class="w-full" />
-    </div>
+   <div class="flex flex-col">
+  <label for="code" class="font-semibold mb-2">{{
+    'main.stock.stockdetail.stockdetailmanage.amountLabel' | translate
+    }}</label>
+  <input id="code" type="text" pInputText [(ngModel)]="criteria.amount"
+    name="amount" required
+    readonly
+    [placeholder]="'main.stock.stockdetail.stockdetailmanage.amountPlaceholder' | translate"
+    class="w-full bg-gray-100 cursor-not-allowed" />
+</div>
 
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
